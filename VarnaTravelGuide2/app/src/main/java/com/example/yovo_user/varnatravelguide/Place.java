@@ -1,28 +1,36 @@
 package com.example.yovo_user.varnatravelguide;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Relation;
+import android.support.annotation.Nullable;
 
-@Entity(tableName = "users")
+import java.util.List;
+
+@Entity(tableName = "PLACE")
 public class Place {
 
     @PrimaryKey
-    @ColumnInfo(name = "placeId")
     private Long id;
-    @ColumnInfo(name = "placeName")
+    @Relation(parentColumn = "id", entityColumn = "placeId", entity = Image.class)
+    private List<Image> images;
+    @Embedded
+    private long workHoursId;
+    @ColumnInfo(name = "NAME")
     private String name;
-    @ColumnInfo(name = "placeAddress")
+    @ColumnInfo(name = "ADDRESS")
     private String address;
-    @ColumnInfo(name = "placeName")
+    @ColumnInfo(name = "LATITUDE")
     private double latitude;
-    @ColumnInfo(name = "placeName")
+    @ColumnInfo(name = "LONGITUDE")
     private double longitude;
-    @ColumnInfo(name = "placeName")
+    @ColumnInfo(name = "WORK_TIME")
     private String workTime;
-    @ColumnInfo(name = "placeName")
+    @ColumnInfo(name = "CONTACTS")
     private String contacts;
-    @ColumnInfo(name = "placeName")
+    @ColumnInfo(name = "DESCRIPTION")
     private String description;
 
     public Long getId() {
@@ -88,4 +96,20 @@ public class Place {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+    public long getWorkHoursId() {
+        return workHoursId;
+    }
+
+    public void setWorkHoursId(long workHoursId) {
+        this.workHoursId = workHoursId;
+    }
+
 }
