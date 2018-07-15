@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Relation;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.Place;
+
 import java.util.List;
 
 @Entity (tableName = "WORK_HOURS")

@@ -1,4 +1,4 @@
-package com.example.yovo_user.varnatravelguide;
+package com.example.yovo_user.varnatravelguide.databasePackage;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
@@ -6,6 +6,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Relation;
 import android.support.annotation.Nullable;
+
+import com.example.yovo_user.varnatravelguide.Image;
 
 import java.util.List;
 
