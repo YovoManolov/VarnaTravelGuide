@@ -12,7 +12,7 @@ public class Image {
     @ColumnInfo(name="PLACE_ID")
     private long placeId;
     @ColumnInfo(name="IMAGE")
-    private ByteBuffer image;
+    private String URLstring;
 
     public Long getId() {
         return id;

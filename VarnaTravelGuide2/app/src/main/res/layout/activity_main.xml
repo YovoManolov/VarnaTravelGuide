@@ -63,9 +63,7 @@
                     android:inputType="textPersonName"
                     android:paddingRight="10dp"
                     android:singleLine="false" />
-
             </LinearLayout>
-
         </RelativeLayout>
     </ScrollView>
 
