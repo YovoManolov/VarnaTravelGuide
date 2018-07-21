@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "SHOPING_PLACES")
 public class ShoppingPlace {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id ;
 
     @Embedded

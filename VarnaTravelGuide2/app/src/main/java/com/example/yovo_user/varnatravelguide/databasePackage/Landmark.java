@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "LANDMARK")
 public class Landmark {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id ;
     @Embedded
     private Place place ;

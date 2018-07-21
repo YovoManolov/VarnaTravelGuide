@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Restaurant {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id ;
     @Embedded
     private Place place ;

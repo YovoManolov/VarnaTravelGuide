@@ -1,13 +1,14 @@
-package com.example.yovo_user.varnatravelguide;
+package com.example.yovo_user.varnatravelguide.databasePackage;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import java.nio.ByteBuffer;
 
 @Entity(tableName = "IMAGES")
 public class Image {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Long id;
     @ColumnInfo(name="PLACE_ID")
     private long placeId;

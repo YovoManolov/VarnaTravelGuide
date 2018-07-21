@@ -15,12 +15,9 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.yovo_user.varnatravelguide.Image;
-import com.example.yovo_user.varnatravelguide.WorkHours;
-
 import java.util.concurrent.Executors;
 
-@Database(entities = {Hotels.class,
+@Database(entities = {Hotel.class,
                         Image.class,
                         Landmark.class,
                         Place.class,
@@ -55,7 +52,9 @@ public abstract class VTGDatabase extends RoomDatabase {
                 Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                     @Override
                     public void run() {
-                        getInstance(context).dataDao().insertAll(DataEntity.populateData());
+                        //here we access the dao objects with the queries we want to execute
+
+                        //getInstance(context).dataDao().insertAll(DataEntity.populateData());
                     }
                 });
             }
