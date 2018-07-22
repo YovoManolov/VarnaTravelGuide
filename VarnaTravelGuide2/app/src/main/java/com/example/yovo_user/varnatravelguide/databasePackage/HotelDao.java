@@ -9,7 +9,7 @@ import java.util.List;
 @Dao
 interface HotelDao {
     @Query("SELECT * FROM HOTELS")
-    public List<Hotel> getAllHotels();
+    List<Hotel> getAllHotels();
 
     @Insert
     void insertAll(Hotel... hotels);

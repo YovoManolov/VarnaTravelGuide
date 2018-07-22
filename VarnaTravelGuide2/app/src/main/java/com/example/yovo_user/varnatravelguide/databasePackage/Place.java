@@ -16,7 +16,7 @@ public class Place {
     @Relation(parentColumn = "id", entityColumn = "placeId", entity = Image.class)
     private List<Image> images;
     @Embedded
-    private long workHoursId;
+    private WorkHours workHours ;
     @ColumnInfo(name = "NAME")
     private String name;
     @ColumnInfo(name = "ADDRESS")
@@ -25,28 +25,28 @@ public class Place {
     private double latitude;
     @ColumnInfo(name = "LONGITUDE")
     private double longitude;
-    @ColumnInfo(name = "WORK_TIME")
-    private String workTime;
     @ColumnInfo(name = "CONTACTS")
     private String contacts;
     @ColumnInfo(name = "DESCRIPTION")
     private String description;
 
-    public Place(long workHoursId,
-                 String name,
+    public Place(String name,
                  String address,
                  double latitude,
-                 double longitude
-                ,String workTime,
+                 double longitude,
                  String contacts,
-                 String description) {
+                 String description,
+                 Integer is24h,
+                 String monFri,
+                 String sun,
+                 String sat){
+
         this.images = images;
-        this.workHoursId = workHoursId;
+        this.workHours = new WorkHours(is24h, monFri, sat, sun);
         this.name = name;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.workTime = workTime;
         this.contacts = contacts;
         this.description = description;
     }
@@ -91,14 +91,6 @@ public class Place {
         this.longitude = longitude;
     }
 
-    public String getWorkTime() {
-        return workTime;
-    }
-
-    public void setWorkTime(String workTime) {
-        this.workTime = workTime;
-    }
-
     public String getContacts() {
         return contacts;
     }
@@ -122,12 +114,13 @@ public class Place {
     public void setImages(List<Image> images) {
         this.images = images;
     }
-    public long getWorkHoursId() {
-        return workHoursId;
+
+    public WorkHours getWorkHours() {
+        return workHours;
     }
 
-    public void setWorkHoursId(long workHoursId) {
-        this.workHoursId = workHoursId;
+    public void setWorkHours(WorkHours workHours) {
+        this.workHours = workHours;
     }
 
 }

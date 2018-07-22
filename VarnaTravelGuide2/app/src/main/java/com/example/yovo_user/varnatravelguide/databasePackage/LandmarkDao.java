@@ -1,6 +1,7 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -8,5 +9,8 @@ import java.util.List;
 @Dao
 public interface LandmarkDao {
     @Query("SELECT * FROM LANDMARK")
-    public List<Hotels> getAllLandmarks();
+    List<Landmark> getAllLandmarks();
+
+    @Insert
+    void insertAll(Landmark... landmarks);
 }
