@@ -154,7 +154,7 @@ public class Landmark {
                         "Regional History Museum of Varna",
                         "9000 Varna, 41 Maria Luisa Blvd" +
                                 "Nearest city:\tAksakovo",
-                        43.225932, 27.706441,
+                        43.207054, 27.914544,
                         "LL: + 359 52 618011",
                         "Natural phenomenon “Stone Forest” is better known with " +
                                 "its Bulgarian name “Pobiti kamani” which could be " +
