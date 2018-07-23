@@ -35,7 +35,6 @@ public class Hotel {
                          Integer numbOfStars,
                          PriceCategory priceCategory
                          ) {
-
         this.place = new Place(name,
                         address,
                         latitude,

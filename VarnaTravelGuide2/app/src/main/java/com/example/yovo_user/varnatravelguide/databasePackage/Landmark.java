@@ -93,7 +93,7 @@ public class Landmark {
                             "the north and south from the Beloslav Lake. These are" +
                             " numerous limestone pillars as high as 10 m, hollow or" +
                             " solid cylinders, truncated cones and single rocks and" +
-                            " cliffs.",0,
+                            " cliffs.",-1,
                     "10 a.m. - 5 p.m",null,null,
                     "Adults: 3.00 leva\n" +
                             " Children/Students: 2.00 leva" ),
@@ -108,7 +108,7 @@ public class Landmark {
                                 " 70 years of building, not far from the ruins of the old " +
                                 "monastery , where was discovered the world-famous ceramic" +
                                 " icon \"St. Theodore\" ",
-                        null,
+                        -1,
                         "Hours: Objects can be visited by tourists, " +
                                 "after a preliminary inquiry ",
                         null,null,
@@ -143,7 +143,7 @@ public class Landmark {
                                 "the north and south from the Beloslav Lake. These are" +
                                 " numerous limestone pillars as high as 10 m, hollow or" +
                                 " solid cylinders, truncated cones and single rocks and" +
-                                " cliffs.",0,
+                                " cliffs.",-1,
                         "summer: 8:00h – 19:00h \n winter: 8:00h – 17:00h",
                         null, null,
                         "аdults: 4.00 leva\n" +
@@ -163,7 +163,7 @@ public class Landmark {
                                 "the north and south from the Beloslav Lake. These are" +
                                 " numerous limestone pillars as high as 10 m, hollow or" +
                                 " solid cylinders, truncated cones and single rocks and" +
-                                " cliffs.",0,
+                                " cliffs.",-1,
                         "10.00 h - 17.00 h\n" +
                                 "\n Почивни дни: неделя и понеделник",null,null,
                         "Adults:  10.00  leva\n" +
