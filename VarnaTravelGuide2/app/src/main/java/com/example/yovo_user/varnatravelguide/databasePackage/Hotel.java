@@ -15,9 +15,6 @@ public class Hotel {
     @ColumnInfo(name = "NUMB_OF_STARS")
     private Integer numbOfStars;
 
-    /** Status of the given task.
-     * Enumerated Values: 0 (Active), 1 (Inactive), 2 (Completed)
-     */
     @TypeConverters(PriceCategory.class)
     private PriceCategory priceCategory;
 
