@@ -11,7 +11,7 @@ import java.util.List;
 @Entity (tableName = "WORK_HOURS")
 public class WorkHours {
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private Long workHoursId;
     @ColumnInfo(name="IS_24H")
     private Integer is24h; // 0-false 1-true; there is no boolean type :(
     @ColumnInfo(name="MON_TO_FRI")
@@ -29,13 +29,10 @@ public class WorkHours {
      * @param sun
      */
     public WorkHours(Integer is24h, String monFri, String sat, String sun) {
-        if(is24h != null && is24h == 1){
             this.is24h = is24h;
-        }else{
             this.monFri = monFri;
             this.sat = sat;
             this.sun = sun;
-        }
     }
 
     public String getMonFri() {
@@ -62,12 +59,12 @@ public class WorkHours {
         this.sun = sun;
     }
 
-    public Long getId() {
-        return id;
+    public Long getWorkHoursId() {
+        return workHoursId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setWorkHoursId(Long workHoursId) {
+        this.workHoursId = workHoursId;
     }
 
     public Integer getIs24h() {  return is24h; }

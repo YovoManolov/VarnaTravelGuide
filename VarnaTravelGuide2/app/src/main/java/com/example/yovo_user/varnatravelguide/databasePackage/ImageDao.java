@@ -8,9 +8,9 @@ import android.arch.persistence.room.Transaction;
 import java.util.List;
 
 @Dao
-interface HotelDao {
-    @Transaction
+public interface ImageDao {
     @Query("SELECT * FROM HOTELS")
+    @Transaction
     List<Hotel> getAllHotels();
 
     @Insert

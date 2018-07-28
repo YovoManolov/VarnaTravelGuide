@@ -8,11 +8,12 @@ import android.arch.persistence.room.Transaction;
 import java.util.List;
 
 @Dao
-interface HotelDao {
+public interface PlaceDao {
+
+    @Query("SELECT * FROM PLACE")
     @Transaction
-    @Query("SELECT * FROM HOTELS")
-    List<Hotel> getAllHotels();
+    List<Place> getAllPlaces();
 
     @Insert
-    void insertAll(Hotel... hotels);
+    void insertAll(Place... places);
 }
