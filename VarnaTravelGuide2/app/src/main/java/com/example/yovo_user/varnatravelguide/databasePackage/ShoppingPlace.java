@@ -1,59 +1,39 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-
-@Entity(tableName = "SHOPING_PLACES",
-        foreignKeys = @ForeignKey(entity = Place.class,
-                parentColumns = "placeId",
-                childColumns = "shoppingPlaceId"))
 public class ShoppingPlace {
-    @PrimaryKey
-    private long shoppingPlaceId;
 
-/*    @Embedded
-    private Place place;*/
+    private int id;
+    private int placeId;
+    private int priceCategoryId;
 
-    @TypeConverters(PriceCategory.class)
-    @ColumnInfo(name = "PRICE_CATEGORY")
-    private PriceCategory priceCategory;
-
-    public ShoppingPlace(long shoppingPlaceId,
-                         PriceCategory priceCategory) {
-        //referes to placeId in PLACE table
-        this.shoppingPlaceId = shoppingPlaceId;
-        this.priceCategory = priceCategory;
+    public ShoppingPlace(int id, int placeId, int priceCategoryId) {
+        this.id = id;
+        this.placeId = placeId;
+        this.priceCategoryId = priceCategoryId;
     }
 
-/*
-
-    public Place getPlace() {
-        return place;
+    public int getId() {
+        return id;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-*/
-
-    public long getShoppingPlaceId() {
-        return shoppingPlaceId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setShoppingPlaceId(long shoppingPlaceId) {
-        this.shoppingPlaceId = shoppingPlaceId;
+    public int getPlaceId() {
+        return placeId;
     }
 
-    public PriceCategory getPriceCategory() {
-        return priceCategory;
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
-    public void setPriceCategory(PriceCategory priceCategory) {
-        this.priceCategory = priceCategory;
+    public int getPriceCategoryId() {
+        return priceCategoryId;
+    }
+
+    public void setPriceCategoryId(int priceCategoryId) {
+        this.priceCategoryId = priceCategoryId;
     }
 
     /*public static ShoppingPlace[] populateShoppingPlaces() {

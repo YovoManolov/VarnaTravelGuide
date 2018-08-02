@@ -7,55 +7,41 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
-@Entity(tableName = "RESTAURANT",
-        foreignKeys = @ForeignKey(entity = Place.class,
-                parentColumns = "placeId",
-                childColumns = "restaurantId"))
 public class Restaurant {
-    @PrimaryKey(autoGenerate = true)
-    private long restaurantId ;
-
- /*   @Embedded
-    private Place place ;
-*/
-    @TypeConverters(PriceCategory.class)
-    @ColumnInfo(name = "PRICE_CATEGORY")
-    private PriceCategory priceCategory;
-
-    @ColumnInfo(name = "cousine")
+    private int id ;
+    private int placeId;
+    private int priceCategoryId;
     private String cousine;
 
-    public Restaurant(  long restaurantId,
-                        PriceCategory priceCategory,
-                        String cousine) {
-
-        this.restaurantId = restaurantId;
-        this.priceCategory = priceCategory;
+    public Restaurant(int id, int placeId, int priceCategoryId, String cousine) {
+        this.id = id;
+        this.placeId = placeId;
+        this.priceCategoryId = priceCategoryId;
         this.cousine = cousine;
     }
 
-    public void setPriceCategory(PriceCategory priceCategory) {
-        this.priceCategory = priceCategory;
+    public int getId() {
+        return id;
     }
 
-    public PriceCategory getPriceCategory() {
-        return priceCategory;
+    public void setId(int id) {
+        this.id = id;
     }
 
-  /*  public Place getPlace() {
-        return place;
+    public int getPlaceId() {
+        return placeId;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-*/
-    public long getRestaurantId() {
-        return restaurantId;
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
+    public int getPriceCategoryId() {
+        return priceCategoryId;
+    }
+
+    public void setPriceCategoryId(int priceCategoryId) {
+        this.priceCategoryId = priceCategoryId;
     }
 
     public String getCousine() {

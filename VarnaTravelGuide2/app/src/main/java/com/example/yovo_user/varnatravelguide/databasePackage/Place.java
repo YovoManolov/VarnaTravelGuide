@@ -7,46 +7,43 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "PLACE")
 public class Place {
-
-    @PrimaryKey(autoGenerate = true)
-    private Long placeId;
-    @Embedded
-    private WorkHours workHours;
-    @ColumnInfo(name = "NAME")
+    private int placeId;
+    private int hotelId;
+    private int landmarkId;
+    private int restaurantId;
+    private int shoppingPlaceId;
+    private int workHoursId;
     private String name;
-    @ColumnInfo(name = "ADDRESS")
     private String address;
-    @ColumnInfo(name = "LATITUDE")
     private double latitude;
-    @ColumnInfo(name = "LONGITUDE")
     private double longitude;
-    @ColumnInfo(name = "CONTACTS")
     private String contacts;
-    @ColumnInfo(name = "DESCRIPTION")
     private String description;
 
-    public Place(String name,
-                 String address,
-                 double latitude,
-                 double longitude,
-                 String contacts,
-                 String description,
-                 WorkHours workHours
-    ) {
+    public Place(int placeId, int hotelId, int landmarkId,
+                 int restaurantId, int shoppingPlaceId,
+                 int workHoursId, String name, String address,
+                 double latitude, double longitude, String contacts,
+                 String description) {
+        this.placeId = placeId;
+        this.hotelId = hotelId;
+        this.landmarkId = landmarkId;
+        this.restaurantId = restaurantId;
+        this.shoppingPlaceId = shoppingPlaceId;
+        this.workHoursId = workHoursId;
         this.name = name;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
         this.contacts = contacts;
         this.description = description;
-        this.workHours = workHours;
     }
 
-    public Long getPlaceId() {
+    public int getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(Long placeId) {
+    public void setPlaceId(int placeId) {
         this.placeId = placeId;
     }
 
@@ -74,11 +71,11 @@ public class Place {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public double getintitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setintitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -98,15 +95,15 @@ public class Place {
         this.description = description;
     }
 
-    public WorkHours getWorkHours() {
-        return workHours;
+    public int getWorkHoursId() {
+        return workHoursId;
     }
 
-    public void setWorkHours(WorkHours workHours) {
-        this.workHours = workHours;
+    public void setWorkHoursId(int workHoursId) {
+        this.workHoursId = workHoursId;
     }
 
-    public static Place[] populatePlaces() {
+    /*public static Place[] populatePlaces() {
         return new Place[]{
                 //restaurants
                 new Place("Complex Valsheben Izvor Devnia",
@@ -442,6 +439,6 @@ public class Place {
                         "10.00 h - 17.00 h Почивни дни: неделя и понеделник",
                         null, null))
         };
-    }
+    }*/
 
 }

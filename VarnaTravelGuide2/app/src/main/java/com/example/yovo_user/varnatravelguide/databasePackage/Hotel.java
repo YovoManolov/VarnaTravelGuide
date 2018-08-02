@@ -1,77 +1,45 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-
-@Entity(tableName = "HOTELS",
-        foreignKeys = @ForeignKey(entity = Place.class,
-                      parentColumns = "placeId",
-                      childColumns = "hotelId"))
 public class Hotel {
-    @PrimaryKey
-    private long hotelId ;
 
-    /*
-    @Embedded
-    private Place place ;
-    */
+    private int id ;
+    private int placeId;
+    private int numbOfStars;
+    private int priceCategoryId;
 
-    @ColumnInfo(name = "NUMB_OF_STARS")
-    private Integer numbOfStars;
-
-    @TypeConverters(PriceCategory.class)
-    @ColumnInfo(name = "PRICE_CATEGORY")
-    private PriceCategory priceCategory;
-
-    public Hotel(        long hotelId,
-                         Integer numbOfStars,
-                         PriceCategory priceCategory
-                         ) {
-        this.hotelId = hotelId;
-        this.numbOfStars = numbOfStars;
-        this.priceCategory = priceCategory;
-    }
-/*
-
-    public Place getPlace() {
-        return place;
+    public int getId() {
+        return id;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
+    public void setId(int id) {
+        this.id = id;
     }
-*/
 
-    public Integer getNumbOfStars() {
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
+    }
+
+    public int getNumbOfStars() {
         return numbOfStars;
     }
 
-    //TODO make a validation for min and maks numb of stars
-    public void setNumbOfStars(Integer numbOfStars) {
+    public void setNumbOfStars(int numbOfStars) {
         this.numbOfStars = numbOfStars;
     }
 
-    public long getHotelId() {
-        return hotelId;
+    public int getPriceCategoryId() {
+        return priceCategoryId;
     }
 
-    public void setHotelId(long hotelId) {
-        this.hotelId = hotelId;
+    public void setPriceCategoryId(int priceCategoryId) {
+        this.priceCategoryId = priceCategoryId;
     }
 
-    public PriceCategory getPriceCategory() {
-        return priceCategory;
-    }
-
-    public void setPriceCategory(PriceCategory priceCategory) {
-        this.priceCategory = priceCategory;
-    }
-
-   /* public static Hotel[] populateHotels() {
+    /* public static Hotel[] populateHotels() {
         return new Hotel[] {
                 //43.199070, 27.919569
                 //LL - landline phone abbriviation

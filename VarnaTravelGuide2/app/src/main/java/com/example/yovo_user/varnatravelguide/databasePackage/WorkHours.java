@@ -10,29 +10,38 @@ import java.util.List;
 
 @Entity (tableName = "WORK_HOURS")
 public class WorkHours {
-    @PrimaryKey(autoGenerate = true)
-    private Long workHoursId;
-    @ColumnInfo(name="IS_24H")
-    private Integer is24h; // 0-false 1-true; there is no boolean type :(
-    @ColumnInfo(name="MON_TO_FRI")
+    private int id;
+    private int placeId;
+    private int is24h;
     private String monFri;
-    @ColumnInfo(name="SAT")
     private String sat;
-    @ColumnInfo(name="SUN")
     private String sun;
 
+    public WorkHours(int id, int placeId,
+                     int is24h, String monFri,
+                     String sat, String sun) {
+        this.id = id;
+        this.placeId = placeId;
+        this.is24h = is24h;
+        this.monFri = monFri;
+        this.sat = sat;
+        this.sun = sun;
+    }
 
-    /**
-     * @param is24h
-     * @param monFri
-     * @param sat
-     * @param sun
-     */
-    public WorkHours(Integer is24h, String monFri, String sat, String sun) {
-            this.is24h = is24h;
-            this.monFri = monFri;
-            this.sat = sat;
-            this.sun = sun;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     public String getMonFri() {
@@ -59,15 +68,8 @@ public class WorkHours {
         this.sun = sun;
     }
 
-    public Long getWorkHoursId() {
-        return workHoursId;
-    }
+    public int getIs24h() {  return is24h; }
 
-    public void setWorkHoursId(Long workHoursId) {
-        this.workHoursId = workHoursId;
-    }
+    public void setIs24h(int is24h) { this.is24h = is24h;  }
 
-    public Integer getIs24h() {  return is24h; }
-
-    public void setIs24h(Integer is24h) { this.is24h = is24h;  }
 }

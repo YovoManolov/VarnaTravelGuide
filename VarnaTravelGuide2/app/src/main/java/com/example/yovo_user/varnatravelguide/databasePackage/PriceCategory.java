@@ -1,33 +1,36 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
-import android.arch.persistence.room.TypeConverter;
 
 import java.io.Serializable;
 
-public enum PriceCategory implements Serializable{
-    BUDGET(0),
-    MID_RANGE(1),
-    PREMIUM(2),
-    COMBINED(3);
+public class PriceCategory {
+    /* BUDGET(0),
+       MID_RANGE(1),
+       PREMIUM(2),
+       COMBINED(3);
+    */
+    private int id ;
+    private String priceType;
 
-    private final int code;
-
-    PriceCategory(int code){
-        this.code = code;
+    public PriceCategory(int id, String priceType) {
+        this.id = id;
+        this.priceType = priceType;
     }
 
-    @TypeConverter
-    public static PriceCategory getPriceCategory(int code){
-        for(PriceCategory pc : values()){
-            if(pc.code == code){
-                return pc;
-            }
-        }
-        return null;
+
+    public int getId() {
+        return id;
     }
 
-    @TypeConverter
-    public static int getPriceCategoryInt(PriceCategory pc){
-        return pc.code;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
     }
 }

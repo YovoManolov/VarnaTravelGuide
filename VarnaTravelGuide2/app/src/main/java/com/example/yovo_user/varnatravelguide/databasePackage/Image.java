@@ -1,69 +1,40 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
-import static android.arch.persistence.room.ForeignKey.CASCADE;
 import java.nio.ByteBuffer;
 
-@Entity(tableName = "IMAGES",
-        foreignKeys={
-                @ForeignKey(
-                        entity=Place.class,
-                        parentColumns="placeId",
-                        childColumns="PLACE_ID",
-                        onDelete=CASCADE)
-                },
-                indices={
-                @Index(value="PLACE_ID")
-        }
-      )
 public class Image {
-    @PrimaryKey(autoGenerate = true)
-    private Long imageId;
-    @ColumnInfo(name="PLACE_ID")
-    private long placeId;
 
-    @ColumnInfo(name="IMAGE_URL")
-    private String URLstring;
+    private int id;
+    private int placeId;
+    private String imageURL;
 
-
-    public Image(long placeId, String URLstring) {
+    public Image(int id, int placeId, String imageURL) {
+        this.id = id;
         this.placeId = placeId;
-        this.URLstring = URLstring;
+        this.imageURL = imageURL;
     }
 
-    public Long getImageId() {
-        return imageId;
+    public int getId() {
+        return id;
     }
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public long getPlaceId() {
+    public int getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(long placeId) {
+    public void setPlaceId(int placeId) {
         this.placeId = placeId;
     }
 
-    public String getURLstring() {
-        return URLstring;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setURLstring(String URLstring) {
-        this.URLstring = URLstring;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
-
-    //първо да генерирам местата и след това ще генерирам изображенията за тях.
-   /* public static Image [] populateImages(){
-        return new Image[] {
-                new Image(),
-        }
-    }*/
-
 }
