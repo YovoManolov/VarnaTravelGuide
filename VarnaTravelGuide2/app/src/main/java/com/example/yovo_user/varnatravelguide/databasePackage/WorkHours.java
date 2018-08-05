@@ -1,14 +1,5 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
-import com.example.yovo_user.varnatravelguide.databasePackage.Place;
-
-import java.util.List;
-
-@Entity (tableName = "WORK_HOURS")
 public class WorkHours {
     private int id;
     private int placeId;

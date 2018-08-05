@@ -1,11 +1,9 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "PLACE")
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 public class Place {
     private int placeId;
     private int hotelId;
@@ -20,7 +18,7 @@ public class Place {
     private String contacts;
     private String description;
 
-    public Place(int placeId, int hotelId, int landmarkId,
+    public Place(int hotelId, int landmarkId,
                  int restaurantId, int shoppingPlaceId,
                  int workHoursId, String name, String address,
                  double latitude, double longitude, String contacts,
@@ -103,7 +101,23 @@ public class Place {
         this.workHoursId = workHoursId;
     }
 
-    /*public static Place[] populatePlaces() {
+    addPlaces(Place[] places){
+        SQLiteDatabase db = this.getWritableDatabase();
+        for(int i = 0 ;i < places.length ;i++){
+            ContentValues values = new ContentValues();
+            values.put(P_NAME, contact.getUserName());
+            // Име на Потребител
+            values.put(KEY_PH_NO, contact.getPassword());
+            // Парола на Потребител
+            // Добавяне на Ред
+            db.insert(TABLE_CONTACTS, null, values);
+            // Затравяне на връзката с базата от данни
+        }
+        db.close();
+
+    }
+
+    public static Place[] populatePlaces() {
         return new Place[]{
                 //restaurants
                 new Place("Complex Valsheben Izvor Devnia",

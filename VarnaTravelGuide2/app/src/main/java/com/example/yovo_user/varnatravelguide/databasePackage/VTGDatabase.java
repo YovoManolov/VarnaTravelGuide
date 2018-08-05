@@ -4,14 +4,8 @@ package com.example.yovo_user.varnatravelguide.databasePackage;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-
-import java.io.File;
-import java.util.concurrent.Executors;
-
-public abstract class VTGDatabase extends SQLiteOpenHelper {
+public class VTGDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "varnaTravelGuide.db";
     private static volatile VTGDatabase INSTANCE;
@@ -122,11 +116,11 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
         String CREATE_PLACES_TABLE = "CREATE TABLE " + TABLE_PLACES + "("
                 + PL_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + PL_PLACE_ID + " INTEGER NOT NULL,"
-                + PL_HOTEL_ID + " INTEGER NOT NULL,"
-                + PL_LANDMARK_ID + " INTEGER NOT NULL,"
-                + PL_RESTAURANT_ID + " INTEGER NOT NULL,"
-                + PL_SHOPPING_PLACES_ID + " INTEGER NOT NULL,"
-                + PL_WORK_HOURS_ID + " INTEGER NOT NULL,"
+                + PL_HOTEL_ID + " INTEGER,"
+                + PL_LANDMARK_ID + " INTEGER,"
+                + PL_RESTAURANT_ID + " INTEGER,"
+                + PL_SHOPPING_PLACES_ID + " INTEGER,"
+                + PL_WORK_HOURS_ID + " INTEGER,"
                 + PL_NAME + " TEXT NOT NULL ,"
                 + PL_ADDRESS + " TEXT NOT NULL ,"
                 + PL_LATITUDE + " TEXT NOT NULL ,"
@@ -146,7 +140,7 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + " FOREIGN KEY("+PL_WORK_HOURS_ID +") " +
                                     "REFERENCES "+TABLE_WORK_HOURS +"(ID)"+
         ")";
-        db.execSQL(CREATE_PLACES_TABLE);
+
 
         String CREATE_IMAGES_TABLE = "CREATE TABLE " + TABLE_IMAGES + "("
                 + IM_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -155,7 +149,7 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + "FOREIGN KEY("+PL_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
-        db.execSQL(CREATE_IMAGES_TABLE);
+
 
         String CREATE_HOTELS_TABLE = "CREATE TABLE " + TABLE_HOTELS + "("
                 + H_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -164,7 +158,7 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + "FOREIGN KEY("+PL_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
-        db.execSQL(CREATE_HOTELS_TABLE);
+
 
         String CREATE_LANDMARKS_TABLE = "CREATE TABLE " + TABLE_LANDMARKS + "("
                 + L_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -173,7 +167,7 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + "FOREIGN KEY("+PL_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
-        db.execSQL(CREATE_LANDMARKS_TABLE);
+
 
         String CREATE_RESTAURANTS_TABLE = "CREATE TABLE " + TABLE_RESTAURANTS + "("
                 + R_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -183,10 +177,9 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + "FOREIGN KEY("+PL_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID),"
                 + "FOREIGN KEY("+R_PRICE_CATEGORY_ID +") "
-                + "REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID),"
+                + "REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
                 + ")";
 
-        db.execSQL(CREATE_RESTAURANTS_TABLE);
 
         String SHOPPING_PLACES = "CREATE TABLE " + TABLE_SHOPPING_PLACES + "("
                 + SP_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -197,7 +190,7 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + "FOREIGN KEY("+SP_PRICE_CATEGORY_ID +") "
                 + "REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
                 + ")";
-        db.execSQL(SHOPPING_PLACES);
+
 
         String CREATE_WORK_HOURS_TABLE = "CREATE TABLE " + TABLE_LANDMARKS + "("
                 + WH_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -209,52 +202,36 @@ public abstract class VTGDatabase extends SQLiteOpenHelper {
                 + "FOREIGN KEY("+WH_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
-        db.execSQL(CREATE_WORK_HOURS_TABLE);
+
 
         String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE " + TABLE_LANDMARKS + "("
                 + PC_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + PC_PRICE_TYPE + " TEXT NOT NULL"
                 + ")";
+
+
+        db.execSQL(CREATE_PLACES_TABLE);
+        db.execSQL(CREATE_IMAGES_TABLE);
+        db.execSQL(CREATE_HOTELS_TABLE);
+        db.execSQL(CREATE_LANDMARKS_TABLE);
+        db.execSQL(CREATE_RESTAURANTS_TABLE);
+        db.execSQL(SHOPPING_PLACES);
+        db.execSQL(CREATE_WORK_HOURS_TABLE);
         db.execSQL(CREATE_PRICE_CATEGORIES_TABLE);
     }
 
-    //appliing singleton pattern to use the same instance of our
-    // DB object
-    public static synchronized VTGDatabase getInstance(Context context) {
-        if (INSTANCE == null) INSTANCE = buildDatabase(context);
-
-        File path=context.getDatabasePath("varnaTravelGuide.db");
-        String db_path=path.getAbsolutePath();
-        new File("E:\\MyCode\\VarnaTravelGuide\\VTG2currentDbState.db",db_path);
-        Log.i("Path:",db_path);
-
-        return INSTANCE;
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLACES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTELS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LANDMARKS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESTAURANTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOPPING_PLACES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORK_HOURS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRICE_CATEGORIES);
+        // Повторно създаване на базата от данни
+        onCreate(db);
     }
 
-
-    private static VTGDatabase buildDatabase(final Context context) {
-        return Room.databaseBuilder(context,VTGDatabase.class, DB_NAME)
-                .addCallback(new Callback(){
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db){
-                super.onCreate(db);
-                Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        getInstance(context).placeDao().insertAll(Place.populatePlaces());
-                        //here we access the dao objects with the queries we want to execute
-                       /* getInstance(context).hotelDao().insertAll(Hotel.populateHotels());
-                        getInstance(context).landmarkDao().insertAll
-                                                                (Landmark.populateLandmarks());
-                        getInstance(context).restaurantDao().insertAll
-                                                                (Restaurant.populateRestaurants());
-                        getInstance(context).shoppingPlaceDao().insertAll
-                                                          (ShoppingPlace.populateShoppingPlaces());*/
-                    }
-                });
-            }
-
-        }).build();
-    }
 }
