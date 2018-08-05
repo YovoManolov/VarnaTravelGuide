@@ -6,8 +6,7 @@ public class Restaurant {
     private int priceCategoryId;
     private String cousine;
 
-    public Restaurant(int id, int placeId, int priceCategoryId, String cousine) {
-        this.id = id;
+    public Restaurant(int placeId, int priceCategoryId, String cousine) {
         this.placeId = placeId;
         this.priceCategoryId = priceCategoryId;
         this.cousine = cousine;

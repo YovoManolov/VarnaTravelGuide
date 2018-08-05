@@ -1,6 +1,7 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,18 +25,18 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static final String TABLE_WORK_HOURS = "WORK_HOURS";
     private static final String TABLE_PRICE_CATEGORIES = "PRICE_CATEGORIES";
 
+
     //====================================
     //names of columns of table - PLACES :
     //====================================
     private static final String PL_ID = "ID";
-    private static final String PL_PLACE_ID = "PLACE_ID";
     private static final String PL_HOTEL_ID = "HOTEL_ID";
     private static final String PL_LANDMARK_ID = "LANDMARK_ID";
     private static final String PL_RESTAURANT_ID = "RESTAURANT_ID";
     private static final String
-                        PL_SHOPPING_PLACES_ID = "SHOPPING_PLACES_ID";
+            PL_SHOPPING_PLACES_ID = "SHOPPING_PLACES_ID";
     private static final String
-                        PL_WORK_HOURS_ID = "WORK_HOURS_ID";
+            PL_WORK_HOURS_ID = "WORK_HOURS_ID";
     private static final String PL_NAME = "NAME";
     private static final String PL_ADDRESS = "ADDRESS";
     private static final String PL_LATITUDE = "LATITUDE";
@@ -43,7 +44,6 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static final String PL_CONTACTS = "CONTACTS";
     private static final String PL_DESCRIPTION = "DESCRIPTION";
     //====================================
-
 
     //====================================
     //names of columns of table - IMAGES :
@@ -113,13 +113,13 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
 
     @Override public void onCreate(SQLiteDatabase db) {
-        String CREATE_PLACES_TABLE = "CREATE TABLE " + TABLE_PLACES + "("
-                + PL_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                + PL_PLACE_ID + " INTEGER NOT NULL,"
-                + PL_HOTEL_ID + " INTEGER,"
-                + PL_LANDMARK_ID + " INTEGER,"
-                + PL_RESTAURANT_ID + " INTEGER,"
-                + PL_SHOPPING_PLACES_ID + " INTEGER,"
+
+        String CREATE_PLACES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PLACES + "("
+                + PL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + PL_HOTEL_ID + " INTEGER DEFAULT NULL,"
+                + PL_LANDMARK_ID + " INTEGER DEFAULT NULL,"
+                + PL_RESTAURANT_ID + " INTEGER DEFAULT NULL,"
+                + PL_SHOPPING_PLACES_ID + " INTEGER DEFAULT NULL,"
                 + PL_WORK_HOURS_ID + " INTEGER,"
                 + PL_NAME + " TEXT NOT NULL ,"
                 + PL_ADDRESS + " TEXT NOT NULL ,"
@@ -127,88 +127,85 @@ public class VTGDatabase extends SQLiteOpenHelper {
                 + PL_LONGITUDE + " TEXT NOT NULL ,"
                 + PL_CONTACTS + " TEXT ,"
                 + PL_DESCRIPTION + " TEXT ,"
-                + " FOREIGN KEY("+PL_PLACE_ID +") " +
-                                    "REFERENCES "+TABLE_PLACES +"(ID),"
                 + " FOREIGN KEY("+PL_HOTEL_ID+") " +
-                                    "REFERENCES "+TABLE_HOTELS+"(ID),"
+                "REFERENCES "+TABLE_HOTELS+"(ID),"
                 + " FOREIGN KEY("+PL_LANDMARK_ID +") " +
-                                    "REFERENCES "+ TABLE_LANDMARKS +"(ID),"
+                "REFERENCES "+ TABLE_LANDMARKS +"(ID),"
                 + " FOREIGN KEY("+PL_RESTAURANT_ID +") " +
-                                    "REFERENCES "+ TABLE_RESTAURANTS+"(ID),"
+                "REFERENCES "+ TABLE_RESTAURANTS+"(ID),"
                 + " FOREIGN KEY("+PL_SHOPPING_PLACES_ID +") " +
-                                    "REFERENCES "+TABLE_SHOPPING_PLACES +"(ID),"
+                "REFERENCES "+TABLE_SHOPPING_PLACES +"(ID),"
                 + " FOREIGN KEY("+PL_WORK_HOURS_ID +") " +
-                                    "REFERENCES "+TABLE_WORK_HOURS +"(ID)"+
+                "REFERENCES "+TABLE_WORK_HOURS +"(ID)"+
         ")";
 
 
-        String CREATE_IMAGES_TABLE = "CREATE TABLE " + TABLE_IMAGES + "("
-                + IM_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_IMAGES + "("
+                + IM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + IM_PLACE_ID + " INTEGER NOT NULL,"
                 + IMAGE_URL + " TEXT NOT NULL,"
-                + "FOREIGN KEY("+PL_PLACE_ID +") "
+                + "FOREIGN KEY("+IM_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
 
 
-        String CREATE_HOTELS_TABLE = "CREATE TABLE " + TABLE_HOTELS + "("
-                + H_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String CREATE_HOTELS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_HOTELS + "("
+                + H_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + H_PLACE_ID + " INTEGER NOT NULL,"
                 + H_NUMB_OF_STARS + " INTEGER NOT NULL,"
-                + "FOREIGN KEY("+PL_PLACE_ID +") "
+                + "FOREIGN KEY("+H_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
 
 
-        String CREATE_LANDMARKS_TABLE = "CREATE TABLE " + TABLE_LANDMARKS + "("
-                + L_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String CREATE_LANDMARKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LANDMARKS + "("
+                + L_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + L_PLACE_ID + " INTEGER NOT NULL,"
                 + L_ENTRANCE_TICKET + " TEXT NOT NULL,"
-                + "FOREIGN KEY("+PL_PLACE_ID +") "
+                + "FOREIGN KEY("+L_PLACE_ID +") "
                 + "REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
 
 
-        String CREATE_RESTAURANTS_TABLE = "CREATE TABLE " + TABLE_RESTAURANTS + "("
-                + R_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String CREATE_RESTAURANTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_RESTAURANTS + "("
+                + R_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + R_PLACE_ID + " INTEGER NOT NULL,"
                 + R_PRICE_CATEGORY_ID + "  NOT NULL,"
                 + R_COUSINE + " TEXT NOT NULL,"
-                + "FOREIGN KEY("+PL_PLACE_ID +") "
-                + "REFERENCES "+TABLE_PLACES +"(ID),"
-                + "FOREIGN KEY("+R_PRICE_CATEGORY_ID +") "
-                + "REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
+                + " FOREIGN KEY("+R_PLACE_ID +") "
+                + " REFERENCES "+TABLE_PLACES +"(ID),"
+                + " FOREIGN KEY("+R_PRICE_CATEGORY_ID +") "
+                + " REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
                 + ")";
 
 
-        String SHOPPING_PLACES = "CREATE TABLE " + TABLE_SHOPPING_PLACES + "("
-                + SP_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String SHOPPING_PLACES = "CREATE TABLE IF NOT EXISTS " + TABLE_SHOPPING_PLACES + "("
+                + SP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + SP_PLACE_ID + " INTEGER NOT NULL,"
                 + SP_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
-                + "FOREIGN KEY("+PL_PLACE_ID +") "
-                + "REFERENCES "+TABLE_PLACES +"(ID),"
-                + "FOREIGN KEY("+SP_PRICE_CATEGORY_ID +") "
-                + "REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
+                + " FOREIGN KEY("+SP_PLACE_ID +") "
+                + " REFERENCES "+TABLE_PLACES +"(ID),"
+                + " FOREIGN KEY("+SP_PRICE_CATEGORY_ID +") "
+                + " REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
                 + ")";
 
 
-        String CREATE_WORK_HOURS_TABLE = "CREATE TABLE " + TABLE_LANDMARKS + "("
-                + WH_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String CREATE_WORK_HOURS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_WORK_HOURS + "("
+                + WH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + WH_PLACE_ID + " INTEGER NOT NULL,"
                 + WH_IS_24H + " INTEGER ,"
                 + WH_MON_FRI + " TEXT ,"
                 + WH_SAT + "  TEXT ,"
                 + WH_SUN + " TEXT ,"
-                + "FOREIGN KEY("+WH_PLACE_ID +") "
-                + "REFERENCES "+TABLE_PLACES +"(ID)"
+                + " FOREIGN KEY("+WH_PLACE_ID +") "
+                + " REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
 
 
-        String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE " + TABLE_LANDMARKS + "("
-                + PC_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LANDMARKS + "("
+                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + PC_PRICE_TYPE + " TEXT NOT NULL"
                 + ")";
-
 
         db.execSQL(CREATE_PLACES_TABLE);
         db.execSQL(CREATE_IMAGES_TABLE);
@@ -219,6 +216,8 @@ public class VTGDatabase extends SQLiteOpenHelper {
         db.execSQL(CREATE_WORK_HOURS_TABLE);
         db.execSQL(CREATE_PRICE_CATEGORIES_TABLE);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -232,6 +231,62 @@ public class VTGDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRICE_CATEGORIES);
         // Повторно създаване на базата от данни
         onCreate(db);
+    }
+
+    public void addPlaces(Place[] places){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for(int i = 0 ;i < places.length ;i++){
+            ContentValues values = new ContentValues();
+
+            if(places[i].getHotelId() != 0){
+                values.put(PL_HOTEL_ID,places[i].getHotelId());
+            }else if(places[i].getLandmarkId() != 0){
+                values.put(PL_LANDMARK_ID,places[i].getLandmarkId());
+            }else if(places[i].getRestaurantId() != 0){
+                values.put(PL_RESTAURANT_ID,places[i].getRestaurantId());
+            }else if(places[i].getShoppingPlaceId() != 0){
+                values.put(PL_SHOPPING_PLACES_ID,places[i].getShoppingPlaceId());
+            }
+            values.put(PL_WORK_HOURS_ID, places[i].getWorkHoursId());
+            values.put(PL_NAME, places[i].getName());
+            values.put(PL_ADDRESS, places[i].getAddress());
+            values.put(PL_LATITUDE, places[i].getLatitude());
+            values.put(PL_LONGITUDE, places[i].getLongitude());
+            values.put(PL_CONTACTS, places[i].getContacts());
+            values.put(PL_DESCRIPTION, places[i].getDescription());
+
+            db.insert(TABLE_PLACES, null, values);
+        }
+        db.close();
+    }
+
+    public void addWorkHours(WorkHours[] workHours){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for(int i = 0 ;i < workHours.length ;i++){
+            ContentValues values = new ContentValues();
+
+            values.put(WH_PLACE_ID, workHours[i].getPlaceId());
+            if(workHours[i].getIs24h() == -1){
+                values.put(WH_MON_FRI, workHours[i].getMonFri());
+            }
+            else if(workHours[i].getIs24h() == 0){
+                values.put(WH_MON_FRI, workHours[i].getMonFri());
+                values.put(WH_SAT, workHours[i].getSat());
+                values.put(WH_SUN, workHours[i].getSun());
+            }
+            else if(workHours[i].getIs24h() == 1){
+                values.put(WH_IS_24H, workHours[i].getIs24h());
+            }
+            else{
+                values.put(WH_IS_24H, workHours[i].getPlaceId());
+                values.put(WH_SAT, workHours[i].getPlaceId());
+                values.put(WH_SUN, workHours[i].getPlaceId());
+            }
+            db.insert(TABLE_WORK_HOURS, null, values);
+        }
+        db.close();
     }
 
 }

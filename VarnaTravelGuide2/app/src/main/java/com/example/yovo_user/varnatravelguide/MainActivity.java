@@ -5,7 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.WorkHours;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,12 +15,13 @@ public class MainActivity extends AppCompatActivity {
     final VTGDatabase vtgDatabase = new VTGDatabase(this) ;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
+        vtgDatabase.addPlaces(Place.populatePlaces());
 
        /* setViewPager((ViewPager) findViewById(R.id.viewPagerId));
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
