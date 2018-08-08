@@ -7,6 +7,21 @@ public class Hotel {
     private int numbOfStars;
     private int priceCategoryId;
 
+    public Hotel(int id, int placeId, int numbOfStars,
+                 int priceCategoryId) {
+        this.id = id;
+        this.placeId = placeId;
+        this.numbOfStars = numbOfStars;
+        this.priceCategoryId = priceCategoryId;
+    }
+
+    public Hotel(int placeId, int numbOfStars,
+                    int priceCategoryId) {
+        this.placeId = placeId;
+        this.numbOfStars = numbOfStars;
+        this.priceCategoryId = priceCategoryId;
+    }
+
     public int getId() {
         return id;
     }
@@ -39,27 +54,16 @@ public class Hotel {
         this.priceCategoryId = priceCategoryId;
     }
 
-    /* public static Hotel[] populateHotels() {
+    public static Hotel[] populateHotels() {
         return new Hotel[] {
                 //43.199070, 27.919569
                 //LL - landline phone abbriviation
 
-
-                new Hotel(,2,
-                        PriceCategory.BUDGET
-                ),
-
-                new Hotel(2, PriceCategory.BUDGET
-                ),
-                new Hotel(3, PriceCategory.MID_RANGE
-                ),
-                new Hotel(,3, PriceCategory.MID_RANGE
-                ),
-                new Hotel(4,  PriceCategory.MID_RANGE
-                ),
-
-                new Hotel(5, PriceCategory.PREMIUM
-                )
+                new Hotel(11,2,1),
+                new Hotel(12,3, 2),
+                new Hotel(13,3, 2),
+                new Hotel(14,4, 2),
+                new Hotel(15,5, 3)
         };
-    }*/
+    }
 }

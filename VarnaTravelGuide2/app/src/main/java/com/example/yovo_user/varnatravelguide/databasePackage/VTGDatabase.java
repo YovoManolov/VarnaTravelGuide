@@ -15,6 +15,9 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "varnaTravelGuide";
 
+    private static final String TRUNCATE_TABLE_X = "DELETE FROM ";
+
+
     //TABLE NAMES
     private static final String TABLE_PLACES = "PLACES";
     private static final String TABLE_IMAGES = "IMAGES";
@@ -202,7 +205,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
                 + ")";
 
 
-        String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LANDMARKS + "("
+        String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PRICE_CATEGORIES + "("
                 + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + PC_PRICE_TYPE + " TEXT NOT NULL"
                 + ")";
@@ -216,8 +219,6 @@ public class VTGDatabase extends SQLiteOpenHelper {
         db.execSQL(CREATE_WORK_HOURS_TABLE);
         db.execSQL(CREATE_PRICE_CATEGORIES_TABLE);
     }
-
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -269,6 +270,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
             values.put(WH_PLACE_ID, workHours[i].getPlaceId());
             if(workHours[i].getIs24h() == -1){
+                values.put(WH_IS_24H,workHours[i].getIs24h());
                 values.put(WH_MON_FRI, workHours[i].getMonFri());
             }
             else if(workHours[i].getIs24h() == 0){
@@ -288,5 +290,112 @@ public class VTGDatabase extends SQLiteOpenHelper {
         }
         db.close();
     }
+
+    public void createWorkHoursTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORK_HOURS);
+        String CREATE_WORK_HOURS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_WORK_HOURS + "("
+                + WH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + WH_PLACE_ID + " INTEGER NOT NULL,"
+                + WH_IS_24H + " INTEGER ,"
+                + WH_MON_FRI + " TEXT ,"
+                + WH_SAT + "  TEXT ,"
+                + WH_SUN + " TEXT ,"
+                + " FOREIGN KEY("+WH_PLACE_ID +") "
+                + " REFERENCES "+TABLE_PLACES +"(ID)"
+                + ")";
+        db.execSQL(CREATE_WORK_HOURS_TABLE);
+    }
+
+    public void createPriceCategoryTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRICE_CATEGORIES);
+        String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PRICE_CATEGORIES + "("
+                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + PC_PRICE_TYPE + " TEXT NOT NULL"
+                + ")";
+        db.execSQL(CREATE_PRICE_CATEGORIES_TABLE);
+    }
+
+    public void addPriceCategory(PriceCategory[] priceCategories){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(TRUNCATE_TABLE_X + TABLE_PRICE_CATEGORIES);
+
+        ContentValues values = new ContentValues();
+        for(int i = 0 ;i < priceCategories.length ;i++){
+            values.put(PC_PRICE_TYPE,priceCategories[i].getPriceType());
+            db.insert(TABLE_PRICE_CATEGORIES, null, values);
+        }
+    }
+
+    public void addRestaurants (Restaurant[] restaurants) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        for(int i = 0 ;i < restaurants.length ;i++){
+            values.put(R_PLACE_ID,restaurants[i].getPlaceId());
+            values.put(R_PRICE_CATEGORY_ID,restaurants[i].getPriceCategoryId());
+            values.put(R_COUSINE,restaurants[i].getCousine());
+            db.insert(TABLE_RESTAURANTS, null, values);
+        }
+    }
+
+    public void addShoppingPlaces(ShoppingPlace[] shoppingPlaces) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        for(int i = 0 ;i < shoppingPlaces.length ;i++){
+            values.put(SP_PLACE_ID,shoppingPlaces[i].getPlaceId());
+            values.put(SP_PRICE_CATEGORY_ID,shoppingPlaces[i].getPriceCategoryId());
+
+            db.insert(TABLE_SHOPPING_PLACES, null, values);
+        }
+    }
+
+
+    public void createHotelTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTELS);
+        String CREATE_HOTELS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_HOTELS + "("
+                + H_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + H_PLACE_ID + " INTEGER NOT NULL,"
+                + H_NUMB_OF_STARS + " INTEGER NOT NULL,"
+                + H_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
+                + "FOREIGN KEY("+H_PLACE_ID +") "
+                + "REFERENCES "+TABLE_PLACES +"(ID),"
+                + " FOREIGN KEY("+H_PRICE_CATEGORY_ID +") "
+                + " REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
+                + ")";
+        db.execSQL(CREATE_HOTELS_TABLE);
+    }
+    public void addHotels(Hotel[] hotels) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        for(int i = 0 ;i < hotels.length ;i++){
+            values.put(H_PLACE_ID, hotels[i].getPlaceId());
+            values.put(H_NUMB_OF_STARS, hotels[i].getNumbOfStars());
+            values.put(H_PRICE_CATEGORY_ID, hotels[i].getPriceCategoryId());
+
+            db.insert(TABLE_HOTELS, null, values);
+        }
+    }
+
+    public void addLandmarks(Landmark[] landmarks) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        for(int i = 0 ;i < landmarks.length ;i++){
+            values.put(L_PLACE_ID, landmarks[i].getPlaceId());
+            values.put(L_ENTRANCE_TICKET, landmarks[i].getEntranceTicket());
+
+            db.insert(TABLE_LANDMARKS, null, values);
+        }
+    }
+
 
 }

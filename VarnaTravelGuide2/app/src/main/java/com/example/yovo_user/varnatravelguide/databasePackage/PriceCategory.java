@@ -4,19 +4,13 @@ package com.example.yovo_user.varnatravelguide.databasePackage;
 import java.io.Serializable;
 
 public class PriceCategory {
-    /* BUDGET(0),
-       MID_RANGE(1),
-       PREMIUM(2),
-       COMBINED(3);
-    */
+
     private int id ;
     private String priceType;
 
-    public PriceCategory(int id, String priceType) {
-        this.id = id;
+    public PriceCategory(String priceType) {
         this.priceType = priceType;
     }
-
 
     public int getId() {
         return id;
@@ -32,5 +26,14 @@ public class PriceCategory {
 
     public void setPriceType(String priceType) {
         this.priceType = priceType;
+    }
+
+    public static PriceCategory[] populatePriceCategories() {
+        return new PriceCategory[]{
+                new PriceCategory("BUDGET"),
+                new PriceCategory("MID_RANGE"),
+                new PriceCategory("PREMIUM"),
+                new PriceCategory("COMBINED")
+        };
     }
 }

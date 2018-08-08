@@ -12,6 +12,11 @@ public class ShoppingPlace {
         this.priceCategoryId = priceCategoryId;
     }
 
+    public ShoppingPlace(int placeId, int priceCategoryId) {
+        this.placeId = placeId;
+        this.priceCategoryId = priceCategoryId;
+    }
+
     public int getId() {
         return id;
     }
@@ -36,23 +41,13 @@ public class ShoppingPlace {
         this.priceCategoryId = priceCategoryId;
     }
 
-    /*public static ShoppingPlace[] populateShoppingPlaces() {
+    public static ShoppingPlace[] populateShoppingPlaces() {
         return new ShoppingPlace[]{
-                new ShoppingPlace(
-                        PriceCategory.COMBINED
-                ),
-                new ShoppingPlace(
-                        PriceCategory.MID_RANGE
-                ),
-                new ShoppingPlace(
-                        PriceCategory.COMBINED
-                ),
-                new ShoppingPlace(
-                        PriceCategory.COMBINED
-                ),
-                new ShoppingPlace(
-                        PriceCategory.COMBINED
-                )
+                new ShoppingPlace(6,4 ),
+                new ShoppingPlace(7,2 ),
+                new ShoppingPlace(8,4 ),
+                new ShoppingPlace(9,4 ),
+                new ShoppingPlace(10,4)
         };
-    }*/
+    }
 }

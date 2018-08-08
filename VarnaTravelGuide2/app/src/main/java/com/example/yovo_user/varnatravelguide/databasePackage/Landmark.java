@@ -12,6 +12,11 @@ public class Landmark {
         this.entranceTicket = entranceTicket;
     }
 
+    public Landmark(int placeId, String entranceTicket) {
+        this.placeId = placeId;
+        this.entranceTicket = entranceTicket;
+    }
+
     public int getId() {
         return id;
     }
@@ -36,23 +41,19 @@ public class Landmark {
         this.placeId = placeId;
     }
 
-   /* public static Landmark[] populateLandmarks() {
+   public static Landmark[] populateLandmarks() {
         return new Landmark[] {
-               new Landmark(
-                       "Adults: 3.00 leva\n" +
-                               " Children/Students: 2.00 leva" ),
-                new Landmark(,
-                        "Information not available. " ),
-                new Landmark(,
-                        "No ticket required "),
-                new Landmark(,
-                        "аdults: 4.00 leva\n" +
-                                "students: 1.00 leva\n"+
-                                "organized groups: 0.50 leva \n"+
-                                "lecture: 4.00 leva"),
-                new Landmark(
-                        "Adults:  10.00  leva\n" +
-                                " Children/Students: 2.00 leva")
+               new Landmark(16,"Adults: 3.00 leva\n" +
+                                                 " Children/Students: 2.00 leva" ),
+                new Landmark(17,"Information not available. " ),
+                new Landmark(18,"No ticket required "),
+                new Landmark(19,
+                        "Adults: 4.00 leva\n" +
+                                "Students: 1.00 leva\n"+
+                                "Organized groups: 0.50 leva \n"+
+                                "Lecture: 4.00 leva"),
+                new Landmark(20,"Adults:  10.00  leva\n" +
+                                                     "Children/Students: 2.00 leva")
         };
-    }*/
+    }
 }
