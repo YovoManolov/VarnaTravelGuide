@@ -7,16 +7,16 @@
     tools:context=".MainActivity">
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:fillViewport="true">
 
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="0px">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp">
 
             <LinearLayout
                 android:id="@+id/VarnaImagesLayout"
@@ -26,7 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
                 android:orientation="horizontal"
-                android:paddingTop="10px">
+                android:paddingTop="10dp">
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPagerId"
@@ -51,9 +51,10 @@
                     android:layout_height="wrap_content"
                     android:ems="20"
                     android:inputType="textPersonName"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:singleLine="false"
-                    android:text="Search :" />
+                    android:text="@string/search_label"/>
 
                 <EditText
                     android:id="@+id/textToSearch"
@@ -61,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:paddingRight="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="10dp"
                     android:singleLine="false" />
             </LinearLayout>
         </RelativeLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.Hotel;
+import com.example.yovo_user.varnatravelguide.databasePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.PriceCategory;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //vtgDatabase.addImages(Image.populateImages());
+
         //vtgDatabase.createWorkHoursTable();
         //vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
 
@@ -40,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         //vtgDatabase.addHotels(Hotel.populateHotels());
         //vtgDatabase.addLandmarks(Landmark.populateLandmarks());
 
-       /* setViewPager((ViewPager) findViewById(R.id.viewPagerId));
+        setViewPager((ViewPager) findViewById(R.id.viewPagerId));
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
-        viewPager.setAdapter(viewPagerAdapter);*/
+        viewPager.setAdapter(viewPagerAdapter);
     }
 
 

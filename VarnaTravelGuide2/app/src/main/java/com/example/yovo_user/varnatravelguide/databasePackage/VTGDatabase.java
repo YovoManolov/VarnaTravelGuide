@@ -398,4 +398,15 @@ public class VTGDatabase extends SQLiteOpenHelper {
     }
 
 
+    public void addImages(Image[] images) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        for(int i = 0 ;i < images.length ;i++){
+            values.put(IM_PLACE_ID, images[i].getPlaceId());
+            values.put(IMAGE_URL, images[i].getImageURL());
+
+            db.insert(TABLE_IMAGES, null, values);
+        }
+    }
 }

@@ -258,7 +258,7 @@ public class Image {
                 new Image(16,
                         "1nUTflEmD6hT2jWiNQm_syDwEMPheFtxY"),
                 new Image(16,
-                        "19LDA7mjOipJ1Ra_P63GDPCaoVf9XDc3t")
+                        "19LDA7mjOipJ1Ra_P63GDPCaoVf9XDc3t"),
 
 
                 //Patleina monastery
