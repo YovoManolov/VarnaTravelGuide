@@ -152,14 +152,16 @@ public class VTGDatabase extends SQLiteOpenHelper {
                 + ")";
 
 
-        String CREATE_HOTELS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_HOTELS + "("
+        String CREATE_HOTELS_TABLE =  "CREATE TABLE IF NOT EXISTS " + TABLE_HOTELS + "("
                 + H_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + H_PLACE_ID + " INTEGER NOT NULL,"
                 + H_NUMB_OF_STARS + " INTEGER NOT NULL,"
+                + H_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
                 + "FOREIGN KEY("+H_PLACE_ID +") "
-                + "REFERENCES "+TABLE_PLACES +"(ID)"
+                + "REFERENCES "+TABLE_PLACES +"(ID),"
+                + " FOREIGN KEY("+H_PRICE_CATEGORY_ID +") "
+                + " REFERENCES "+TABLE_PRICE_CATEGORIES +"(ID)"
                 + ")";
-
 
         String CREATE_LANDMARKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LANDMARKS + "("
                 + L_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -203,7 +205,6 @@ public class VTGDatabase extends SQLiteOpenHelper {
                 + " FOREIGN KEY("+WH_PLACE_ID +") "
                 + " REFERENCES "+TABLE_PLACES +"(ID)"
                 + ")";
-
 
         String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PRICE_CATEGORIES + "("
                 + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
