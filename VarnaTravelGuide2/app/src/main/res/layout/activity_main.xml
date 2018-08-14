@@ -96,6 +96,7 @@
                 </RelativeLayout>-->
 
                 <GridLayout
+                    android:id="@+id/mainLinksGridL"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_weight="10"
@@ -107,7 +108,9 @@
 
                     <!-- Row 1 -->
                     <!-- Column 1 -->
+                    <!--hotels-->
                     <android.support.v7.widget.CardView
+                        android:id="@+id/hotelsCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -135,7 +138,9 @@
 
                     <!-- Row 1 -->
                     <!-- Column 2 -->
+                    <!--restaurants-->
                     <android.support.v7.widget.CardView
+                        android:id="@+id/restaurantsCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -163,7 +168,9 @@
 
                     <!-- Row 2 -->
                     <!-- Column 1 -->
+                    <!--landmarks-->
                     <android.support.v7.widget.CardView
+                        android:id="@+id/landmarksCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -192,7 +199,9 @@
 
                     <!-- Row 2 -->
                     <!-- Column 2 -->
+                    <!--shopping places-->
                     <android.support.v7.widget.CardView
+                        android:id="@+id/shopping_placesCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"

@@ -4,6 +4,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.View;
+import android.widget.GridLayout;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.Image;
@@ -21,6 +24,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private GridLayout mainLinksGridL;
     final VTGDatabase vtgDatabase = new VTGDatabase(this) ;
 
 
@@ -36,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(viewPagerAdapter),3000,3000);
 
+        mainLinksGridL = (GridLayout) findViewById(R.id.mainLinksGridL);
+        //seting event
+        setClickEvents(mainLinksGridL);
+
+        //DATABASE SCRIPTS :)
+
         //vtgDatabase.addPlaces(Place.populatePlaces());
         ////vtgDatabase.createWorkHoursTable();
         //vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
@@ -47,6 +57,43 @@ public class MainActivity extends AppCompatActivity {
         //vtgDatabase.addHotels(Hotel.populateHotels());
         //vtgDatabase.addLandmarks(Landmark.populateLandmarks());
         //vtgDatabase.addImages(Image.populateImages());
+
+    }
+
+    private void setClickEvents(GridLayout mainLinksGridL){
+        CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
+        hotelsCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code for switching to another view !!!
+            }
+        });
+
+        CardView restaurantsCV = (CardView)findViewById(R.id.restaurantsCV_id);
+        hotelsCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        CardView landmarksCV = (CardView)findViewById(R.id.landmarksCV_id);
+        hotelsCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        CardView shoppingPlacesCV = (CardView)findViewById(R.id.shopping_placesCV_id);
+        hotelsCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
 
     }
 
@@ -82,4 +129,12 @@ public class MainActivity extends AppCompatActivity {
         this.viewPager = viewPager;
     }
 
+
+    public GridLayout getMainLinksGridL() {
+        return mainLinksGridL;
+    }
+
+    public void setMainLinksGridL(GridLayout mainLinksGridL) {
+        this.mainLinksGridL = mainLinksGridL;
+    }
 }
