@@ -1,5 +1,6 @@
 package com.example.yovo_user.varnatravelguide;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import com.example.yovo_user.varnatravelguide.databasePackage.ShoppingPlace;
 import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 import com.example.yovo_user.varnatravelguide.databasePackage.WorkHours;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private GridLayout mainLinksGridL;
+    private List<ListLinksItem> listLinksItemList = new ArrayList<>();
     final VTGDatabase vtgDatabase = new VTGDatabase(this) ;
 
 
@@ -42,24 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
         mainLinksGridL = (GridLayout) findViewById(R.id.mainLinksGridL);
         //seting event
-        setClickEvents(mainLinksGridL);
 
-        //DATABASE SCRIPTS :)
+        //TODO: links for the 4 main activities
+        /* setClickEvents(mainLinksGridL);*/
 
-        //vtgDatabase.addPlaces(Place.populatePlaces());
-        ////vtgDatabase.createWorkHoursTable();
-        //vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
-        ////vtgDatabase.createPriceCategoryTable();
-        //vtgDatabase.addPriceCategory(PriceCategory.populatePriceCategories());
-        //vtgDatabase.addRestaurants(Restaurant.populateRestaurants());
-        //vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
-        ////vtgDatabase.createHotelTable();
-        //vtgDatabase.addHotels(Hotel.populateHotels());
-        //vtgDatabase.addLandmarks(Landmark.populateLandmarks());
-        //vtgDatabase.addImages(Image.populateImages());
+         listLinksItemList = (ListView) (findViewById(R.id.newsItems));
+        //DATABASE SCRIPTS execution:)
+        //callDbScripts();
 
     }
 
+
+    //this will be STAND BY while making the links for the main activity
     private void setClickEvents(GridLayout mainLinksGridL){
         CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
         hotelsCV.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     public class MyTimerTask extends TimerTask {
@@ -120,6 +116,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //TODO: to be used for links
+    public void openPublicTransportActivity(){
+        Intent intent = new Intent(
+                this, PublicTransportActivity.class);
+        startActivity(intent);
+    }
+
+    //TODO: to be used for links
+    public void openFindTaxiActivity(){
+        Intent intent = new Intent(
+                this, FindTaxiActivity.class);
+        startActivity(intent);
+    }
+
+    private void callDbScripts(){
+        //vtgDatabase.addPlaces(Place.populatePlaces());
+        ////vtgDatabase.createWorkHoursTable();
+        //vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
+        ////vtgDatabase.createPriceCategoryTable();
+        //vtgDatabase.addPriceCategory(PriceCategory.populatePriceCategories());
+        //vtgDatabase.addRestaurants(Restaurant.populateRestaurants());
+        //vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
+        ////vtgDatabase.createHotelTable();
+        //vtgDatabase.addHotels(Hotel.populateHotels());
+        //vtgDatabase.addLandmarks(Landmark.populateLandmarks());
+        //vtgDatabase.addImages(Image.populateImages());
+    }
 
     public ViewPager getViewPager() {
         return viewPager;

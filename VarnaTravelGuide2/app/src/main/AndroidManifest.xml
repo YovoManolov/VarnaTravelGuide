@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.example.yovo_user.varnatravelguide">
+    package="com.example.yovo_user.varnatravelguide">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FindTaxiActivity" />
+        <activity
+            android:name=".PublicTransportActivity"
+            android:label="@string/title_activity_public_transport"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
