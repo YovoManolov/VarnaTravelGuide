@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridLayout;
+import android.widget.ListView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.Image;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private GridLayout mainLinksGridL;
-    private List<ListLinksItem> listLinksItemList = new ArrayList<>();
+    private List listUrlLinksItemsFromView ;
     final VTGDatabase vtgDatabase = new VTGDatabase(this) ;
 
 
@@ -50,7 +52,25 @@ public class MainActivity extends AppCompatActivity {
         //TODO: links for the 4 main activities
         /* setClickEvents(mainLinksGridL);*/
 
-         listLinksItemList = (ListView) (findViewById(R.id.newsItems));
+        listUrlLinksItemsFromView = (ListView) (findViewById(R.id.listLinksItems));
+
+        ListUrlLinksItem[] listUrlLinksItems = ListUrlLinksItem.populatelistUrlLinksITems();
+        for(int i = 0; i<listUrlLinksItems.length ;i++ ){
+            listUrlLinksItemsFromView.add(new listUrlLinksItems(title, content, date, time, link, image));
+        }
+
+
+        listUrlLinksItemsFromView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "I'm here at least...!", Toast.LENGTH_SHORT).show();
+                newsItem currentItem = newsFeed.get(position);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(currentItem.getUrl()));
+                startActivity(i);
+            }
+        });
+
         //DATABASE SCRIPTS execution:)
         //callDbScripts();
 

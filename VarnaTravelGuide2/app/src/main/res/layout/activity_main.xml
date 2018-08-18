@@ -77,24 +77,6 @@
                 android:layout_marginTop="250dp"
                 android:orientation="vertical">
 
-                <!--<RelativeLayout
-                    android:layout_weight ="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-
-                    <TextView
-                        android:id="@+id/textGrid"
-                        android:text="GRID LAYOUT"
-                        android:textSize="34sp"
-                        android:textColor="@android:color/white"
-                        android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-                    </TextView>
-
-                </RelativeLayout>-->
 
                 <android.support.v7.widget.GridLayout
                     android:id="@+id/mainLinksGridL"
@@ -232,6 +214,22 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/listLinksLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="10"
+                android:layout_marginTop="300dp"
+                android:orientation="vertical">
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:id="@+id/listLinksItems"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/logo" />
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
