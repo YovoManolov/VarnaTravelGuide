@@ -52,12 +52,12 @@ public class ListUrlLinksItem {
             new ListUrlLinksItem("Public transport",
                     "Information is brought to you by: www.varnatraffic.com",
                     "https://www.varnatraffic.com/en",
-                    R.drawable.taxi
+                    R.drawable.varna_traffic
             ),
             new ListUrlLinksItem("Taxi information",
                    "Information is brought to you by: www.visit.varna.bg",
                    "http://www.visit.varna.bg/en/transport/preview/92.html",
-                    R.drawable.varna_traffic
+                    R.drawable.taxi
             )
         };
     }

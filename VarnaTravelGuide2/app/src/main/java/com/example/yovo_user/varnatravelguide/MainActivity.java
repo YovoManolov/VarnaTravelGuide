@@ -1,8 +1,6 @@
 package com.example.yovo_user.varnatravelguide;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,15 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.Hotel;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.Image;
-import com.example.yovo_user.varnatravelguide.databasePackage.Landmark;
-import com.example.yovo_user.varnatravelguide.databasePackage.Place;
+import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.PriceCategory;
 import com.example.yovo_user.varnatravelguide.databasePackage.Restaurant;
 import com.example.yovo_user.varnatravelguide.databasePackage.ShoppingPlace;
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainLinksGridL = (android.support.v7.widget.GridLayout) findViewById(R.id.mainLinksGridL);
         //TODO: links for the 4 main activities
-        /* setClickEvents(mainLinksGridL);*/
+        setClickEvents(mainLinksGridL);
 
         generateLinks();
         addLinksClickListener();
@@ -127,11 +124,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     //this will be STAND BY while making the links for the main activity
-    private void setClickEvents(GridLayout mainLinksGridL){
+    private void setClickEvents(android.support.v7.widget.GridLayout mainLinksGridL){
         CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
         hotelsCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*Intent intent = new Intent(MainActivity.this,);
+                startActivity(intent);*/
                 //code for switching to another view !!!
             }
         });
@@ -185,22 +184,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //TODO: to be used for links
-    public void openPublicTransportActivity(){
-        Intent intent = new Intent(
-                this, PublicTransportActivity.class);
-        startActivity(intent);
-    }
-
-    //TODO: to be used for links
-    public void openFindTaxiActivity(){
-        Intent intent = new Intent(
-                this, FindTaxiActivity.class);
-        startActivity(intent);
-    }
-
     private void callDbScripts(){
-        vtgDatabase.addPlaces(Place.populatePlaces());
+        vtgDatabase.getPlaceDaoImpl().addPlaces(
+                vtgDatabase.getDbWritableConnection(),Place.populatePlaces()
+        );
         //vtgDatabase.createWorkHoursTable();
         vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
         //vtgDatabase.createPriceCategoryTable();
@@ -208,7 +195,9 @@ public class MainActivity extends AppCompatActivity {
         vtgDatabase.addRestaurants(Restaurant.populateRestaurants());
         vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
         //vtgDatabase.createHotelTable();
-        vtgDatabase.addHotels(Hotel.populateHotels());
+        vtgDatabase.getHotelDaoImpl().addHotels(
+             vtgDatabase.getDbWritableConnection(),Hotel.populateHotels()
+        );
         vtgDatabase.addLandmarks(Landmark.populateLandmarks());
         vtgDatabase.addImages(Image.populateImages());
     }

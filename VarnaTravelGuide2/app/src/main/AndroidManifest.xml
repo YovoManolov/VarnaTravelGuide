@@ -18,11 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FindTaxiActivity" />
-        <activity
-            android:name=".PublicTransportActivity"
-            android:label="@string/title_activity_public_transport"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ListingPlacesActivity"></activity>
     </application>
 
 </manifest>

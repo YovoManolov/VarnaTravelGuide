@@ -1,8 +1,5 @@
-package com.example.yovo_user.varnatravelguide.databasePackage;
+package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
 
-
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 
 public class Place {
     private int id;
