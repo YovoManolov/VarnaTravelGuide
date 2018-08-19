@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -43,8 +44,10 @@ public class ViewPagerAdapter extends PagerAdapter {
         layoutInflater  = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.image_slider,null);
         ImageView imageView = view.findViewById(R.id.imageView);
+        TextView textView = view.findViewById(R.id.imageCurrPosition);
 
         imageView.setImageResource(images[position]);
+        textView.setText(position +"/"+images.length);
 
         ViewPager vp = (ViewPager) containter;
         vp.addView(view, 0);

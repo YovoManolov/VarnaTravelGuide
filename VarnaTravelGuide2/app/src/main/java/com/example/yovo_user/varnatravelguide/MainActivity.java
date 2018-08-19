@@ -2,14 +2,20 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.Image;
@@ -29,15 +35,32 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private GridLayout mainLinksGridL;
-    private List listUrlLinksItemsFromView ;
+    private android.support.v7.widget.GridLayout  mainLinksGridL;
+    private List<ListUrlLinksItem> listUrlLinks  = new ArrayList<>();
     final VTGDatabase vtgDatabase = new VTGDatabase(this) ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        generateViewPager();
+
+        mainLinksGridL = (android.support.v7.widget.GridLayout) findViewById(R.id.mainLinksGridL);
+        //TODO: links for the 4 main activities
+        /* setClickEvents(mainLinksGridL);*/
+
+        generateLinks();
+        addLinksClickListener();
+
+        //DATABASE SCRIPTS execution:)
+        //callDbScripts();
+
+    }
+
+    private void generateViewPager(){
 
         setViewPager((ViewPager) findViewById(R.id.viewPagerId));
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
@@ -45,38 +68,64 @@ public class MainActivity extends AppCompatActivity {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(viewPagerAdapter),3000,3000);
+    }
 
-        mainLinksGridL = (GridLayout) findViewById(R.id.mainLinksGridL);
-        //seting event
+    private void generateLinks(){
 
-        //TODO: links for the 4 main activities
-        /* setClickEvents(mainLinksGridL);*/
-
-        listUrlLinksItemsFromView = (ListView) (findViewById(R.id.listLinksItems));
+        ListView listUrlLinksItemsFromView = (ListView) findViewById(R.id.listLinksItems);
 
         ListUrlLinksItem[] listUrlLinksItems = ListUrlLinksItem.populatelistUrlLinksITems();
-        for(int i = 0; i<listUrlLinksItems.length ;i++ ){
-            listUrlLinksItemsFromView.add(new listUrlLinksItems(title, content, date, time, link, image));
+
+        for(ListUrlLinksItem linksItem : listUrlLinksItems){
+            listUrlLinks.add(linksItem);
         }
 
+        ArrayAdapter<ListUrlLinksItem> adapter = new CustomAdapter();
+        listUrlLinksItemsFromView.setAdapter(adapter);
 
-        listUrlLinksItemsFromView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    }
+
+    private class CustomAdapter extends ArrayAdapter<ListUrlLinksItem> {
+        public CustomAdapter() {
+            super(MainActivity.this, R.layout.link_list_item, listUrlLinks);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if(convertView == null) {
+                convertView = getLayoutInflater().
+                        inflate(R.layout.link_list_item, parent,false);
+            }
+
+            ListUrlLinksItem currentItem = listUrlLinks.get(position);
+
+            ImageView linkImage = (ImageView) convertView.findViewById(R.id.leftIco);
+            TextView heading = (TextView) convertView.findViewById(R.id.heading);
+            TextView desc = (TextView) convertView.findViewById(R.id.desc);
+
+            heading.setText(currentItem.getHeading());
+            desc.setText(currentItem.getDesc());
+            linkImage.setImageResource(currentItem.getImage());
+
+            return convertView;
+        }
+    }
+
+    private void addLinksClickListener() {
+
+        ListView linksListView = (ListView) findViewById(R.id.listLinksItems);
+
+        linksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "I'm here at least...!", Toast.LENGTH_SHORT).show();
-                newsItem currentItem = newsFeed.get(position);
+                ListUrlLinksItem currentItem = listUrlLinks.get(position);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(currentItem.getUrl()));
                 startActivity(i);
             }
         });
-
-        //DATABASE SCRIPTS execution:)
-        //callDbScripts();
-
     }
-
-
     //this will be STAND BY while making the links for the main activity
     private void setClickEvents(GridLayout mainLinksGridL){
         CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
@@ -151,17 +200,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void callDbScripts(){
-        //vtgDatabase.addPlaces(Place.populatePlaces());
-        ////vtgDatabase.createWorkHoursTable();
-        //vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
-        ////vtgDatabase.createPriceCategoryTable();
-        //vtgDatabase.addPriceCategory(PriceCategory.populatePriceCategories());
-        //vtgDatabase.addRestaurants(Restaurant.populateRestaurants());
-        //vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
-        ////vtgDatabase.createHotelTable();
-        //vtgDatabase.addHotels(Hotel.populateHotels());
-        //vtgDatabase.addLandmarks(Landmark.populateLandmarks());
-        //vtgDatabase.addImages(Image.populateImages());
+        vtgDatabase.addPlaces(Place.populatePlaces());
+        //vtgDatabase.createWorkHoursTable();
+        vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
+        //vtgDatabase.createPriceCategoryTable();
+        vtgDatabase.addPriceCategory(PriceCategory.populatePriceCategories());
+        vtgDatabase.addRestaurants(Restaurant.populateRestaurants());
+        vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
+        //vtgDatabase.createHotelTable();
+        vtgDatabase.addHotels(Hotel.populateHotels());
+        vtgDatabase.addLandmarks(Landmark.populateLandmarks());
+        vtgDatabase.addImages(Image.populateImages());
     }
 
     public ViewPager getViewPager() {
@@ -173,11 +222,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public GridLayout getMainLinksGridL() {
+    public android.support.v7.widget.GridLayout  getMainLinksGridL() {
         return mainLinksGridL;
     }
 
-    public void setMainLinksGridL(GridLayout mainLinksGridL) {
+    public void setMainLinksGridL(android.support.v7.widget.GridLayout  mainLinksGridL) {
         this.mainLinksGridL = mainLinksGridL;
     }
 }

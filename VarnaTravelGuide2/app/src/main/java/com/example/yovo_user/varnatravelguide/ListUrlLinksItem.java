@@ -6,13 +6,13 @@ public class ListUrlLinksItem {
     private String heading;
     private String desc;
     private String url;
-    private int imageURL;
+    private int image;
 
-    public ListUrlLinksItem(String heading, String desc, String url, int imageURL) {
+    public ListUrlLinksItem(String heading, String desc, String url, int image) {
         this.heading = heading;
         this.desc = desc;
         this.url = url;
-        this.imageURL = imageURL;
+        this.image = image;
     }
 
     public String getHeading() {
@@ -39,12 +39,12 @@ public class ListUrlLinksItem {
         this.url = url;
     }
 
-    public int getImageURL() {
-        return imageURL;
+    public int getImage() {
+        return image;
     }
 
-    public void setImageURL(int imageURL) {
-        this.imageURL = imageURL;
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public static ListUrlLinksItem[] populatelistUrlLinksITems() {
@@ -56,7 +56,7 @@ public class ListUrlLinksItem {
             ),
             new ListUrlLinksItem("Taxi information",
                    "Information is brought to you by: www.visit.varna.bg",
-                   "http://visit.varna.bg/en",
+                   "http://www.visit.varna.bg/en/transport/preview/92.html",
                     R.drawable.varna_traffic
             )
         };
