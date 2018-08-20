@@ -174,7 +174,7 @@ public class DbStringConstants {
             + ")";
 
 
-    public static String SHOPPING_PLACES = "CREATE TABLE IF NOT EXISTS " + TABLE_SHOPPING_PLACES + "("
+    public static String CREATE_SHOPPING_PLACES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHOPPING_PLACES + "("
             + SP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
             + SP_PLACE_ID + " INTEGER NOT NULL,"
             + SP_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
@@ -200,16 +200,6 @@ public class DbStringConstants {
             + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
             + PC_PRICE_TYPE + " TEXT NOT NULL"
             + ")";
-
-
-
-
-
-
-
-
-
-
 
 
 }

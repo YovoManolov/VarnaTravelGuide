@@ -1,4 +1,4 @@
-package com.example.yovo_user.varnatravelguide.databasePackage;
+package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage;
 
 public class Restaurant {
     private int id ;

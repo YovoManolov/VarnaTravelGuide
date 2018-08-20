@@ -1,6 +1,4 @@
-package com.example.yovo_user.varnatravelguide.databasePackage;
-
-import java.nio.ByteBuffer;
+package com.example.yovo_user.varnatravelguide.databasePackage.imagePackage;
 
 public class Image {
 

@@ -1,7 +1,5 @@
-package com.example.yovo_user.varnatravelguide.databasePackage;
+package com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage;
 
-
-import java.io.Serializable;
 
 public class PriceCategory {
 

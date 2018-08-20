@@ -15,14 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
-import com.example.yovo_user.varnatravelguide.databasePackage.Image;
+import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-import com.example.yovo_user.varnatravelguide.databasePackage.PriceCategory;
-import com.example.yovo_user.varnatravelguide.databasePackage.Restaurant;
-import com.example.yovo_user.varnatravelguide.databasePackage.ShoppingPlace;
+import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategory;
+import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
+import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
 import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
-import com.example.yovo_user.varnatravelguide.databasePackage.WorkHours;
+import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,18 +188,33 @@ public class MainActivity extends AppCompatActivity {
         vtgDatabase.getPlaceDaoImpl().addPlaces(
                 vtgDatabase.getDbWritableConnection(),Place.populatePlaces()
         );
-        //vtgDatabase.createWorkHoursTable();
-        vtgDatabase.addWorkHours(WorkHours.populateWorkHours());
-        //vtgDatabase.createPriceCategoryTable();
-        vtgDatabase.addPriceCategory(PriceCategory.populatePriceCategories());
-        vtgDatabase.addRestaurants(Restaurant.populateRestaurants());
+
+        //vtgDatabase.getWorkHoursDaoImpl().createWorkHoursTable(vtgDatabase.getDbWritableConnection());
+        vtgDatabase.getWorkHoursDaoImpl().addWorkHours(
+                vtgDatabase.getDbWritableConnection(), WorkHours.populateWorkHours()
+        );
+        //vtgDatabase.getPriceCategoryDaoImpl().createHotelTable(vtgDatabase.getDbWritableConnection());
+        vtgDatabase.getPriceCategoryDaoImpl().addPriceCategory(
+                vtgDatabase.getDbWritableConnection(),PriceCategory.populatePriceCategories()
+        );
+        vtgDatabase.getRestaurantDaoImpl().addRestaurant(
+                vtgDatabase.getDbWritableConnection(),Restaurant.populateRestaurants()
+        );
         vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
-        //vtgDatabase.createHotelTable();
+        //vtgDatabase.getHotelDaoImpl().createHotelTable(vtgDatabase.getDbWritableConnection());
         vtgDatabase.getHotelDaoImpl().addHotels(
              vtgDatabase.getDbWritableConnection(),Hotel.populateHotels()
         );
-        vtgDatabase.addLandmarks(Landmark.populateLandmarks());
-        vtgDatabase.addImages(Image.populateImages());
+        vtgDatabase.getLandmarkDaoImpl().addLandmarks(
+                vtgDatabase.getDbWritableConnection(),Landmark.populateLandmarks()
+        );
+        vtgDatabase.getImageDaoImpl().addImage(
+                vtgDatabase.getDbWritableConnection(),Image.populateImages()
+        );
+
+
+
+        vtgDatabase.getDbWritableConnection().close();
     }
 
     public ViewPager getViewPager() {
