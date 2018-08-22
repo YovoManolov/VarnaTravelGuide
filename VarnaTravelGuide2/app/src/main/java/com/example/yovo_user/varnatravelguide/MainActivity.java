@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
         vtgDatabase.getPlaceDaoImpl().addPlaces(
                 vtgDatabase.getDbWritableConnection(),Place.populatePlaces()
         );
-
         //vtgDatabase.getWorkHoursDaoImpl().createWorkHoursTable(vtgDatabase.getDbWritableConnection());
         vtgDatabase.getWorkHoursDaoImpl().addWorkHours(
                 vtgDatabase.getDbWritableConnection(), WorkHours.populateWorkHours()
@@ -200,7 +199,9 @@ public class MainActivity extends AppCompatActivity {
         vtgDatabase.getRestaurantDaoImpl().addRestaurant(
                 vtgDatabase.getDbWritableConnection(),Restaurant.populateRestaurants()
         );
-        vtgDatabase.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
+        vtgDatabase.getShoppingPlacesDaoImpl().addShoppingPlaces(
+                vtgDatabase.getDbWritableConnection(),ShoppingPlace.populateShoppingPlaces()
+        );
         //vtgDatabase.getHotelDaoImpl().createHotelTable(vtgDatabase.getDbWritableConnection());
         vtgDatabase.getHotelDaoImpl().addHotels(
              vtgDatabase.getDbWritableConnection(),Hotel.populateHotels()
@@ -211,8 +212,6 @@ public class MainActivity extends AppCompatActivity {
         vtgDatabase.getImageDaoImpl().addImage(
                 vtgDatabase.getDbWritableConnection(),Image.populateImages()
         );
-
-
 
         vtgDatabase.getDbWritableConnection().close();
     }

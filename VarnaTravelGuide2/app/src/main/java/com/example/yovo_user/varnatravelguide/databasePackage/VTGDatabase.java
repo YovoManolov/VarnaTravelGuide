@@ -23,7 +23,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "varnaTravelGuide";
 
-    private SQLiteDatabase dbWritableConnection = this.getWritableDatabase();
+    private SQLiteDatabase dbWritableConnection;
 
     private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
@@ -39,8 +39,10 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
 
     @Override public void onCreate(SQLiteDatabase db) {
+        dbWritableConnection = this.getWritableDatabase();
+
         placeDaoImpl.createPlacesTable(dbWritableConnection);
-        db.execSQL(DbStringConstants.CREATE_IMAGES_TABLE);
+        imageDaoImpl.createImageTable(dbWritableConnection);
         hotelDaoImpl.createHotelTable(dbWritableConnection);
         landmarkDaoImpl.createLandmarkTable(dbWritableConnection);
         restaurantDaoImpl.createRestaurantTable(dbWritableConnection);
