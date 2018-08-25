@@ -1,12 +1,19 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.imagePackage;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 
-public class ImageDaoImpl implements ImageDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class ImageDaoImpl extends Context implements ImageDao {
     @Override
     public void createImageTable(SQLiteDatabase dbWritableConnection) {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
@@ -26,5 +33,25 @@ public class ImageDaoImpl implements ImageDao {
                     null, values);
         }
         dbWritableConnection.endTransaction();
+    }
+
+    public List<Image> getImagesForPlace(int placeId){
+        List<Image> allImagesForPlace = new ArrayList<>();
+        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
+                .getReadableDatabase();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,new String[]{
+                String.valueOf(placeId)
+        });
+
+        if (cursor.moveToFirst()) {
+            do {
+                Image image = new Image(cursor.getInt(1),
+                        cursor.getString(2));
+                allImagesForPlace.add(image);
+            } while (cursor.moveToNext());
+        }
+
+        return allImagesForPlace;
     }
 }

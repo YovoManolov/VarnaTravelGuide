@@ -1,13 +1,19 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 
-public class PriceCategoryDaoImpl implements PriceCategoryDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class PriceCategoryDaoImpl extends Context implements PriceCategoryDao {
 
     @Override
     public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) {
@@ -28,5 +34,23 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
         }
 
         dbWritableConnection.endTransaction();
+    }
+
+
+    public PriceCategory getPriceCategoryById(int placeCategoryId){
+        PriceCategory priceCategory = null;
+        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
+                .getReadableDatabase();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_PRICE_CATEGORIES_BY_ID,
+                new String[]{String.valueOf(placeCategoryId)  });
+
+        if (cursor.moveToFirst()) {
+            do {
+                priceCategory = new PriceCategory(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        return priceCategory;
     }
 }

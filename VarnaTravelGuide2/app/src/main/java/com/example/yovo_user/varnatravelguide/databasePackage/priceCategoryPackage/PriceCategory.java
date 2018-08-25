@@ -6,6 +6,7 @@ public class PriceCategory {
     private int id ;
     private String priceType;
 
+    public PriceCategory(){}
     public PriceCategory(String priceType) {
         this.priceType = priceType;
     }

@@ -1,12 +1,18 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 
-public class HotelDaoImpl implements HotelDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class HotelDaoImpl extends Context implements HotelDao{
 
     @Override
     public void createHotelTable(SQLiteDatabase db) {
@@ -32,4 +38,25 @@ public class HotelDaoImpl implements HotelDao {
 
         dbWritableConnection.endTransaction();
     }
+
+    @Override
+    public List<Hotel> getAllHotels() {
+        List<Hotel> allHotels = new ArrayList<Hotel>();
+        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
+                .getReadableDatabase();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Hotel hotel = new Hotel(cursor.getInt(1),cursor.getInt(2)
+                                        ,cursor.getInt(3));
+                allHotels.add(hotel);
+            } while (cursor.moveToNext());
+        }
+
+        return allHotels;
+    }
+
+
 }

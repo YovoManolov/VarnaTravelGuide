@@ -7,4 +7,5 @@ public interface WorkHoursDao {
     public void createWorkHoursTable(SQLiteDatabase dbWritableConnection);
     public void addWorkHours(SQLiteDatabase dbWritableConnection,
                           WorkHours[] workHours);
+    public void getWorkHoursByPlaceId(int placeId);
 }

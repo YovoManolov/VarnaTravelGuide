@@ -196,10 +196,25 @@ public class DbStringConstants {
             + " REFERENCES "+TABLE_PLACES +"(ID)"
             + ")";
 
-    public static String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PRICE_CATEGORIES + "("
-            + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-            + PC_PRICE_TYPE + " TEXT NOT NULL"
+    public static String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS "
+            + TABLE_PRICE_CATEGORIES + "("
+                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + PC_PRICE_TYPE + " TEXT NOT NULL"
             + ")";
+
+
+    public static String GET_PRICE_CATEGORIES_BY_ID = "SELECT * FROM "+  TABLE_PRICE_CATEGORIES
+            + "WHERE "+PC_ID+" = ?";
+    public static String GET_PLACE_BY_ID = "SELECT * FROM "+ TABLE_PLACES
+            + "WHERE "+PL_ID+" = ? ";
+    public static String GET_IMAGES_FOR_PLACE = "SELECT * FORM " +TABLE_IMAGES
+            + "WHERE " + IM_PLACE_ID + " = ? ";
+    public static String GET_WORK_HOURS_BY_ID = "SELECT * FROM " + TABLE_WORK_HOURS
+            +  "WHERE PLACE_ID = ? ";
+    public static String GET_ALL_HOTELS = "SELECT * FROM " + TABLE_HOTELS;
+    public static String GET_ALL_RESTAURANTS = "SELECT * FROM " + TABLE_RESTAURANTS;
+    public static String GET_ALL_LANDMARKS = "SELECT * FROM " + TABLE_HOTELS;
+    public static String GET_ALL_SHOPPING_PLACES = "SELECT * FROM " + TABLE_SHOPPING_PLACES;
 
 
 }

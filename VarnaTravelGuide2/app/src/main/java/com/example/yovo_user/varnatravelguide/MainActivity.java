@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private android.support.v7.widget.GridLayout  mainLinksGridL;
     private List<ListUrlLinksItem> listUrlLinks  = new ArrayList<>();
-    final VTGDatabase vtgDatabase = new VTGDatabase(this) ;
 
+    private VTGDatabase vtgDatabase = VTGDatabase.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +48,8 @@ public class MainActivity extends AppCompatActivity {
         mainLinksGridL = (android.support.v7.widget.GridLayout) findViewById(R.id.mainLinksGridL);
         //TODO: links for the 4 main activities
         setClickEvents(mainLinksGridL);
-
         generateLinks();
         addLinksClickListener();
-
-        //DATABASE SCRIPTS execution:)
-        //callDbScripts();
 
     }
 
@@ -123,42 +119,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     //this will be STAND BY while making the links for the main activity
     private void setClickEvents(android.support.v7.widget.GridLayout mainLinksGridL){
         CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
         hotelsCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(MainActivity.this,);
-                startActivity(intent);*/
+                Intent intent = new Intent(MainActivity.this,ListingPlacesActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_OF_PLACES","hotels");
+                intent.putExtras(bundle);
+                startActivity(intent);
                 //code for switching to another view !!!
             }
         });
 
         CardView restaurantsCV = (CardView)findViewById(R.id.restaurantsCV_id);
-        hotelsCV.setOnClickListener(new View.OnClickListener() {
+        restaurantsCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ListingPlacesActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_OF_PLACES","restaurants");
 
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
         CardView landmarksCV = (CardView)findViewById(R.id.landmarksCV_id);
-        hotelsCV.setOnClickListener(new View.OnClickListener() {
+        landmarksCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this,ListingPlacesActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_OF_PLACES","landmarks");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
         CardView shoppingPlacesCV = (CardView)findViewById(R.id.shopping_placesCV_id);
-        hotelsCV.setOnClickListener(new View.OnClickListener() {
+        shoppingPlacesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this,ListingPlacesActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TYPE_OF_PLACES","shoppingPlaces");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
-
     }
 
     public class MyTimerTask extends TimerTask {
@@ -184,37 +196,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void callDbScripts(){
-        vtgDatabase.getPlaceDaoImpl().addPlaces(
-                vtgDatabase.getDbWritableConnection(),Place.populatePlaces()
-        );
-        //vtgDatabase.getWorkHoursDaoImpl().createWorkHoursTable(vtgDatabase.getDbWritableConnection());
-        vtgDatabase.getWorkHoursDaoImpl().addWorkHours(
-                vtgDatabase.getDbWritableConnection(), WorkHours.populateWorkHours()
-        );
-        //vtgDatabase.getPriceCategoryDaoImpl().createHotelTable(vtgDatabase.getDbWritableConnection());
-        vtgDatabase.getPriceCategoryDaoImpl().addPriceCategory(
-                vtgDatabase.getDbWritableConnection(),PriceCategory.populatePriceCategories()
-        );
-        vtgDatabase.getRestaurantDaoImpl().addRestaurant(
-                vtgDatabase.getDbWritableConnection(),Restaurant.populateRestaurants()
-        );
-        vtgDatabase.getShoppingPlacesDaoImpl().addShoppingPlaces(
-                vtgDatabase.getDbWritableConnection(),ShoppingPlace.populateShoppingPlaces()
-        );
-        //vtgDatabase.getHotelDaoImpl().createHotelTable(vtgDatabase.getDbWritableConnection());
-        vtgDatabase.getHotelDaoImpl().addHotels(
-             vtgDatabase.getDbWritableConnection(),Hotel.populateHotels()
-        );
-        vtgDatabase.getLandmarkDaoImpl().addLandmarks(
-                vtgDatabase.getDbWritableConnection(),Landmark.populateLandmarks()
-        );
-        vtgDatabase.getImageDaoImpl().addImage(
-                vtgDatabase.getDbWritableConnection(),Image.populateImages()
-        );
 
-        vtgDatabase.getDbWritableConnection().close();
-    }
 
     public ViewPager getViewPager() {
         return viewPager;

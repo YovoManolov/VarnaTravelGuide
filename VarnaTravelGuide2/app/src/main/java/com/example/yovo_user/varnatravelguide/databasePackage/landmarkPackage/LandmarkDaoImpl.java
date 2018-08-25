@@ -1,12 +1,18 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 
-public class LandmarkDaoImpl implements LandmarkDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class LandmarkDaoImpl extends Context implements LandmarkDao {
     @Override
     public void createLandmarkTable(SQLiteDatabase dbWritableConnection) {
         DbBaseOperations.dropTableX(dbWritableConnection,
@@ -28,5 +34,24 @@ public class LandmarkDaoImpl implements LandmarkDao {
                     null, values);
         }
         dbWritableConnection.endTransaction();
+    }
+
+    @Override
+    public List<Landmark> getAllHLandmarks() {
+        List<Landmark> allLandmarks = new ArrayList<Landmark>();
+        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
+                .getReadableDatabase();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_LANDMARKS,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Landmark landmark = new Landmark(cursor.getInt(1),
+                                                            cursor.getString(2));
+                allLandmarks.add(landmark);
+            } while (cursor.moveToNext());
+        }
+
+        return allLandmarks;
     }
 }

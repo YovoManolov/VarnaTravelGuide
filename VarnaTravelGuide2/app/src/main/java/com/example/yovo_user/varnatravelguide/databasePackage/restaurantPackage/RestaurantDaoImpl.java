@@ -1,12 +1,19 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 
-public class RestaurantDaoImpl implements RestaurantDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class RestaurantDaoImpl extends Context implements RestaurantDao {
 
     @Override
     public void createRestaurantTable(SQLiteDatabase dbWritableConnection) {
@@ -28,5 +35,26 @@ public class RestaurantDaoImpl implements RestaurantDao {
                                                    null, values);
         }
         dbWritableConnection.endTransaction();
+    }
+
+    public List<Restaurant> getAllResaturants(){
+        List<Restaurant> allRestaurants = new ArrayList<Restaurant>();
+        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
+                .getReadableDatabase();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Restaurant restaurant = new Restaurant(
+                        cursor.getInt(1),
+                        cursor.getInt(2),
+                        cursor.getString(3)
+                );
+                allRestaurants.add(restaurant);
+            } while (cursor.moveToNext());
+        }
+
+        return allRestaurants;
     }
 }
