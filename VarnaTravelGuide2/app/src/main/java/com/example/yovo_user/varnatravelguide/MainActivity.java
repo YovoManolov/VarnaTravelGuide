@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private android.support.v7.widget.GridLayout  mainLinksGridL;
     private List<ListUrlLinksItem> listUrlLinks  = new ArrayList<>();
 
-    private VTGDatabase vtgDatabase = VTGDatabase.getInstance(this);
+    private VTGDatabase vtgDatabase = VTGDatabase.getInstance(getApplicationContext());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

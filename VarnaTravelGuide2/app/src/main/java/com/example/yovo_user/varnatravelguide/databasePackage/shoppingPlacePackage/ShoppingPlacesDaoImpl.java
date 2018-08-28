@@ -12,7 +12,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ShoppingPlacesDaoImpl extends Context implements ShoppingPlaceDao {
+public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     @Override
     public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection) {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
@@ -37,10 +37,8 @@ public abstract class ShoppingPlacesDaoImpl extends Context implements ShoppingP
     }
 
     @Override
-    public List<ShoppingPlace> getAllShoppingPlaces() {
+    public List<ShoppingPlace> getAllShoppingPlaces(SQLiteDatabase dbReadableConnection) {
         List<ShoppingPlace> allShoppingPlaces = new ArrayList<ShoppingPlace>();
-        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
-                .getReadableDatabase();
 
         Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_SHOPPING_PLACES,null);
 

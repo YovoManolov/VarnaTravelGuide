@@ -1,10 +1,16 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkHoursDaoImpl implements WorkHoursDao {
     @Override
@@ -42,5 +48,27 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
         }
 
         dbWritableConnection.endTransaction();
+    }
+
+    @Override
+    public List<WorkHours> getWorkHoursByPlaceId(SQLiteDatabase dbReadableConnection,int placeId){
+        List<WorkHours> workHoursList = new ArrayList<>();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_WORK_HOURS_BY_ID,new String[]{
+                String.valueOf(placeId)
+        });
+
+        if (cursor.moveToFirst()) {
+            do {
+                WorkHours workHours = new WorkHours(cursor.getInt(1),
+                        cursor.getInt(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5));
+                workHoursList.add(workHours);
+            } while (cursor.moveToNext());
+        }
+
+        return workHoursList;
     }
 }

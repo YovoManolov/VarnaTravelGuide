@@ -31,6 +31,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "varnaTravelGuide";
 
+    private Context applicationContext ;
     private SQLiteDatabase dbWritableConnection;
     private SQLiteDatabase dbReadableConnection;
 
@@ -49,7 +50,8 @@ public class VTGDatabase extends SQLiteOpenHelper {
     public static synchronized VTGDatabase getInstance(Context context) {
 
         if (vtgDatabase == null) {
-            vtgDatabase = new VTGDatabase(context.getApplicationContext());
+            vtgDatabase = new VTGDatabase( context.getApplicationContext());
+
         }
         return vtgDatabase;
     }
@@ -65,7 +67,6 @@ public class VTGDatabase extends SQLiteOpenHelper {
         shoppingPlacesDaoImpl.createShoppingPlacesTable(dbWritableConnection);
         workHoursDaoImpl.createWorkHoursTable(dbWritableConnection);
         priceCategoryDaoImpl.createPriceCategoryTable(dbWritableConnection);
-
 
         //DATABASE SCRIPTS execution:)
         //callDbScripts();

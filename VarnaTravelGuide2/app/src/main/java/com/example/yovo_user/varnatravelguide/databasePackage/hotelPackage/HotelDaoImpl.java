@@ -12,7 +12,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class HotelDaoImpl extends Context implements HotelDao{
+public class HotelDaoImpl implements HotelDao{
 
     @Override
     public void createHotelTable(SQLiteDatabase db) {
@@ -40,10 +40,8 @@ public abstract class HotelDaoImpl extends Context implements HotelDao{
     }
 
     @Override
-    public List<Hotel> getAllHotels() {
+    public List<Hotel> getAllHotels(SQLiteDatabase dbReadableConnection) {
         List<Hotel> allHotels = new ArrayList<Hotel>();
-        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
-                .getReadableDatabase();
 
         Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
 

@@ -13,7 +13,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PriceCategoryDaoImpl extends Context implements PriceCategoryDao {
+public class PriceCategoryDaoImpl implements PriceCategoryDao {
 
     @Override
     public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) {
@@ -37,10 +37,9 @@ public abstract class PriceCategoryDaoImpl extends Context implements PriceCateg
     }
 
 
-    public PriceCategory getPriceCategoryById(int placeCategoryId){
+    public PriceCategory getPriceCategoryById(SQLiteDatabase dbReadableConnection,
+                                                int placeCategoryId){
         PriceCategory priceCategory = null;
-        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
-                .getReadableDatabase();
 
         Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_PRICE_CATEGORIES_BY_ID,
                 new String[]{String.valueOf(placeCategoryId)  });

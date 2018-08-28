@@ -13,7 +13,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.La
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RestaurantDaoImpl extends Context implements RestaurantDao {
+public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public void createRestaurantTable(SQLiteDatabase dbWritableConnection) {
@@ -37,12 +37,12 @@ public abstract class RestaurantDaoImpl extends Context implements RestaurantDao
         dbWritableConnection.endTransaction();
     }
 
-    public List<Restaurant> getAllResaturants(){
+    @Override
+    public List<Restaurant> getAllResaturants(SQLiteDatabase dbReadableConnection){
         List<Restaurant> allRestaurants = new ArrayList<Restaurant>();
-        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
-                .getReadableDatabase();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,null);
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,
+                null);
 
         if (cursor.moveToFirst()) {
             do {

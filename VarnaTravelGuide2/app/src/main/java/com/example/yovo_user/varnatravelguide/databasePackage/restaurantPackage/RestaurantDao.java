@@ -10,6 +10,6 @@ public interface RestaurantDao {
     public void createRestaurantTable(SQLiteDatabase dbWritableConnection);
     public void addRestaurant(SQLiteDatabase dbWritableConnection,
                           Restaurant[] restaurants);
-    public List<Restaurant> getAllResaturants();
+    public List<Restaurant> getAllResaturants(SQLiteDatabase dbReadableConnection);
 
 }

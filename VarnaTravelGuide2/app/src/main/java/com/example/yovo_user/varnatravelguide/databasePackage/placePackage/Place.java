@@ -417,6 +417,7 @@ public class Place {
                                 " numerous limestone pillars as high as 10 m, hollow or" +
                                 " solid cylinders, truncated cones and single rocks and" +
                                 " cliffs.", 19),
+                //TODO : description to be changes
                 new Place(0,5,0,0,
                         "Regional History Museum of Varna",
                         "9000 Varna, 41 Maria Luisa Blvd" +

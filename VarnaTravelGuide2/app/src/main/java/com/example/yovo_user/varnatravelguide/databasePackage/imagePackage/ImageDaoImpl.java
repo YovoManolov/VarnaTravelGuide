@@ -13,7 +13,8 @@ import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.La
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ImageDaoImpl extends Context implements ImageDao {
+public class ImageDaoImpl implements ImageDao {
+
     @Override
     public void createImageTable(SQLiteDatabase dbWritableConnection) {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
@@ -35,12 +36,11 @@ public abstract class ImageDaoImpl extends Context implements ImageDao {
         dbWritableConnection.endTransaction();
     }
 
-    public List<Image> getImagesForPlace(int placeId){
+    public List<Image> getImagesForPlace(SQLiteDatabase dbReadableConnection,int placeId){
         List<Image> allImagesForPlace = new ArrayList<>();
-        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
-                .getReadableDatabase();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,new String[]{
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,
+                                    new String[]{
                 String.valueOf(placeId)
         });
 

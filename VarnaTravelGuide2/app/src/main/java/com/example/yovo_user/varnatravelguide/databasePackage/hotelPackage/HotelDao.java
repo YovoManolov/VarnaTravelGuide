@@ -8,5 +8,5 @@ public interface HotelDao {
     public void createHotelTable(SQLiteDatabase dbWritableConnection);
     public void addHotels(SQLiteDatabase dbWritableConnection,
                                                     Hotel[] hotels);
-    public List<Hotel> getAllHotels();
+    public List<Hotel> getAllHotels(SQLiteDatabase dbReadableConnection);
 }

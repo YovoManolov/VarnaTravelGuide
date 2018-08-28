@@ -12,7 +12,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LandmarkDaoImpl extends Context implements LandmarkDao {
+public class LandmarkDaoImpl implements LandmarkDao {
     @Override
     public void createLandmarkTable(SQLiteDatabase dbWritableConnection) {
         DbBaseOperations.dropTableX(dbWritableConnection,
@@ -37,12 +37,11 @@ public abstract class LandmarkDaoImpl extends Context implements LandmarkDao {
     }
 
     @Override
-    public List<Landmark> getAllHLandmarks() {
+    public List<Landmark> getAllLandmarks(SQLiteDatabase dbReadableConnection) {
         List<Landmark> allLandmarks = new ArrayList<Landmark>();
-        SQLiteDatabase dbReadableConnection = VTGDatabase.getInstance(this.getApplicationContext())
-                .getReadableDatabase();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_LANDMARKS,null);
+        Cursor cursor = dbReadableConnection.rawQuery(
+                DbStringConstants.GET_ALL_LANDMARKS,null);
 
         if (cursor.moveToFirst()) {
             do {
