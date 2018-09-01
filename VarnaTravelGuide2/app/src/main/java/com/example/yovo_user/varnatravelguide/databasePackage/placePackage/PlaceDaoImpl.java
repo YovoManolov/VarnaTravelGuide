@@ -1,10 +1,12 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 
 public class PlaceDaoImpl implements PlaceDao {
     @Override
@@ -41,5 +43,39 @@ public class PlaceDaoImpl implements PlaceDao {
         }
 
         dbWritableConnection.endTransaction();
+    }
+
+    @Override
+    public Place getPlaceById(SQLiteDatabase dbReadableConnection, int placeId) {
+        dbReadableConnection.beginTransaction();
+        Place place = null;
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_PLACE_BY_ID,
+                new String[]{
+                        String.valueOf(placeId)
+                });
+
+            if(cursor.getCount()!= 1){
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        place = new Place(
+                                cursor.getInt(0),
+                                cursor.getInt(1),
+                                cursor.getInt(2),
+                                cursor.getInt(3),
+                                cursor.getString(4),
+                                cursor.getString(5),
+                                cursor.getDouble(6),
+                                cursor.getDouble(7),
+                                cursor.getString(8),
+                                cursor.getString(9),
+                                cursor.getInt(10)
+                                );
+                    } while (cursor.moveToNext());
+                }
+            }
+
+        dbReadableConnection.endTransaction();
+        return place;
     }
 }

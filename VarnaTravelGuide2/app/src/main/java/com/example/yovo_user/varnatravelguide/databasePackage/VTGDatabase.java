@@ -26,15 +26,13 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 public class VTGDatabase extends SQLiteOpenHelper {
 
     private static VTGDatabase vtgDatabase;
-    private static final String DB_NAME = "varnaTravelGuide.db";
     // Всички променливи са статични ! // Версия на Базата от Данни
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "varnaTravelGuide";
+    private static final String DB_NAME = "varnaTravelGuide";
 
-    private Context applicationContext ;
+    private Context mCxt; ;
     private SQLiteDatabase dbWritableConnection;
-    private SQLiteDatabase dbReadableConnection;
-
+    private SQLiteDatabase dbReadableConnection ;
     private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
     private LandmarkDaoImpl landmarkDaoImpl = new LandmarkDaoImpl();
@@ -44,21 +42,24 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private PriceCategoryDaoImpl priceCategoryDaoImpl = new PriceCategoryDaoImpl();
     private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
 
-    public VTGDatabase(Context context)
-                    { super(context, DATABASE_NAME, null, DATABASE_VERSION); }
+    public VTGDatabase(Context context){
+                    super(context, DB_NAME, null, DATABASE_VERSION);
+       SQLiteDatabase dbWritableConnection = vtgDatabase.getWritableDatabase();
+    }
 
     public static synchronized VTGDatabase getInstance(Context context) {
 
         if (vtgDatabase == null) {
-            vtgDatabase = new VTGDatabase( context.getApplicationContext());
-
+            vtgDatabase = new VTGDatabase(context);
         }
         return vtgDatabase;
     }
 
-    @Override public void onCreate(SQLiteDatabase db) {
-        dbWritableConnection = this.getWritableDatabase();
-        dbReadableConnection = this.getReadableDatabase();
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        dbWritableConnection = vtgDatabase.getWritableDatabase();
+        dbReadableConnection = vtgDatabase.getReadableDatabase();
+
         placeDaoImpl.createPlacesTable(dbWritableConnection);
         imageDaoImpl.createImageTable(dbWritableConnection);
         hotelDaoImpl.createHotelTable(dbWritableConnection);
@@ -67,9 +68,8 @@ public class VTGDatabase extends SQLiteOpenHelper {
         shoppingPlacesDaoImpl.createShoppingPlacesTable(dbWritableConnection);
         workHoursDaoImpl.createWorkHoursTable(dbWritableConnection);
         priceCategoryDaoImpl.createPriceCategoryTable(dbWritableConnection);
-
         //DATABASE SCRIPTS execution:)
-        //callDbScripts();
+        callDbScripts();
     }
 
     @Override
@@ -80,32 +80,25 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
 
     private void callDbScripts(){
+        getHotelDaoImpl().addHotels(dbWritableConnection,Hotel.populateHotels());
+        getImageDaoImpl().addImage(dbWritableConnection,Image.populateImages());
+        getLandmarkDaoImpl().addLandmarks(
+                getDbWritableConnection(), Landmark.populateLandmarks()
+        );
         getPlaceDaoImpl().addPlaces(
-                 getDbWritableConnection(), Place.populatePlaces()
+                getDbWritableConnection(), Place.populatePlaces()
         );
-        // getWorkHoursDaoImpl().createWorkHoursTable( getDbWritableConnection());
-        getWorkHoursDaoImpl().addWorkHours(
-                 getDbWritableConnection(), WorkHours.populateWorkHours()
-        );
-        // .getPriceCategoryDaoImpl().createHotelTable( .getDbWritableConnection());
         getPriceCategoryDaoImpl().addPriceCategory(
-                getDbWritableConnection(), PriceCategory.populatePriceCategories()
+                dbWritableConnection, PriceCategory.populatePriceCategories()
         );
         getRestaurantDaoImpl().addRestaurant(
-                 getDbWritableConnection(), Restaurant.populateRestaurants()
+                dbWritableConnection, Restaurant.populateRestaurants()
         );
         getShoppingPlacesDaoImpl().addShoppingPlaces(
-                 getDbWritableConnection(),ShoppingPlace.populateShoppingPlaces()
+                dbWritableConnection,ShoppingPlace.populateShoppingPlaces()
         );
-        // .getHotelDaoImpl().createHotelTable( .getDbWritableConnection());
-        getHotelDaoImpl().addHotels(
-                 getDbWritableConnection(), Hotel.populateHotels()
-        );
-        getLandmarkDaoImpl().addLandmarks(
-                 getDbWritableConnection(), Landmark.populateLandmarks()
-        );
-        getImageDaoImpl().addImage(
-                 getDbWritableConnection(), Image.populateImages()
+        getWorkHoursDaoImpl().addWorkHours(
+                dbWritableConnection, WorkHours.populateWorkHours()
         );
 
          getDbWritableConnection().close();
@@ -151,9 +144,6 @@ public class VTGDatabase extends SQLiteOpenHelper {
     public ShoppingPlacesDaoImpl getShoppingPlacesDaoImpl() {
         return shoppingPlacesDaoImpl;
     }
-
-
-
 
 
 }

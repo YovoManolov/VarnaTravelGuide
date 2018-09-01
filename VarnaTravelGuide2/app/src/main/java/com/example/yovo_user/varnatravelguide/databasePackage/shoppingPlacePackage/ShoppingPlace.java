@@ -1,5 +1,7 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
+
 public class ShoppingPlace {
 
     private int id;

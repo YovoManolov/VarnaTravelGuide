@@ -41,7 +41,8 @@ public class DbStringConstants {
     //====================================
     public static final String IM_ID = "ID";
     public static final String IM_PLACE_ID = "PLACE_ID";
-    public static final String IMAGE_URL= "IMAGE_URL";
+    public static final String IM_IMAGE_URL= "IMAGE_URL";
+    public static final String IM_MAIN_IMAGE= "MAIN_IMAGE";
     //====================================
 
 
@@ -136,7 +137,8 @@ public class DbStringConstants {
     public static String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_IMAGES + "("
             + IM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
             + IM_PLACE_ID + " INTEGER NOT NULL,"
-            + IMAGE_URL + " TEXT NOT NULL,"
+            + IM_IMAGE_URL + " TEXT NOT NULL,"
+            + IM_MAIN_IMAGE + " INTEGER NOT NULL,"
             + "FOREIGN KEY("+IM_PLACE_ID +") "
             + "REFERENCES "+TABLE_PLACES +"(ID)"
             + ")";
@@ -209,6 +211,8 @@ public class DbStringConstants {
             + "WHERE "+PL_ID+" = ? ";
     public static String GET_IMAGES_FOR_PLACE = "SELECT * FORM " +TABLE_IMAGES
             + "WHERE " + IM_PLACE_ID + " = ? ";
+    public static String GET_MAIN_IMAGE_FOR_PLACE = "SELECT * FORM " +TABLE_IMAGES
+            + "WHERE " + IM_PLACE_ID + " = ?  AND "+ IM_MAIN_IMAGE + "= ? ";
     public static String GET_WORK_HOURS_BY_ID = "SELECT * FROM " + TABLE_WORK_HOURS
             +  "WHERE PLACE_ID = ? ";
     public static String GET_ALL_HOTELS = "SELECT * FROM " + TABLE_HOTELS;

@@ -17,7 +17,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
     public void createLandmarkTable(SQLiteDatabase dbWritableConnection) {
         DbBaseOperations.dropTableX(dbWritableConnection,
                                         DbStringConstants.TABLE_LANDMARKS);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
     }
 
     @Override

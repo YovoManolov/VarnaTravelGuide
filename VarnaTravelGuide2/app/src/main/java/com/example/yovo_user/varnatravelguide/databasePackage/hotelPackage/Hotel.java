@@ -1,4 +1,5 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 
 public class Hotel {
 
@@ -34,7 +35,7 @@ public class Hotel {
         return placeId;
     }
 
-    public void setPlaceId(int placeId) {
+    public void setPlaceId(Integer placeId) {
         this.placeId = placeId;
     }
 

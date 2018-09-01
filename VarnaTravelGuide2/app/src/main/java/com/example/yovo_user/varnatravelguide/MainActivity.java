@@ -1,6 +1,7 @@
 package com.example.yovo_user.varnatravelguide;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,15 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
-import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategory;
-import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
-import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
 import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private android.support.v7.widget.GridLayout  mainLinksGridL;
-    private List<ListUrlLinksItem> listUrlLinks  = new ArrayList<>();
-
-    private VTGDatabase vtgDatabase = VTGDatabase.getInstance(getApplicationContext());
+    private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
+    VTGDatabase vtgDatabase = new VTGDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        VTGDatabase vtgDatabase = new VTGDatabase(this);
+        vtgDatabase.getWritableDatabase();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         generateViewPager();
 
         mainLinksGridL = (android.support.v7.widget.GridLayout) findViewById(R.id.mainLinksGridL);
-        //TODO: links for the 4 main activities
         setClickEvents(mainLinksGridL);
         generateLinks();
         addLinksClickListener();
@@ -67,20 +61,20 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listUrlLinksItemsFromView = (ListView) findViewById(R.id.listLinksItems);
 
-        ListUrlLinksItem[] listUrlLinksItems = ListUrlLinksItem.populatelistUrlLinksITems();
+        ListLinksItem[] listLinksItems = ListLinksItem.populatelistUrlLinksITems();
 
-        for(ListUrlLinksItem linksItem : listUrlLinksItems){
+        for(ListLinksItem linksItem : listLinksItems){
             listUrlLinks.add(linksItem);
         }
 
-        ArrayAdapter<ListUrlLinksItem> adapter = new CustomAdapter();
+        ArrayAdapter<ListLinksItem> adapter = new CustomAdapter();
         listUrlLinksItemsFromView.setAdapter(adapter);
 
     }
 
-    private class CustomAdapter extends ArrayAdapter<ListUrlLinksItem> {
+    private class CustomAdapter extends ArrayAdapter<ListLinksItem> {
         public CustomAdapter() {
-            super(MainActivity.this, R.layout.link_list_item, listUrlLinks);
+            super(MainActivity.this, R.layout.list_item, listUrlLinks);
         }
 
         @Override
@@ -88,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
             if(convertView == null) {
                 convertView = getLayoutInflater().
-                        inflate(R.layout.link_list_item, parent,false);
+                        inflate(R.layout.list_item, parent,false);
             }
 
-            ListUrlLinksItem currentItem = listUrlLinks.get(position);
+            ListLinksItem currentItem = listUrlLinks.get(position);
 
             ImageView linkImage = (ImageView) convertView.findViewById(R.id.leftIco);
             TextView heading = (TextView) convertView.findViewById(R.id.heading);
@@ -112,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         linksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListUrlLinksItem currentItem = listUrlLinks.get(position);
+                ListLinksItem currentItem = listUrlLinks.get(position);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(currentItem.getUrl()));
                 startActivity(i);

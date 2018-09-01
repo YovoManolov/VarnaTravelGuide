@@ -18,6 +18,7 @@ public class DbBaseOperations {
         }
     }
 
+
     public static void upgradeDb(SQLiteDatabase dbWritableConnection, int oldVersion, int newVersion) {
 
         dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);

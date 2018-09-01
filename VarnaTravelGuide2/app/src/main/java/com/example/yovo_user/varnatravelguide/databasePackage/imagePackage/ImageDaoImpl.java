@@ -28,7 +28,7 @@ public class ImageDaoImpl implements ImageDao {
         ContentValues values = new ContentValues();
         for(int i = 0 ;i < images.length ;i++){
             values.put(DbStringConstants.IM_PLACE_ID, images[i].getPlaceId());
-            values.put(DbStringConstants.IMAGE_URL, images[i].getImageURL());
+            values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
 
             dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
                     null, values);
@@ -38,6 +38,7 @@ public class ImageDaoImpl implements ImageDao {
 
     public List<Image> getImagesForPlace(SQLiteDatabase dbReadableConnection,int placeId){
         List<Image> allImagesForPlace = new ArrayList<>();
+        dbReadableConnection.beginTransaction();
 
         Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,
                                     new String[]{
@@ -47,11 +48,31 @@ public class ImageDaoImpl implements ImageDao {
         if (cursor.moveToFirst()) {
             do {
                 Image image = new Image(cursor.getInt(1),
-                        cursor.getString(2));
+                        cursor.getString(2),cursor.getInt(3));
                 allImagesForPlace.add(image);
             } while (cursor.moveToNext());
         }
 
+        dbReadableConnection.endTransaction();
         return allImagesForPlace;
+    }
+
+    public Image getMainImageForPlace(SQLiteDatabase dbReadableConnection,int placeId){
+        Image mainImage  = null;
+        dbReadableConnection.beginTransaction();
+
+        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_MAIN_IMAGE_FOR_PLACE,
+                new String[]{
+                        String.valueOf(placeId),
+                        String.valueOf(1)
+                });
+
+        if (cursor.moveToFirst()) {
+                mainImage = new Image(cursor.getInt(1),
+                        cursor.getString(2),cursor.getInt(3));
+        }
+
+        dbReadableConnection.endTransaction();
+        return mainImage;
     }
 }

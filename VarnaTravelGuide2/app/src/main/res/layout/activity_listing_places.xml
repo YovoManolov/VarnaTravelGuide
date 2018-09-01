@@ -24,7 +24,7 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_launcher_foreground" />
     </LinearLayout>
-    <!--android:layout_toBottomOf="@+id/imageLayoutId"-->
+
     <LinearLayout
         android:id="@+id/searhLayoutId"
         android:layout_width="fill_parent"
