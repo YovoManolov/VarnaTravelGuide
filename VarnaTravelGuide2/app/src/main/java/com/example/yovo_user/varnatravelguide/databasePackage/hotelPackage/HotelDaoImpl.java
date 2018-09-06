@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -21,7 +22,7 @@ public class HotelDaoImpl implements HotelDao{
     }
 
     @Override
-    public void addHotels(SQLiteDatabase dbWritableConnection, Hotel[] hotels) {
+    public void addHotels(SQLiteDatabase dbWritableConnection, Hotel[] hotels) throws SQLException {
 
         dbWritableConnection.beginTransaction();
 
@@ -34,16 +35,17 @@ public class HotelDaoImpl implements HotelDao{
 
             dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
                                         null, values);
+            values.clear();
         }
 
         dbWritableConnection.endTransaction();
     }
 
     @Override
-    public List<Hotel> getAllHotels(SQLiteDatabase dbReadableConnection) {
+    public List<Hotel> getAllHotels(SQLiteDatabase dbWritableConnection) {
         List<Hotel> allHotels = new ArrayList<Hotel>();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+        Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
 
         if (cursor.moveToFirst()) {
             do {

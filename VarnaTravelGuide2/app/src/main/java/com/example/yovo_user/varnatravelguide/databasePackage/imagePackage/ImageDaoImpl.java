@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.imagePackage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ImageDaoImpl implements ImageDao {
 
     @Override
-    public void createImageTable(SQLiteDatabase dbWritableConnection) {
+    public void createImageTable(SQLiteDatabase dbWritableConnection) throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_IMAGES_TABLE);
     }
@@ -29,9 +30,11 @@ public class ImageDaoImpl implements ImageDao {
         for(int i = 0 ;i < images.length ;i++){
             values.put(DbStringConstants.IM_PLACE_ID, images[i].getPlaceId());
             values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
+            values.put(DbStringConstants.IM_MAIN_IMAGE, images[i].getIsMainImage());
 
             dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
                     null, values);
+            values.clear();
         }
         dbWritableConnection.endTransaction();
     }

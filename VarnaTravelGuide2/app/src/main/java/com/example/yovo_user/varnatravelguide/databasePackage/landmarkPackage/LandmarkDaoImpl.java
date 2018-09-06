@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class LandmarkDaoImpl implements LandmarkDao {
     @Override
-    public void createLandmarkTable(SQLiteDatabase dbWritableConnection) {
+    public void createLandmarkTable(SQLiteDatabase dbWritableConnection) throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,
                                         DbStringConstants.TABLE_LANDMARKS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
@@ -32,12 +33,13 @@ public class LandmarkDaoImpl implements LandmarkDao {
 
             dbWritableConnection.insert(DbStringConstants.TABLE_LANDMARKS,
                     null, values);
+            values.clear();
         }
         dbWritableConnection.endTransaction();
     }
 
     @Override
-    public List<Landmark> getAllLandmarks(SQLiteDatabase dbReadableConnection) {
+    public List<Landmark> getAllLandmarks(SQLiteDatabase dbReadableConnection) throws SQLException {
         List<Landmark> allLandmarks = new ArrayList<Landmark>();
 
         Cursor cursor = dbReadableConnection.rawQuery(

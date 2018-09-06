@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePack
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     @Override
-    public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection) {
+    public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
     }
@@ -32,6 +33,8 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
 
             dbWritableConnection.insert(DbStringConstants.TABLE_SHOPPING_PLACES,
                     null, values);
+
+            values = new ContentValues();
         }
         dbWritableConnection.endTransaction();
     }

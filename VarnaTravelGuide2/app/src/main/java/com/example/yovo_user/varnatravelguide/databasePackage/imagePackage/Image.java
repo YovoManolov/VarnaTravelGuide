@@ -337,7 +337,7 @@ public class Image {
                 new Image(20,
                         "1KUOjDIfUw3WCzvSpYQe2Xj082LRODQ37",0),
                 new Image(20,
-                        "1PniiFpdgIQRvsGirJDSqUf2VXODvQgKQ",0)
+                        "1PniiFpdgIQRvsGirJDSqUf2VXODvQgKQ",0),
         };
     }
 }

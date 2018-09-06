@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPack
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -16,7 +17,7 @@ import java.util.List;
 public class PriceCategoryDaoImpl implements PriceCategoryDao {
 
     @Override
-    public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) {
+    public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_PRICE_CATEGORIES_TABLE);
     }
@@ -31,6 +32,8 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
                     priceCategories[i].getPriceType());
             dbWritableConnection.insert(DbStringConstants.TABLE_PRICE_CATEGORIES,
                     null, values);
+
+            values = new ContentValues();
         }
 
         dbWritableConnection.endTransaction();

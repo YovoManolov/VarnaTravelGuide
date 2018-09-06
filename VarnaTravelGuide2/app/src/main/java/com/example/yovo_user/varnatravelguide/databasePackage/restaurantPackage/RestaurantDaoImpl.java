@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -16,7 +17,7 @@ import java.util.List;
 public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
-    public void createRestaurantTable(SQLiteDatabase dbWritableConnection) {
+    public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
     }
@@ -33,6 +34,8 @@ public class RestaurantDaoImpl implements RestaurantDao {
             values.put(DbStringConstants.R_COUSINE,restaurants[i].getCousine());
             dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
                                                    null, values);
+
+            values = new ContentValues();
         }
         dbWritableConnection.endTransaction();
     }

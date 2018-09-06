@@ -27,13 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private android.support.v7.widget.GridLayout  mainLinksGridL;
     private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
-    VTGDatabase vtgDatabase = new VTGDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        VTGDatabase vtgDatabase = new VTGDatabase(this);
-        vtgDatabase.getWritableDatabase();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class WorkHoursDaoImpl implements WorkHoursDao {
     @Override
-    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) {
+    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
     }
@@ -23,8 +24,8 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
     public void addWorkHours(SQLiteDatabase dbWritableConnection, WorkHours[] workHours) {
         dbWritableConnection.beginTransaction();
 
+        ContentValues values = new ContentValues();
         for(int i = 0 ;i < workHours.length ;i++){
-            ContentValues values = new ContentValues();
 
             values.put(DbStringConstants.WH_PLACE_ID, workHours[i].getPlaceId());
             if(workHours[i].getIs24h() == -1){
@@ -45,6 +46,8 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
                 values.put(DbStringConstants.WH_SUN, workHours[i].getPlaceId());
             }
             dbWritableConnection.insert(DbStringConstants.TABLE_WORK_HOURS, null, values);
+
+            values = new ContentValues();
         }
 
         dbWritableConnection.endTransaction();

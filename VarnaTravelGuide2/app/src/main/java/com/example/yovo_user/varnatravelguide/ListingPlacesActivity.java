@@ -29,18 +29,17 @@ import java.util.List;
 
 public class ListingPlacesActivity extends AppCompatActivity {
     private String typeOfPlacesToLoad;
-    private HashMap<Integer,PriceCategory> placePriceCategory = new HashMap<>();
-    private HashMap<Integer,WorkHours> placeWorkHours = new HashMap<>();
-    private HashMap<Integer,String> placeEntranceTicket = new HashMap<>();
-    private ArrayList<WorkHours> workHours;
     private List<ListLinksItem> listItems = new ArrayList<>();
-    private  VTGDatabase vtgDatabase = new VTGDatabase(this);
-    private SQLiteDatabase dbReadableConnection = vtgDatabase.getDbReadableConnection();
-
+    private VTGDatabase vtgDatabase;
+    private SQLiteDatabase dbWritableConnection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
+
+        vtgDatabase = VTGDatabase.getInstance(this);
+        dbWritableConnection = vtgDatabase.getWritableDatabase();
+
 
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
@@ -53,13 +52,13 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
                 ArrayList<Hotel> allHotels =
                             (ArrayList<Hotel>)vtgDatabase.getHotelDaoImpl()
-                                    .getAllHotels(dbReadableConnection);
+                                    .getAllHotels(dbWritableConnection);
 
                 ArrayList<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size() ; i++){
                     hotelPlaces.add(
                             vtgDatabase.getPlaceDaoImpl().getPlaceById(
-                                 dbReadableConnection,allHotels.get(i).getPlaceId()
+                                 dbWritableConnection,allHotels.get(i).getPlaceId()
                             )
                     );
                 }
@@ -74,13 +73,13 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
                 ArrayList<Restaurant> allRestaurants =
                         (ArrayList<Restaurant>)vtgDatabase.getRestaurantDaoImpl()
-                                .getAllResaturants(dbReadableConnection);
+                                .getAllResaturants(dbWritableConnection);
 
                 ArrayList<Place> restaurantPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < restaurantPlaces.size() ; i++){
                     restaurantPlaces.add(
                             vtgDatabase.getPlaceDaoImpl().getPlaceById(
-                                    dbReadableConnection,allRestaurants.get(i).getPlaceId()
+                                    dbWritableConnection,allRestaurants.get(i).getPlaceId()
                             )
                     );
                 }
@@ -94,13 +93,13 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
                 ArrayList<Landmark> allLandmarks =
                         (ArrayList<Landmark>)vtgDatabase.getLandmarkDaoImpl()
-                                .getAllLandmarks(dbReadableConnection);
+                                .getAllLandmarks(dbWritableConnection);
 
                 ArrayList<Place> landmarkPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < landmarkPlaces.size() ; i++){
                     landmarkPlaces.add(
                             vtgDatabase.getPlaceDaoImpl().getPlaceById(
-                                    dbReadableConnection,allLandmarks.get(i).getPlaceId()
+                                    dbWritableConnection,allLandmarks.get(i).getPlaceId()
                             )
                     );
                 }
@@ -113,13 +112,13 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
                 ArrayList<ShoppingPlace> allShoppingPlaces =
                         (ArrayList<ShoppingPlace>)vtgDatabase.getShoppingPlacesDaoImpl()
-                                .getAllShoppingPlaces(dbReadableConnection);
+                                .getAllShoppingPlaces(dbWritableConnection);
 
                 ArrayList<Place> shoppingPlacePlaces = new ArrayList<> ();
                 for(int i = 0 ;i < shoppingPlacePlaces.size() ; i++){
                     shoppingPlacePlaces.add(
                             vtgDatabase.getPlaceDaoImpl().getPlaceById(
-                                    dbReadableConnection,allShoppingPlaces.get(i).getPlaceId()
+                                    dbWritableConnection,allShoppingPlaces.get(i).getPlaceId()
                             )
                     );
                 }
@@ -137,12 +136,12 @@ public class ListingPlacesActivity extends AppCompatActivity {
         for(Place place : placeListToLoad ) {
 
             Image mainImage = vtgDatabase.getImageDaoImpl().
-                    getMainImageForPlace(dbReadableConnection,place.getId());
+                    getMainImageForPlace(dbWritableConnection,place.getId());
 
             Drawable mainImageDrowable = loadImageFromWebOperations(mainImage.getImageURL());
 
             listItems.add(new ListLinksItem(
-                            place.getPlaceId(),
+                            place.getId(),
                             place.getName(),
                             place.getDescription(),
                             mainImageDrowable));
