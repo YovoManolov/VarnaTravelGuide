@@ -16,7 +16,7 @@ import java.util.List;
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     @Override
     public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
+       // DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
     }
 

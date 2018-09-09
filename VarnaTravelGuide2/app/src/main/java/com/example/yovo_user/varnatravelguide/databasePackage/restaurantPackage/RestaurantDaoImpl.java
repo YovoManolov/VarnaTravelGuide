@@ -18,7 +18,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
+        //DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
     }
 

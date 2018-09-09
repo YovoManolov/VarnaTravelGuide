@@ -16,7 +16,7 @@ import java.util.List;
 public class WorkHoursDaoImpl implements WorkHoursDao {
     @Override
     public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
+       // DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
     }
 

@@ -26,10 +26,14 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 
 public class VTGDatabase extends SQLiteOpenHelper {
 
+    private static SQLiteDatabase db;
     private static VTGDatabase vtgDatabase;
+    private static Context context;
+
     // Всички променливи са статични ! // Версия на Базата от Данни
     private static final int DATABASE_VERSION = 1;
-    private static final String DB_NAME = "varnaTravelGuide";
+    private static final String DB_NAME = "varnaTravelGuide.db";
+
 
     private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
@@ -42,44 +46,26 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
     public VTGDatabase(Context context){
                     super(context, DB_NAME, null, DATABASE_VERSION);
-                    this.getWritableDatabase();
+                    this.context = context;
     }
 
     public static synchronized VTGDatabase getInstance(Context context) {
 
         if (vtgDatabase == null) {
-            vtgDatabase = new VTGDatabase(context);
+            vtgDatabase = new VTGDatabase(context.getApplicationContext());
         }
         return vtgDatabase;
     }
 
+
+    @Override
+    public void onConfigure(SQLiteDatabase db){
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        try {
-            placeDaoImpl.createPlacesTable(db);
-            imageDaoImpl.createImageTable(db);
-            hotelDaoImpl.createHotelTable(db);
-            landmarkDaoImpl.createLandmarkTable(db);
-            restaurantDaoImpl.createRestaurantTable(db);
-            shoppingPlacesDaoImpl.createShoppingPlacesTable(db);
-            workHoursDaoImpl.createWorkHoursTable(db);
-            priceCategoryDaoImpl.createPriceCategoryTable(db);
-
-            //==================================================
-
-            placeDaoImpl.addPlaces( db, Place.populatePlaces());
-            imageDaoImpl.addImage(db,Image.populateImages());
-            hotelDaoImpl.addHotels(db,Hotel.populateHotels());
-            landmarkDaoImpl.addLandmarks( db, Landmark.populateLandmarks());
-            restaurantDaoImpl.addRestaurant( db, Restaurant.populateRestaurants() );
-            shoppingPlacesDaoImpl.addShoppingPlaces( db,ShoppingPlace.populateShoppingPlaces() );
-            workHoursDaoImpl.addWorkHours( db, WorkHours.populateWorkHours() );
-            priceCategoryDaoImpl.addPriceCategory(db, PriceCategory.populatePriceCategories() );
-
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
+        db.execSQL("PRAGMA foreign_keys = ON;");
     }
 
     @Override

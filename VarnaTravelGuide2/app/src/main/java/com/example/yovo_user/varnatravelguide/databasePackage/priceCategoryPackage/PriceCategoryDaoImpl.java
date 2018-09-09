@@ -18,7 +18,7 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
 
     @Override
     public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
+        //DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_PRICE_CATEGORIES_TABLE);
     }
 

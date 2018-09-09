@@ -16,8 +16,8 @@ import java.util.List;
 public class HotelDaoImpl implements HotelDao{
 
     @Override
-    public void createHotelTable(SQLiteDatabase db) {
-        DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
+    public void createHotelTable(SQLiteDatabase db) throws SQLException {
+        //DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
         db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
     }
 
@@ -45,7 +45,8 @@ public class HotelDaoImpl implements HotelDao{
     public List<Hotel> getAllHotels(SQLiteDatabase dbWritableConnection) {
         List<Hotel> allHotels = new ArrayList<Hotel>();
 
-        Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+        Cursor cursor = dbWritableConnection.
+                rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
 
         if (cursor.moveToFirst()) {
             do {

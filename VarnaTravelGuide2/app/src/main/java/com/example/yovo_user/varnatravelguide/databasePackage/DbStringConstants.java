@@ -1,8 +1,6 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
 public class DbStringConstants {
-    public static final String DATABASE_NAME = "varnaTravelGuide";
-
     public static final String TRUNCATE_TABLE_X = "DELETE FROM ";
     public static final String DROP_TABLE_X = "DROP TABLE IF EXISTS ";
 
@@ -103,28 +101,28 @@ public class DbStringConstants {
 
     public static String CREATE_PLACES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PLACES + " ("
-            + PL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + PL_ID + " NOT NULL INTEGER PRIMARY KEY, "
             + PL_NAME + " TEXT NOT NULL, "
             + PL_ADDRESS + " TEXT NOT NULL , "
-            + PL_LATITUDE + " TEXT NOT NULL , "
-            + PL_LONGITUDE + " TEXT NOT NULL , "
+            + PL_LATITUDE + " REAL NOT NULL , "
+            + PL_LONGITUDE + " REAL NOT NULL , "
             + PL_CONTACTS + " TEXT , "
-            + PL_DESCRIPTION + " TEXT )";
+            + PL_DESCRIPTION + " TEXT );";
 
     public static String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " +
             TABLE_IMAGES + " ("
-            + IM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + IM_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT , "
             + IM_PLACE_ID + " INTEGER NOT NULL, "
             + IM_IMAGE_URL + " TEXT NOT NULL, "
             + IM_MAIN_IMAGE + " INTEGER NOT NULL, "
             + "FOREIGN KEY ("+IM_PLACE_ID +") "
             + "REFERENCES "+TABLE_PLACES +" (ID)"
-            + " )";
+            + " );";
 
 
     public static String CREATE_HOTELS_TABLE =  "CREATE TABLE IF NOT EXISTS "
             + TABLE_HOTELS + " ("
-            + H_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + H_ID + "NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT , "
             + H_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + H_NUMB_OF_STARS + " INTEGER NOT NULL, "
             + H_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
@@ -132,21 +130,21 @@ public class DbStringConstants {
             + "REFERENCES "+TABLE_PLACES +" (ID), "
             + " FOREIGN KEY ("+H_PRICE_CATEGORY_ID +") "
             + " REFERENCES "+TABLE_PRICE_CATEGORIES +" (ID)"
-            + " )";
+            + " );";
 
     public static String CREATE_LANDMARKS_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_LANDMARKS + " ("
-            + L_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + L_ID + "NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT , "
             + L_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + L_ENTRANCE_TICKET + " TEXT NOT NULL, "
             + "FOREIGN KEY ("+L_PLACE_ID +") "
             + "REFERENCES "+TABLE_PLACES +" (ID)"
-            + " )";
+            + " );";
 
 
     public static String CREATE_RESTAURANTS_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_RESTAURANTS + " ("
-            + R_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + R_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT, "
             + R_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + R_PRICE_CATEGORY_ID + " INTEGER  NOT NULL, "
             + R_COUSINE + " TEXT NOT NULL, "
@@ -159,19 +157,19 @@ public class DbStringConstants {
 
     public static String CREATE_SHOPPING_PLACES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_SHOPPING_PLACES + " ("
-            + SP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + SP_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SP_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + SP_PRICE_CATEGORY_ID + " INTEGER NOT NULL, "
             + " FOREIGN KEY ("+SP_PLACE_ID +") "
             + " REFERENCES "+TABLE_PLACES +" (ID), "
             + " FOREIGN KEY ("+SP_PRICE_CATEGORY_ID +") "
             + " REFERENCES "+TABLE_PRICE_CATEGORIES +" (ID) "
-            +  " )";
+            +  " );";
 
 
     public static String CREATE_WORK_HOURS_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_WORK_HOURS + " ("
-            + WH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+            + WH_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT, "
             + WH_PLACE_ID + " INTEGER UNIQUE NOT NULL,"
             + WH_IS_24H + " INTEGER ,"
             + WH_MON_FRI + " TEXT ,"
@@ -179,13 +177,13 @@ public class DbStringConstants {
             + WH_SUN + " TEXT ,"
             + " FOREIGN KEY ("+WH_PLACE_ID +") "
             + " REFERENCES "+TABLE_PLACES +" (ID)"
-            + " )";
+            + " );";
 
     public static String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PRICE_CATEGORIES + " ("
-                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                 + PC_PRICE_TYPE + " TEXT NOT NULL"
-            + " )";
+            + " );";
 
 
     public static String GET_PRICE_CATEGORIES_BY_ID = "SELECT * FROM "+

@@ -12,29 +12,36 @@ import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image
 public class PlaceDaoImpl implements PlaceDao {
     @Override
     public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
+        //DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
     }
 
     @Override
     public void addPlaces(SQLiteDatabase dbWritableConnection,Place[] places){
-        dbWritableConnection.beginTransaction();
 
-        ContentValues values = new ContentValues();
-        for(int i = 0 ;i < places.length ;i++){
-            values.put(DbStringConstants.PL_NAME, places[i].getName());
-            values.put(DbStringConstants.PL_ADDRESS, places[i].getAddress());
-            values.put(DbStringConstants.PL_LATITUDE, places[i].getLatitude());
-            values.put(DbStringConstants.PL_LONGITUDE, places[i].getLongitude());
-            values.put(DbStringConstants.PL_CONTACTS, places[i].getContacts());
-            values.put(DbStringConstants.PL_DESCRIPTION, places[i].getDescription());
+        try{
 
-            dbWritableConnection.insert(DbStringConstants.TABLE_PLACES, null, values);
+            dbWritableConnection.beginTransaction();
 
-            values.clear();
+            ContentValues values = new ContentValues();
+            for(int i = 0 ;i < places.length ;i++){
+                values.put(DbStringConstants.PL_ID,places[i].getId());
+                values.put(DbStringConstants.PL_NAME, places[i].getName());
+                values.put(DbStringConstants.PL_ADDRESS, places[i].getAddress());
+                values.put(DbStringConstants.PL_LATITUDE, places[i].getLatitude());
+                values.put(DbStringConstants.PL_LONGITUDE, places[i].getLongitude());
+                values.put(DbStringConstants.PL_CONTACTS, places[i].getContacts());
+                values.put(DbStringConstants.PL_DESCRIPTION, places[i].getDescription());
+
+                dbWritableConnection.insert(DbStringConstants.TABLE_PLACES, null, values);
+
+                values.clear();
+            }
+
+            dbWritableConnection.endTransaction();
+        }catch(SQLException e){
+            e.printStackTrace();
         }
-
-        dbWritableConnection.endTransaction();
     }
 
     @Override
@@ -51,12 +58,13 @@ public class PlaceDaoImpl implements PlaceDao {
                 if (cursor.moveToFirst()) {
                     do {
                         place = new Place(
-                                cursor.getString(4),
+                                cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getDouble(3),
+                                cursor.getDouble(4),
                                 cursor.getString(5),
-                                cursor.getDouble(6),
-                                cursor.getDouble(7),
-                                cursor.getString(8),
-                                cursor.getString(9)
+                                cursor.getString(6)
                                 );
                     } while (cursor.moveToNext());
                 }

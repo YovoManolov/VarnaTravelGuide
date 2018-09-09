@@ -25,9 +25,9 @@ public class ImageDaoImpl implements ImageDao {
     @Override
     public void addImage(SQLiteDatabase dbWritableConnection, Image[] images) {
         dbWritableConnection.beginTransaction();
-
+        int i;
         ContentValues values = new ContentValues();
-        for(int i = 0 ;i < images.length ;i++){
+        for(i = 0 ;i < images.length ;i++){
             values.put(DbStringConstants.IM_PLACE_ID, images[i].getPlaceId());
             values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
             values.put(DbStringConstants.IM_MAIN_IMAGE, images[i].getIsMainImage());

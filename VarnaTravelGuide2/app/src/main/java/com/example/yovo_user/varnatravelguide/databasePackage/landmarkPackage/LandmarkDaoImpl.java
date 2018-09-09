@@ -16,8 +16,8 @@ import java.util.List;
 public class LandmarkDaoImpl implements LandmarkDao {
     @Override
     public void createLandmarkTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,
-                                        DbStringConstants.TABLE_LANDMARKS);
+        //DbBaseOperations.dropTableX(dbWritableConnection,
+        //                                DbStringConstants.TABLE_LANDMARKS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
     }
 
