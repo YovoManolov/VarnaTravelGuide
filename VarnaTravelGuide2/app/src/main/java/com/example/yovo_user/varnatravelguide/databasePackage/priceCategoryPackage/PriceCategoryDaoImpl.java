@@ -18,25 +18,29 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
 
     @Override
     public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        //DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_PRICE_CATEGORIES_TABLE);
     }
 
     @Override
     public void addPriceCategory(SQLiteDatabase dbWritableConnection, PriceCategory[] priceCategories) {
+
         dbWritableConnection.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            for(int i = 0 ;i < priceCategories.length ;i++){
+                values.put(DbStringConstants.PC_PRICE_TYPE,
+                        priceCategories[i].getPriceType());
+                dbWritableConnection.insert(DbStringConstants.TABLE_PRICE_CATEGORIES,
+                        null, values);
 
-        ContentValues values = new ContentValues();
-        for(int i = 0 ;i < priceCategories.length ;i++){
-            values.put(DbStringConstants.PC_PRICE_TYPE,
-                    priceCategories[i].getPriceType());
-            dbWritableConnection.insert(DbStringConstants.TABLE_PRICE_CATEGORIES,
-                    null, values);
-
-            values = new ContentValues();
+                values = new ContentValues();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
-
-        dbWritableConnection.endTransaction();
     }
 
 

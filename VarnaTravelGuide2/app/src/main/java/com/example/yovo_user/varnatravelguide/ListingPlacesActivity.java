@@ -57,28 +57,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
 
-        vtgDatabase = VTGDatabase.getInstance(this);
+        vtgDatabase = VTGDatabase.getInstance(ListingPlacesActivity.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();
-
-        placeDaoImpl.createPlacesTable(dbWritableConnection);
-        priceCategoryDaoImpl.createPriceCategoryTable(dbWritableConnection);
-        imageDaoImpl.createImageTable(dbWritableConnection);
-        hotelDaoImpl.createHotelTable(dbWritableConnection);
-        landmarkDaoImpl.createLandmarkTable(dbWritableConnection);
-        restaurantDaoImpl.createRestaurantTable(dbWritableConnection);
-        shoppingPlacesDaoImpl.createShoppingPlacesTable(dbWritableConnection);
-        workHoursDaoImpl.createWorkHoursTable(dbWritableConnection);
-
-        //==================================================
-        placeDaoImpl.addPlaces( dbWritableConnection, Place.populatePlaces());
-        priceCategoryDaoImpl.addPriceCategory(dbWritableConnection, PriceCategory.populatePriceCategories());
-        imageDaoImpl.addImage(dbWritableConnection,Image.populateImages());
-        hotelDaoImpl.addHotels(dbWritableConnection,Hotel.populateHotels());
-        landmarkDaoImpl.addLandmarks( dbWritableConnection, Landmark.populateLandmarks());
-        restaurantDaoImpl.addRestaurant( dbWritableConnection, Restaurant.populateRestaurants() );
-        shoppingPlacesDaoImpl.addShoppingPlaces( dbWritableConnection,ShoppingPlace.populateShoppingPlaces() );
-        workHoursDaoImpl.addWorkHours( dbWritableConnection, WorkHours.populateWorkHours() );
-
 
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
@@ -89,7 +69,6 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
 
-                HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
                 ArrayList<Hotel> allHotels = (ArrayList<Hotel>)
                         hotelDaoImpl.getAllHotels(dbWritableConnection);
 

@@ -24,39 +24,51 @@ public class ImageDaoImpl implements ImageDao {
 
     @Override
     public void addImage(SQLiteDatabase dbWritableConnection, Image[] images) {
-        dbWritableConnection.beginTransaction();
-        int i;
-        ContentValues values = new ContentValues();
-        for(i = 0 ;i < images.length ;i++){
-            values.put(DbStringConstants.IM_PLACE_ID, images[i].getPlaceId());
-            values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
-            values.put(DbStringConstants.IM_MAIN_IMAGE, images[i].getIsMainImage());
 
-            dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
-                    null, values);
-            values.clear();
+        dbWritableConnection.beginTransaction();
+        try {
+            int i;
+            ContentValues values = new ContentValues();
+            for (i = 0; i < images.length; i++) {
+                values.put(DbStringConstants.IM_PLACE_ID, images[i].getPlaceId());
+                values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
+                values.put(DbStringConstants.IM_MAIN_IMAGE, images[i].getIsMainImage());
+
+                dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
+                        null, values);
+                values.clear();
+
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
-        dbWritableConnection.endTransaction();
     }
 
     public List<Image> getImagesForPlace(SQLiteDatabase dbReadableConnection,int placeId){
         List<Image> allImagesForPlace = new ArrayList<>();
         dbReadableConnection.beginTransaction();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,
-                                    new String[]{
-                String.valueOf(placeId)
-        });
+        try{
+            Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,
+                                        new String[]{
+                    String.valueOf(placeId)
+            });
 
-        if (cursor.moveToFirst()) {
-            do {
-                Image image = new Image(cursor.getInt(1),
-                        cursor.getString(2),cursor.getInt(3));
-                allImagesForPlace.add(image);
-            } while (cursor.moveToNext());
+            if (cursor.moveToFirst()) {
+                do {
+                    Image image = new Image(cursor.getInt(1),
+                            cursor.getString(2),cursor.getInt(3));
+                    allImagesForPlace.add(image);
+                } while (cursor.moveToNext());
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbReadableConnection.endTransaction();
         }
 
-        dbReadableConnection.endTransaction();
         return allImagesForPlace;
     }
 
@@ -64,18 +76,26 @@ public class ImageDaoImpl implements ImageDao {
         Image mainImage  = null;
         dbReadableConnection.beginTransaction();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_MAIN_IMAGE_FOR_PLACE,
-                new String[]{
-                        String.valueOf(placeId),
-                        String.valueOf(1)
-                });
+        try{
 
-        if (cursor.moveToFirst()) {
-                mainImage = new Image(cursor.getInt(1),
-                        cursor.getString(2),cursor.getInt(3));
+            Cursor cursor = dbReadableConnection.rawQuery(
+                    DbStringConstants.GET_MAIN_IMAGE_FOR_PLACE,
+                    new String[]{
+                            String.valueOf(placeId),
+                            String.valueOf(1)
+                    });
+
+            if (cursor.moveToFirst()) {
+                    mainImage = new Image(cursor.getInt(1),
+                            cursor.getString(2),cursor.getInt(3));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbReadableConnection.endTransaction();
         }
 
-        dbReadableConnection.endTransaction();
         return mainImage;
     }
 }

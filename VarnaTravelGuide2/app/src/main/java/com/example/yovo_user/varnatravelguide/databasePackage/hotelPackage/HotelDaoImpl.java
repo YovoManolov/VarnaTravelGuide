@@ -17,7 +17,7 @@ public class HotelDaoImpl implements HotelDao{
 
     @Override
     public void createHotelTable(SQLiteDatabase db) throws SQLException {
-        //DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
+        DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
         db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
     }
 
@@ -25,20 +25,25 @@ public class HotelDaoImpl implements HotelDao{
     public void addHotels(SQLiteDatabase dbWritableConnection, Hotel[] hotels) throws SQLException {
 
         dbWritableConnection.beginTransaction();
+        try{
 
-        ContentValues values = new ContentValues();
-        for(int i = 0 ;i < hotels.length ;i++){
-            values.put(DbStringConstants.H_PLACE_ID, hotels[i].getPlaceId());
-            values.put(DbStringConstants.H_NUMB_OF_STARS, hotels[i].getNumbOfStars());
-            values.put(DbStringConstants.H_PRICE_CATEGORY_ID,
-                                        hotels[i].getPriceCategoryId());
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < hotels.length; i++) {
+                values.put(DbStringConstants.H_PLACE_ID, hotels[i].getPlaceId());
+                values.put(DbStringConstants.H_NUMB_OF_STARS, hotels[i].getNumbOfStars());
+                values.put(DbStringConstants.H_PRICE_CATEGORY_ID,
+                        hotels[i].getPriceCategoryId());
 
-            dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
-                                        null, values);
-            values.clear();
+                dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
+                        null, values);
+                values.clear();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
-
-        dbWritableConnection.endTransaction();
     }
 
     @Override

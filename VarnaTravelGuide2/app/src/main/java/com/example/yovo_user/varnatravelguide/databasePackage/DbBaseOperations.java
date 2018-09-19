@@ -8,13 +8,15 @@ public class DbBaseOperations {
 
     public static void dropTableX(SQLiteDatabase dbWritableConnection,String tableName){
         //TODO:P3 NPE tablename
+
+        dbWritableConnection.beginTransaction();
         try{
-            dbWritableConnection.beginTransaction();
             dbWritableConnection.execSQL(DbStringConstants.DROP_TABLE_X + tableName);
-            dbWritableConnection.endTransaction();
         }catch(SQLException e){
             e.printStackTrace();
             Log.e("VTGDatabase","error dropping table " + tableName);
+        }finally{
+            dbWritableConnection.endTransaction();
         }
     }
 

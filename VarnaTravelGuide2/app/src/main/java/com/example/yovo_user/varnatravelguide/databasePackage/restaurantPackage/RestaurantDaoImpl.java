@@ -18,26 +18,33 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
-        //DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
     }
 
     @Override
     public void addRestaurant(SQLiteDatabase dbWritableConnection, Restaurant[] restaurants) {
+
         dbWritableConnection.beginTransaction();
+        try{
 
-        ContentValues values = new ContentValues();
-        for(int i = 0 ;i < restaurants.length ;i++){
-            values.put(DbStringConstants.R_PLACE_ID,restaurants[i].getPlaceId());
-            values.put(DbStringConstants.R_PRICE_CATEGORY_ID,
-                                                restaurants[i].getPriceCategoryId());
-            values.put(DbStringConstants.R_COUSINE,restaurants[i].getCousine());
-            dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
-                                                   null, values);
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < restaurants.length; i++) {
+                values.put(DbStringConstants.R_PLACE_ID, restaurants[i].getPlaceId());
+                values.put(DbStringConstants.R_PRICE_CATEGORY_ID,
+                        restaurants[i].getPriceCategoryId());
+                values.put(DbStringConstants.R_COUSINE, restaurants[i].getCousine());
+                dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
+                        null, values);
 
-            values = new ContentValues();
+                values = new ContentValues();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
-        dbWritableConnection.endTransaction();
     }
 
     @Override

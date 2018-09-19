@@ -16,7 +16,7 @@ import java.util.List;
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     @Override
     public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
-       // DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
     }
 
@@ -24,19 +24,23 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     public void addShoppingPlaces(SQLiteDatabase dbWritableConnection,
                                         ShoppingPlace[] shoppingPlaces) {
         dbWritableConnection.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < shoppingPlaces.length; i++) {
+                values.put(DbStringConstants.SP_PLACE_ID, shoppingPlaces[i].getPlaceId());
+                values.put(DbStringConstants.SP_PRICE_CATEGORY_ID,
+                        shoppingPlaces[i].getPriceCategoryId());
 
-        ContentValues values = new ContentValues();
-        for(int i = 0 ;i < shoppingPlaces.length ;i++){
-            values.put(DbStringConstants.SP_PLACE_ID,shoppingPlaces[i].getPlaceId());
-            values.put(DbStringConstants.SP_PRICE_CATEGORY_ID,
-                    shoppingPlaces[i].getPriceCategoryId());
+                dbWritableConnection.insert(DbStringConstants.TABLE_SHOPPING_PLACES,
+                        null, values);
 
-            dbWritableConnection.insert(DbStringConstants.TABLE_SHOPPING_PLACES,
-                    null, values);
-
-            values = new ContentValues();
+                values = new ContentValues();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
-        dbWritableConnection.endTransaction();
     }
 
     @Override

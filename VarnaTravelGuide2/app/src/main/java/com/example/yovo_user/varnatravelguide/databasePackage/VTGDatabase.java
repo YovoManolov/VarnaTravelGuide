@@ -26,14 +26,12 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 
 public class VTGDatabase extends SQLiteOpenHelper {
 
-    private static SQLiteDatabase db;
     private static VTGDatabase vtgDatabase;
-    private static Context context;
+    private Context mContext;
 
     // Всички променливи са статични ! // Версия на Базата от Данни
     private static final int DATABASE_VERSION = 1;
     private static final String DB_NAME = "varnaTravelGuide.db";
-
 
     private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
@@ -45,8 +43,8 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
 
     public VTGDatabase(Context context){
-                    super(context, DB_NAME, null, DATABASE_VERSION);
-                    this.context = context;
+            super(context, DB_NAME, null, DATABASE_VERSION);
+            mContext = context;
     }
 
     public static synchronized VTGDatabase getInstance(Context context) {
@@ -57,15 +55,31 @@ public class VTGDatabase extends SQLiteOpenHelper {
         return vtgDatabase;
     }
 
-
-    @Override
-    public void onConfigure(SQLiteDatabase db){
-        db.setForeignKeyConstraintsEnabled(true);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("PRAGMA foreign_keys = ON;");
+
+        if (!db.isReadOnly()) {
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+
+        placeDaoImpl.createPlacesTable(db);
+        priceCategoryDaoImpl.createPriceCategoryTable(db);
+        imageDaoImpl.createImageTable(db);
+        hotelDaoImpl.createHotelTable(db);
+        landmarkDaoImpl.createLandmarkTable(db);
+        restaurantDaoImpl.createRestaurantTable(db);
+        shoppingPlacesDaoImpl.createShoppingPlacesTable(db);
+        workHoursDaoImpl.createWorkHoursTable(db);
+
+        placeDaoImpl.addPlaces(db, Place.populatePlaces());
+        priceCategoryDaoImpl.addPriceCategory(db, PriceCategory.populatePriceCategories());
+        imageDaoImpl.addImage(db, Image.populateImages());
+        hotelDaoImpl.addHotels(db, Hotel.populateHotels());
+        landmarkDaoImpl.addLandmarks(db, Landmark.populateLandmarks());
+        restaurantDaoImpl.addRestaurant(db, Restaurant.populateRestaurants() );
+        shoppingPlacesDaoImpl.addShoppingPlaces(db, ShoppingPlace.populateShoppingPlaces() );
+        workHoursDaoImpl.addWorkHours(db, WorkHours.populateWorkHours() );
+
     }
 
     @Override

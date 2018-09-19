@@ -11,10 +11,9 @@ public class Place {
     private String description;
 
     public Place(){};
-    public Place(int id,String name, String address,
+    public Place(String name, String address,
                  double latitude, double longitude, String contacts,
                  String description) {
-        this.id = id;
         this.name = name;
         this.address = address;
         this.latitude = latitude;
@@ -82,7 +81,7 @@ public class Place {
     public static Place[] populatePlaces() {
         return new Place[]{
                 //restaurants
-                new Place(1,"Complex Valsheben Izvor Devnia",
+                new Place("Complex Valsheben Izvor Devnia",
                         "Quarter Devnya River, Devnya River, 9160 Devnya",
                         43.230801, 27.588384,
                         "Cell./Mob. : +359 88 808 8120 \n" +
@@ -92,7 +91,7 @@ public class Place {
                                 " preparation of dishes from the Bulgarian, European and" +
                                 " Mediterranean cuisine. The restaurant has a garden with" +
                                 " century-old trees and a children's playground. Payments" ),
-                new Place(2,"Pizza Pizzarela",
+                new Place("Pizza Pizzarela",
                         "18 Vasil Petleshkov Street, 9010 Levski, Varna",
                         43.222125, 27.934123,
                         "Cell./Mob. : +359 87 877 0898 \n" +
@@ -104,7 +103,7 @@ public class Place {
                                 " private parties, business meeting, romance," +
                                 " company parties, smokers, anniversaries, celebrations"
                         ),
-                new Place(3,"Musala restaurant",
+                new Place("Musala restaurant",
                         "Musala Street, 3, Varna",
                         43.202993, 27.914683,
                         "LL: +359 664 100  \n" +
@@ -116,7 +115,7 @@ public class Place {
                                 " dinners as well as for company or personal occasions. " +
                                 " We create a cozy atmosphere that predisposes you to an" +
                                 " unforgettable meeting with our exclusive cuisine."),
-                new Place(4,"La Mer Restaurant&Bar",
+                new Place("La Mer Restaurant&Bar",
                         "zh.k.Chaika ,Street Boyan Bachvarov 152",
                         43.264810, 28.035492,
                         "Cell./Mob. :+35988 810 1909 \n" +
@@ -127,7 +126,7 @@ public class Place {
                                 " and a variety of sweet temptations. Rich variety of" +
                                 " incredible suggestions made with lots of love for the " +
                                 " customer and attention to detail."),
-                new Place(5,"The Black Sheep Brewhouse",
+                new Place("The Black Sheep Brewhouse",
                         "27 Tsar Simeon I Str., 9000 Varna Center, Varna",
                         43.206339, 27.920642,
                         "Cell./Mob. : +359 87 862 3426 \n" +
@@ -138,7 +137,7 @@ public class Place {
                         ),
 
                 //shopping places
-                new Place(6,"Grand Mall Varna",
+                new Place("Grand Mall Varna",
                         "\"Akademik Andrey Sakharov\" 2, 9000 Varna",
                         43.217475, 27.898588,
                         "Cell./Mob. :  0700 33 939\n" +
@@ -152,7 +151,7 @@ public class Place {
                                 " retail space is over 50,000 square meters, and " +
                                 "stores - more than 220. The convenience of visitors" +
                                 "provides over 1,700 parking spaces."),
-                new Place(7,"LOLLIPOP",
+                new Place("LOLLIPOP",
                         "V36, Knyaz Boris I bul., Varna, Bulgaria, 9000",
                         43.204173, 27.917980,
                         "Cell./Mob. : +359 877 133 757\n" +
@@ -166,7 +165,7 @@ public class Place {
                                 "\n" +
                                 "   Our candies are made from white sugar with added natural" +
                                 " colors and flavors also do not contain gluten."),
-                new Place(8,"Picadilly Park",
+                new Place("Picadilly Park",
                         "Varna, bul. Primorski park II 482",
                         43.215300, 27.954959,
                         "LL :  052 385 466\n" +
@@ -179,7 +178,7 @@ public class Place {
                                 "shops, travel agency, optics, Technomarket" +
                                 "store, fitness center, solarium , a beauty " +
                                 "center, a panorama bar and more."),
-                new Place(9,"Retail Park Varna",
+                new Place("Retail Park Varna",
                         "Blvd. \"Vladislav Varnenchik\" 310, 9009 West Industrial Zone, Varna",
                         43.223435, 27.872933,
                         "Cell./Mob. :  0700 33 939\n" +
@@ -198,7 +197,7 @@ public class Place {
                                 "Comsed toy store. Retail Park Varna also features " +
                                 "a Gallery with representatives of the houseware industry," +
                                 "which complement the retail concept. "),
-                new Place(10,"Tina Art Gallery",
+                new Place("Tina Art Gallery",
                         "25 Vasil Drumev str 9010 Varna, Bulgaria",
                         43.210998, 27.926977,
                         "Cell./Mob. : 088 856 8023\n" +
@@ -214,7 +213,7 @@ public class Place {
                         ),
 
                 //Hotels
-                new Place(11,"Akopolis",
+                new Place("Akopolis",
                         "13, Tsar Ivan Shishman Street, 9000 Varna Center",
                         43.217500, 27.958885,
                         "LL: 052 603 108  \n" +
@@ -228,7 +227,7 @@ public class Place {
                                 "It is located next to the the train station, " +
                                 "Varna Custom house, 50 meters from the Varna" +
                                 " beach and the beautiful Sea Garden."),
-                new Place(12,"Guesthouse Jana",
+                new Place("Guesthouse Jana",
                         "137, Knyaz Boris I Blvd., 9010 Varna, Bulgaria",
                         43.199029, 27.919575,
                         "LL: 052 335 237 \n" +
@@ -243,7 +242,7 @@ public class Place {
                                 " Villa Jana's shared kitchen, which is equipped with all" +
                                 " necessary utensils and amenities. Free Wi-Fi is available " +
                                 "in the entire building." ),
-                new Place(13,"Villa Duchessa Varna",
+                new Place("Villa Duchessa Varna",
                         "Varna 9010, Primorski Park, Saltanat 64",
                         43.2136639, 43.213663,
                         "LL: 052 71 66 44 / 052 71 66 55 \n" +
@@ -259,7 +258,7 @@ public class Place {
                                 " a few meters away and is visible from the second and third" +
                                 " floors of the villa."),
 
-                new Place(14,"Hotel Boutique Splendid",
+                new Place("Hotel Boutique Splendid",
                         "Str. Bratia Shkorpil 30,\n" +
                                 "Varna 9000, Bulgaria",
                         43.2136639, 43.213663,
@@ -276,7 +275,7 @@ public class Place {
                                 "service, friendly and professional attitude of the staff" +
                                 " will contribute to your pleasant stay in the heart" +
                                 " of Varna City."),
-                new Place(15,"Rosslyn Dimyat Hotel",
+                new Place("Rosslyn Dimyat Hotel",
                         "Varna 9010, Primorski Park, Saltanat 64",
                         43.2136639, 43.213663,
                         "LL: +359 52 910 800 \n" +
@@ -292,7 +291,7 @@ public class Place {
                         ),
 
                 //LANDMARKS
-                new Place(16,
+                new Place(
                         "Stone Forest",
                         "Location:\tVarna Province, Bulgaria\n" +
                                 "Nearest city:\tAksakovo",
@@ -306,7 +305,7 @@ public class Place {
                                 " numerous limestone pillars as high as 10 m, hollow or" +
                                 " solid cylinders, truncated cones and single rocks and" +
                                 " cliffs."),
-                new Place(17,"Patleina monastery",
+                new Place("Patleina monastery",
                         " Patleina reserve, " +
                                 "about 8 km from Veliki Preslav",
                         43.134077, 26.818260,
@@ -316,7 +315,7 @@ public class Place {
                                 " 70 years of building, not far from the ruins of the old " +
                                 "monastery , where was discovered the world-famous ceramic" +
                                 " icon \"St. Theodore\" "),
-                new Place(18,
+                new Place(
                         "Palace of Omurtag",
                         "Location: near the village of Han Krum in Shumen Province. ",
                         43.184499262, 26.892329764,
@@ -329,7 +328,7 @@ public class Place {
                                 " has been pinpointed as the location of a fort and palace " +
                                 "of Omurtag, ruler (kanasybigi) of the First Bulgarian Empire " +
                                 "in 815–831, as mentioned in the Chatalar Inscription of 822."),
-                new Place(19,
+                new Place(
                         "Madara Rider",
                         "Location:\t east of Shumen in northeastern Bulgaria," +
                                 " near the village of Madara.\n" +
@@ -345,7 +344,7 @@ public class Place {
                                 " solid cylinders, truncated cones and single rocks and" +
                                 " cliffs."),
                 //TODO : description to be changes
-                new Place(20,
+                new Place(
                         "Regional History Museum of Varna",
                         "9000 Varna, 41 Maria Luisa Blvd" +
                                 "Nearest city:\tAksakovo",

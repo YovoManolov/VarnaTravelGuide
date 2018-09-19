@@ -101,7 +101,7 @@ public class DbStringConstants {
 
     public static String CREATE_PLACES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PLACES + " ("
-            + PL_ID + " NOT NULL INTEGER PRIMARY KEY, "
+            + PL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PL_NAME + " TEXT NOT NULL, "
             + PL_ADDRESS + " TEXT NOT NULL , "
             + PL_LATITUDE + " REAL NOT NULL , "
@@ -111,7 +111,7 @@ public class DbStringConstants {
 
     public static String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS " +
             TABLE_IMAGES + " ("
-            + IM_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT , "
+            + IM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + IM_PLACE_ID + " INTEGER NOT NULL, "
             + IM_IMAGE_URL + " TEXT NOT NULL, "
             + IM_MAIN_IMAGE + " INTEGER NOT NULL, "
@@ -122,7 +122,7 @@ public class DbStringConstants {
 
     public static String CREATE_HOTELS_TABLE =  "CREATE TABLE IF NOT EXISTS "
             + TABLE_HOTELS + " ("
-            + H_ID + "NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT , "
+            + H_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + H_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + H_NUMB_OF_STARS + " INTEGER NOT NULL, "
             + H_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
@@ -134,7 +134,7 @@ public class DbStringConstants {
 
     public static String CREATE_LANDMARKS_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_LANDMARKS + " ("
-            + L_ID + "NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT , "
+            + L_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + L_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + L_ENTRANCE_TICKET + " TEXT NOT NULL, "
             + "FOREIGN KEY ("+L_PLACE_ID +") "
@@ -144,7 +144,7 @@ public class DbStringConstants {
 
     public static String CREATE_RESTAURANTS_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_RESTAURANTS + " ("
-            + R_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + R_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + R_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + R_PRICE_CATEGORY_ID + " INTEGER  NOT NULL, "
             + R_COUSINE + " TEXT NOT NULL, "
@@ -157,7 +157,7 @@ public class DbStringConstants {
 
     public static String CREATE_SHOPPING_PLACES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_SHOPPING_PLACES + " ("
-            + SP_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + SP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SP_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + SP_PRICE_CATEGORY_ID + " INTEGER NOT NULL, "
             + " FOREIGN KEY ("+SP_PLACE_ID +") "
@@ -169,7 +169,7 @@ public class DbStringConstants {
 
     public static String CREATE_WORK_HOURS_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_WORK_HOURS + " ("
-            + WH_ID + " NOT NULL INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + WH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + WH_PLACE_ID + " INTEGER UNIQUE NOT NULL,"
             + WH_IS_24H + " INTEGER ,"
             + WH_MON_FRI + " TEXT ,"
@@ -181,26 +181,26 @@ public class DbStringConstants {
 
     public static String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PRICE_CATEGORIES + " ("
-                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + PC_PRICE_TYPE + " TEXT NOT NULL"
             + " );";
 
 
     public static String GET_PRICE_CATEGORIES_BY_ID = "SELECT * FROM "+
             TABLE_PRICE_CATEGORIES
-            + "WHERE "+PC_ID+" = ?";
+            + "WHERE "+PC_ID+" = ?"+ ";";
     public static String GET_PLACE_BY_ID = "SELECT * FROM "+ TABLE_PLACES
-            + "WHERE "+PL_ID+" = ? ";
+            + "WHERE "+PL_ID+" = ? " + ";";
     public static String GET_IMAGES_FOR_PLACE = "SELECT * FORM " +TABLE_IMAGES
-            + "WHERE " + IM_PLACE_ID + " = ? ";
+            + "WHERE " + IM_PLACE_ID + " = ? " + ";";
     public static String GET_MAIN_IMAGE_FOR_PLACE = "SELECT * FORM " +TABLE_IMAGES
-            + "WHERE " + IM_PLACE_ID + " = ?  AND "+ IM_MAIN_IMAGE + "= ? ";
+            + "WHERE " + IM_PLACE_ID + " = ?  AND "+ IM_MAIN_IMAGE + "= ? " + ";";
     public static String GET_WORK_HOURS_BY_ID = "SELECT * FROM " + TABLE_WORK_HOURS
-            +  "WHERE PLACE_ID = ? ";
-    public static String GET_ALL_HOTELS = "SELECT * FROM " + TABLE_HOTELS;
-    public static String GET_ALL_RESTAURANTS = "SELECT * FROM " + TABLE_RESTAURANTS;
-    public static String GET_ALL_LANDMARKS = "SELECT * FROM " + TABLE_LANDMARKS;
-    public static String GET_ALL_SHOPPING_PLACES = "SELECT * FROM " + TABLE_SHOPPING_PLACES;
+            +  "WHERE PLACE_ID = ? " + ";";
+    public static String GET_ALL_HOTELS = "SELECT * FROM " + TABLE_HOTELS + ";";
+    public static String GET_ALL_RESTAURANTS = "SELECT * FROM " + TABLE_RESTAURANTS + ";";
+    public static String GET_ALL_LANDMARKS = "SELECT * FROM " + TABLE_LANDMARKS + ";";
+    public static String GET_ALL_SHOPPING_PLACES = "SELECT * FROM " + TABLE_SHOPPING_PLACES + ";";
 
 
 }
