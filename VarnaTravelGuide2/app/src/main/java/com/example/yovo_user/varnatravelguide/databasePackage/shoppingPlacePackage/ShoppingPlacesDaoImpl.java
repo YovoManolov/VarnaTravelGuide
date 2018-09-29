@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
@@ -18,6 +19,9 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
+        Log.d("Create table message: ","Table " +
+                DbStringConstants.TABLE_SHOPPING_PLACES + " is being created !");
+
     }
 
     @Override

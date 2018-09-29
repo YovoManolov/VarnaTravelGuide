@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
@@ -43,6 +44,8 @@ public class PlaceDaoImpl implements PlaceDao {
     public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
+        Log.d("Create table message: ","Table " +
+                DbStringConstants.TABLE_PLACES + " is being created !");
     }
 
     @Override

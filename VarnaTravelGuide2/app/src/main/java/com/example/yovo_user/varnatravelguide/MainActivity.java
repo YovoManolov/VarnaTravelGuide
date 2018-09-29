@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //this will be STAND BY while making the links for the main activity
     private void setClickEvents(android.support.v7.widget.GridLayout mainLinksGridL){
         CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
         hotelsCV.setOnClickListener(new View.OnClickListener() {

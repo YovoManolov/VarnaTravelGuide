@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
@@ -19,6 +20,9 @@ public class HotelDaoImpl implements HotelDao{
     public void createHotelTable(SQLiteDatabase db) throws SQLException {
         DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
         db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
+        Log.d("Create table message: ","Table "
+                + DbStringConstants.TABLE_HOTELS + " is being created !");
+
     }
 
     @Override

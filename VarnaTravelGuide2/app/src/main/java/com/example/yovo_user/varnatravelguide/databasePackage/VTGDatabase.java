@@ -28,6 +28,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
     private static VTGDatabase vtgDatabase;
     private Context mContext;
+    private SQLiteDatabase dbWritableConnection;
 
     // Всички променливи са статични ! // Версия на Базата от Данни
     private static final int DATABASE_VERSION = 1;
@@ -45,6 +46,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
     public VTGDatabase(Context context){
             super(context, DB_NAME, null, DATABASE_VERSION);
             mContext = context;
+            dbWritableConnection = getWritableDatabase();
     }
 
     public static synchronized VTGDatabase getInstance(Context context) {

@@ -1,5 +1,6 @@
 package com.example.yovo_user.varnatravelguide;
 
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -60,9 +62,14 @@ public class ListingPlacesActivity extends AppCompatActivity {
         vtgDatabase = VTGDatabase.getInstance(ListingPlacesActivity.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();
 
+        setClickEvents(mainLinksGridL);
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
 
+        initActivity(typeOfPlacesToLoad);
+    }
+
+    private void initActivity(String typeOfPlacesToLoad){
         ImageView imageViewPlacesHeaderId;
         switch(typeOfPlacesToLoad){
             case "hotels":
@@ -76,7 +83,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size() ; i++){
                     hotelPlaces.add(placeDaoImpl.getPlaceById(
-                                 dbWritableConnection,allHotels.get(i).getPlaceId()
+                            dbWritableConnection,allHotels.get(i).getPlaceId()
                             )
                     );
                 }
@@ -85,7 +92,6 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
                 break;
             case "restaurants":
-
 
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.restaurantslabel);
@@ -98,7 +104,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Place> restaurantPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < restaurantPlaces.size() ; i++){
                     restaurantPlaces.add(placeDaoImpl.getPlaceById(
-                                    dbWritableConnection,allRestaurants.get(i).getPlaceId()
+                            dbWritableConnection,allRestaurants.get(i).getPlaceId()
                             )
                     );
                 }
@@ -117,7 +123,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Place> landmarkPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < landmarkPlaces.size() ; i++){
                     landmarkPlaces.add(placeDaoImpl.getPlaceById(
-                                    dbWritableConnection,allLandmarks.get(i).getPlaceId()
+                            dbWritableConnection,allLandmarks.get(i).getPlaceId()
                             )
                     );
                 }
@@ -135,7 +141,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Place> shoppingPlacePlaces = new ArrayList<> ();
                 for(int i = 0 ;i < shoppingPlacePlaces.size() ; i++){
                     shoppingPlacePlaces.add(placeDaoImpl.getPlaceById(
-                                    dbWritableConnection,allShoppingPlaces.get(i).getPlaceId()
+                            dbWritableConnection,allShoppingPlaces.get(i).getPlaceId()
                             )
                     );
                 }
@@ -206,4 +212,24 @@ public class ListingPlacesActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    private void setClickEvents(){
+        ListView listOfPlaces = (ListView) findViewById(R.id.listOfPlaces);
+        listOfPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3)
+            {
+                Intent intent = new Intent(ListingPlacesActivity.this,SinglePlaceInfo.class);
+                Bundle bundle = new Bundle();
+                Place chosenPlace = (Place) adapter.getItemAtPosition(position);
+                bundle.putString("PLACE_ID",String.valueOf(chosenPlace.getId()));
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
 }
