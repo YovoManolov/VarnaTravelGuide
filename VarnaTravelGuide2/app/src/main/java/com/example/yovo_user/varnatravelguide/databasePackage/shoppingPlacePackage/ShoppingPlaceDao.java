@@ -11,4 +11,6 @@ public interface ShoppingPlaceDao {
     public void addShoppingPlaces(SQLiteDatabase dbWritableConnection,
                          ShoppingPlace[] shoppingPlaces);
     public List<ShoppingPlace> getAllShoppingPlaces(SQLiteDatabase dbReadableConnection);
+    public ShoppingPlace getShoppingPlaceByPlaceId
+            (SQLiteDatabase dbWritableConnection,Integer placeId);
 }

@@ -18,13 +18,23 @@
             android:layout_height="match_parent"
             android:layout_marginTop="0dp">
 
-            <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="16dp" />
+            <LinearLayout
+                android:id="@+id/PlaceImagesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:orientation="horizontal"
+                android:paddingTop="0dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPagerId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+            </LinearLayout>
     </RelativeLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

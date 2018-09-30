@@ -61,7 +61,7 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
     }
 
     @Override
-    public List<WorkHours> getWorkHoursByPlaceId(SQLiteDatabase dbReadableConnection,int placeId){
+    public List<WorkHours> getWorkHoursByPlaceId(int placeId,SQLiteDatabase dbReadableConnection){
         List<WorkHours> workHoursList = new ArrayList<>();
 
         Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_WORK_HOURS_BY_ID,new String[]{

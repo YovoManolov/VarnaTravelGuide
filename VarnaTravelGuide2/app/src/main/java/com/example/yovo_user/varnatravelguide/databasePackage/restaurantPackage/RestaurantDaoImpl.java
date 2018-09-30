@@ -70,4 +70,35 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         return allRestaurants;
     }
+
+    @Override
+    public Restaurant getRestaurantByPlaceId
+            (SQLiteDatabase dbWritableConnection, Integer placeId){
+
+        try{
+            Cursor cursor = dbWritableConnection.
+                    rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Restaurant restaurant = new Restaurant(
+                            cursor.getInt(1),
+                            cursor.getInt(2),
+                            cursor.getString(3)
+                    );
+
+                    if(restaurant.getPlaceId() == placeId){
+                        return restaurant;
+                    }
+                } while (cursor.moveToNext());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+
+        return null;
+    }
 }

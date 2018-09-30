@@ -8,8 +8,10 @@ import java.util.List;
 
 public interface RestaurantDao {
     public void createRestaurantTable(SQLiteDatabase dbWritableConnection);
-    public void addRestaurant(SQLiteDatabase dbWritableConnection,
-                          Restaurant[] restaurants);
+    public void addRestaurant(
+            SQLiteDatabase dbWritableConnection, Restaurant[] restaurants);
     public List<Restaurant> getAllResaturants(SQLiteDatabase dbReadableConnection);
+    public Restaurant getRestaurantByPlaceId
+            (SQLiteDatabase dbWritableConnection, Integer placeId);
 
 }

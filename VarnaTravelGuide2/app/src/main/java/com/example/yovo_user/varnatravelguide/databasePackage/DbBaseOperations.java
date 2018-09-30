@@ -33,4 +33,18 @@ public class DbBaseOperations {
         Log.i("DbBaseOperations","Old version db "+ oldVersion +"is droped !");
         Log.i("DbBaseOperations","New version db "+ newVersion +"is to be generated !");
     }
+
+    public static String getPlaceTypeById(Integer placeId){
+        if(placeId > 0 && placeId <= 5){
+            return DbStringConstants.TABLE_RESTAURANTS;
+        }else if(placeId > 5 && placeId <= 10){
+            return DbStringConstants.TABLE_SHOPPING_PLACES;
+        }else if(placeId > 10 && placeId <= 15){
+            return DbStringConstants.TABLE_HOTELS;
+        }else if(placeId > 15 && placeId <= 20){
+            return DbStringConstants.TABLE_LANDMARKS;
+        }else{
+            return null;
+        }
+    }
 }

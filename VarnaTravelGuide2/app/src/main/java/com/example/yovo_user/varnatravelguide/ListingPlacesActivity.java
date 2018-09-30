@@ -62,7 +62,9 @@ public class ListingPlacesActivity extends AppCompatActivity {
         vtgDatabase = VTGDatabase.getInstance(ListingPlacesActivity.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();
 
-        setClickEvents(mainLinksGridL);
+        ListView listOfPlaces = (ListView) findViewById(R.id.listOfPlaces);
+        setClickEvents(listOfPlaces);
+
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
 
@@ -81,10 +83,10 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
 
                 ArrayList<Place> hotelPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < allHotels.size() ; i++){
+                for(int i = 0 ;i < allHotels.size(); i++){
                     hotelPlaces.add(placeDaoImpl.getPlaceById(
                             dbWritableConnection,allHotels.get(i).getPlaceId()
-                            )
+                        )
                     );
                 }
 
@@ -213,15 +215,16 @@ public class ListingPlacesActivity extends AppCompatActivity {
         }
     }
 
-    private void setClickEvents(){
-        ListView listOfPlaces = (ListView) findViewById(R.id.listOfPlaces);
+    private void setClickEvents( ListView listOfPlaces ){
+
         listOfPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3)
             {
-                Intent intent = new Intent(ListingPlacesActivity.this,SinglePlaceInfo.class);
+                Intent intent = new Intent(ListingPlacesActivity.this,
+                                            SinglePlaceInfo.class);
                 Bundle bundle = new Bundle();
                 Place chosenPlace = (Place) adapter.getItemAtPosition(position);
                 bundle.putString("PLACE_ID",String.valueOf(chosenPlace.getId()));

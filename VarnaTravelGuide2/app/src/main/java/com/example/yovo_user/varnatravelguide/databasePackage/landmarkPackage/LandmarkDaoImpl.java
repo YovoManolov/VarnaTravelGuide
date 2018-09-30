@@ -57,12 +57,42 @@ public class LandmarkDaoImpl implements LandmarkDao {
 
         if (cursor.moveToFirst()) {
             do {
-                Landmark landmark = new Landmark(cursor.getInt(1),
-                                                            cursor.getString(2));
+                Landmark landmark = new Landmark(
+                        cursor.getInt(1),
+                        cursor.getString(2)
+                );
                 allLandmarks.add(landmark);
             } while (cursor.moveToNext());
         }
 
         return allLandmarks;
+    }
+
+    @Override
+    public Landmark getLandmarkByPlaceId(SQLiteDatabase dbWritableConnection,Integer placeId){
+
+        try{
+            Cursor cursor = dbWritableConnection.
+                    rawQuery(DbStringConstants.GET_ALL_LANDMARKS,null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Landmark landmark = new Landmark(
+                            cursor.getInt(1),
+                            cursor.getString(2));
+
+                    if(landmark.getPlaceId() == placeId){
+                        return landmark;
+                    }
+                } while (cursor.moveToNext());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+
+        return null;
     }
 }

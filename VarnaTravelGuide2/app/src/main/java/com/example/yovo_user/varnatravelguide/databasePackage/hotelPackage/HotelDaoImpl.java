@@ -54,18 +54,55 @@ public class HotelDaoImpl implements HotelDao{
     public List<Hotel> getAllHotels(SQLiteDatabase dbWritableConnection) {
         List<Hotel> allHotels = new ArrayList<Hotel>();
 
-        Cursor cursor = dbWritableConnection.
-                rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+        try{
+            Cursor cursor = dbWritableConnection.
+                    rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                Hotel hotel = new Hotel(cursor.getInt(1),cursor.getInt(2)
-                                        ,cursor.getInt(3));
-                allHotels.add(hotel);
-            } while (cursor.moveToNext());
+            if (cursor.moveToFirst()) {
+                do {
+                    Hotel hotel = new Hotel(cursor.getInt(1),
+                                            cursor.getInt(2),
+                                            cursor.getInt(3));
+                    allHotels.add(hotel);
+                } while (cursor.moveToNext());
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
 
         return allHotels;
+    }
+
+    @Override
+    public Hotel getHotelByPlaceId(
+            SQLiteDatabase dbWritableConnection,Integer placeId) {
+
+        try{
+            Cursor cursor = dbWritableConnection.
+                    rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Hotel hotel = new Hotel(
+                            cursor.getInt(1),
+                            cursor.getInt(2),
+                            cursor.getInt(3));
+
+                    if(hotel.getPlaceId() == placeId){
+                        return hotel;
+                    }
+                } while (cursor.moveToNext());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+
+        return null;
     }
 
 

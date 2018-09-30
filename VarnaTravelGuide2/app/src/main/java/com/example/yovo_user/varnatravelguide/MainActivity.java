@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         generateViewPager();
 
-        mainLinksGridL = (android.support.v7.widget.GridLayout) findViewById(R.id.mainLinksGridL);
+        mainLinksGridL = (android.support.v7.widget.GridLayout)
+                findViewById(R.id.mainLinksGridL);
+
         setClickEvents(mainLinksGridL);
         generateLinks();
         addLinksClickListener();
@@ -70,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<ListLinksItem> {
         public CustomAdapter() {
-            super(MainActivity.this, R.layout.list_item, listUrlLinks);
+            super(MainActivity.this,
+                                    R.layout.list_item, listUrlLinks);
         }
 
         @Override
