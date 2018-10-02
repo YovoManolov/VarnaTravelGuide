@@ -7,6 +7,22 @@
     tools:context=".SinglePlaceInfo">
 
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="55dp"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/goldcoin_prcat"
+        tools:layout_editor_absoluteX="195dp"
+        tools:layout_editor_absoluteY="350dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="55dp"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/goldcoin_prcat"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="350dp" />
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,10 +47,47 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPagerId"
                     android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:layout_height="180dp"
                     app:srcCompat="@mipmap/ic_launcher" />
 
+
+
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/GoogleMapsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="180dp"
+                android:orientation="horizontal"
+                android:paddingTop="0dp">
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="386dp"
+                    android:layout_height="170dp" />
+
+
+            </LinearLayout>
+
+
     </RelativeLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="195dp"
+        android:layout_height="45dp"
+        android:text="PriceCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="350dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="52dp"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/goldcoin_prcat"
+        tools:layout_editor_absoluteX="305dp"
+        tools:layout_editor_absoluteY="350dp" />
 </android.support.constraint.ConstraintLayout>
