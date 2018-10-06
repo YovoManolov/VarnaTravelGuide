@@ -2,6 +2,7 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Typeface myCustomFont =
+                    Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");
 
         generateViewPager();
 

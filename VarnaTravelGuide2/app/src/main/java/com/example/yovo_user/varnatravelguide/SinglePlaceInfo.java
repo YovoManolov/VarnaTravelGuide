@@ -1,9 +1,11 @@
 package com.example.yovo_user.varnatravelguide;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
@@ -13,6 +15,8 @@ import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.La
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
+
+import org.w3c.dom.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,6 +31,12 @@ public class SinglePlaceInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_place_info);
+
+        //set text font for price category label :)
+        Typeface myCustomFont =
+                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");
+        TextView priceCategory = (TextView)findViewById(R.id.priceCategoryId);
+        priceCategory.setTypeface(myCustomFont);
 
         vtgDatabase = VTGDatabase.getInstance(SinglePlaceInfo.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();

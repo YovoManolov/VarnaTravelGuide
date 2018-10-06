@@ -6,24 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".SinglePlaceInfo">
 
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        app:srcCompat="@drawable/goldcoin_prcat"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="350dp" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        app:srcCompat="@drawable/goldcoin_prcat"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="350dp" />
-
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -51,7 +35,6 @@
                     app:srcCompat="@mipmap/ic_launcher" />
 
 
-
             </LinearLayout>
 
             <LinearLayout
@@ -63,31 +46,175 @@
                 android:layout_marginTop="180dp"
                 android:orientation="horizontal"
                 android:paddingTop="0dp">
+
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/mapView"
-                    android:layout_width="386dp"
+                    android:layout_width="match_parent"
                     android:layout_height="170dp" />
 
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/priceCategoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="350dp"
+                android:orientation="horizontal"
+                android:paddingTop="0dp"
+                android:weightSum="6">
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/priceCategoryId"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="3"
+                    android:text="Price category: "
+                    android:textSize="24sp"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="350dp" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/goldcoin_prcat"
+                    tools:layout_editor_absoluteX="222dp"
+                    tools:layout_editor_absoluteY="350dp" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/goldcoin_prcat"
+                    tools:layout_editor_absoluteX="277dp"
+                    tools:layout_editor_absoluteY="350dp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/goldcoin_prcat"
+                    tools:layout_editor_absoluteX="332dp"
+                    tools:layout_editor_absoluteY="350dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ContactsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="395dp"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:id="@+id/ContactsLabelLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:paddingTop="0dp">
+
+                    <TextView
+                        android:id="@+id/ConstantsLabelId"
+                        android:layout_width="150dp"
+                        android:layout_height="45dp"
+                        android:ems="10"
+                        android:text="Contacts: "
+                        android:textSize="22sp"
+                        android:textStyle="bold|italic" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ContactsInfoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/ContactsInfoId"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:ems="10"
+                        android:text="Content "
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/WorkHoursLayout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="505dp"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:id="@+id/WorkHoursLabelLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:paddingTop="0dp">
+
+                    <TextView
+                        android:id="@+id/WorkHoursLabelId"
+                        android:layout_width="150dp"
+                        android:layout_height="45dp"
+                        android:ems="10"
+                        android:text="Work hours: "
+                        android:textSize="22sp"
+                        android:textStyle="bold|italic" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/WorkHoursInfoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/WorkHoursInfoId"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:ems="10"
+                        android:text="Content: "
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="195dp"
-        android:layout_height="45dp"
-        android:text="PriceCategory"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="350dp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="52dp"
-        android:layout_height="45dp"
-        app:srcCompat="@drawable/goldcoin_prcat"
-        tools:layout_editor_absoluteX="305dp"
-        tools:layout_editor_absoluteY="350dp" />
 </android.support.constraint.ConstraintLayout>

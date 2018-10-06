@@ -3,6 +3,7 @@ package com.example.yovo_user.varnatravelguide;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +59,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
+        Typeface myCustomFont =
+                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");
 
         vtgDatabase = VTGDatabase.getInstance(ListingPlacesActivity.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();
