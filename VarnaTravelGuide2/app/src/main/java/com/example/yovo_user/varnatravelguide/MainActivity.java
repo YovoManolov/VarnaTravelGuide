@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Typeface myCustomFont =
-                    Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");
+        /*Typeface myCustomFont =
+                    Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
 
         generateViewPager();
 

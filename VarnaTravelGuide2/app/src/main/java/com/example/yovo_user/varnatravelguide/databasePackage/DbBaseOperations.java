@@ -7,8 +7,6 @@ import android.util.Log;
 public class DbBaseOperations {
 
     public static void dropTableX(SQLiteDatabase dbWritableConnection,String tableName){
-        //TODO:P3 NPE tablename
-
         dbWritableConnection.beginTransaction();
         try{
             dbWritableConnection.execSQL(DbStringConstants.DROP_TABLE_X + tableName);

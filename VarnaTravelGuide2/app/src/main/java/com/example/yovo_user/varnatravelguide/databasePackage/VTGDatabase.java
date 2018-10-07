@@ -27,25 +27,31 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 public class VTGDatabase extends SQLiteOpenHelper {
 
     private static VTGDatabase vtgDatabase;
-    private Context mContext;
     private SQLiteDatabase dbWritableConnection;
 
-    // Всички променливи са статични ! // Версия на Базата от Данни
+    // Версия на Базата от Данни
     private static final int DATABASE_VERSION = 1;
     private static final String DB_NAME = "varnaTravelGuide.db";
 
-    private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
-    private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
-    private LandmarkDaoImpl landmarkDaoImpl = new LandmarkDaoImpl();
-    private RestaurantDaoImpl restaurantDaoImpl = new RestaurantDaoImpl();
-    private ImageDaoImpl imageDaoImpl = new ImageDaoImpl();
-    private WorkHoursDaoImpl workHoursDaoImpl = new WorkHoursDaoImpl();
-    private PriceCategoryDaoImpl priceCategoryDaoImpl = new PriceCategoryDaoImpl();
-    private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
+    private static PlaceDaoImpl placeDaoImpl;
+    private static HotelDaoImpl hotelDaoImpl;
+    private static LandmarkDaoImpl landmarkDaoImpl;
+    private static RestaurantDaoImpl restaurantDaoImpl;
+    private static ImageDaoImpl imageDaoImpl;
+    private static WorkHoursDaoImpl workHoursDaoImpl;
+    private static PriceCategoryDaoImpl priceCategoryDaoImpl;
+    private static ShoppingPlacesDaoImpl shoppingPlacesDaoImpl;
 
     public VTGDatabase(Context context){
             super(context, DB_NAME, null, DATABASE_VERSION);
-            mContext = context;
+            placeDaoImpl = new PlaceDaoImpl();
+            hotelDaoImpl = new HotelDaoImpl();
+            landmarkDaoImpl = new LandmarkDaoImpl();
+            restaurantDaoImpl = new RestaurantDaoImpl();
+            imageDaoImpl = new ImageDaoImpl();
+            workHoursDaoImpl = new WorkHoursDaoImpl();
+            priceCategoryDaoImpl = new PriceCategoryDaoImpl();
+            shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
             dbWritableConnection = getWritableDatabase();
     }
 
@@ -53,6 +59,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
         if (vtgDatabase == null) {
             vtgDatabase = new VTGDatabase(context.getApplicationContext());
+
         }
         return vtgDatabase;
     }

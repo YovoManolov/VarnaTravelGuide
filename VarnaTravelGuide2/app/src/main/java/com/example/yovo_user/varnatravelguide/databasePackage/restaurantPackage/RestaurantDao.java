@@ -13,5 +13,4 @@ public interface RestaurantDao {
     public List<Restaurant> getAllResaturants(SQLiteDatabase dbReadableConnection);
     public Restaurant getRestaurantByPlaceId
             (SQLiteDatabase dbWritableConnection, Integer placeId);
-
 }

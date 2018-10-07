@@ -72,6 +72,7 @@
                     android:layout_height="45dp"
                     android:layout_weight="3"
                     android:text="Price category: "
+                    android:textColor="@android:color/holo_blue_light"
                     android:textSize="24sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,6 +134,7 @@
                         android:layout_height="45dp"
                         android:ems="10"
                         android:text="Contacts: "
+                        android:textColor="@android:color/holo_blue_dark"
                         android:textSize="22sp"
                         android:textStyle="bold|italic" />
 
@@ -187,6 +189,7 @@
                         android:layout_height="45dp"
                         android:ems="10"
                         android:text="Work hours: "
+                        android:textColor="@android:color/holo_blue_dark"
                         android:textSize="22sp"
                         android:textStyle="bold|italic" />
 

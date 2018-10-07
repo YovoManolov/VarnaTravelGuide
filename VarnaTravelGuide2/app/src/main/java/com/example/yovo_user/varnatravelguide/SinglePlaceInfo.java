@@ -33,10 +33,10 @@ public class SinglePlaceInfo extends AppCompatActivity {
         setContentView(R.layout.activity_single_place_info);
 
         //set text font for price category label :)
-        Typeface myCustomFont =
-                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");
-        TextView priceCategory = (TextView)findViewById(R.id.priceCategoryId);
-        priceCategory.setTypeface(myCustomFont);
+       /* Typeface myCustomFont =
+                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
+       /* TextView priceCategory = (TextView)findViewById(R.id.priceCategoryId);
+        priceCategory.setTypeface(myCustomFont);*/
 
         vtgDatabase = VTGDatabase.getInstance(SinglePlaceInfo.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();

@@ -59,8 +59,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
-        Typeface myCustomFont =
-                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");
+        /*Typeface myCustomFont =
+                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
 
         vtgDatabase = VTGDatabase.getInstance(ListingPlacesActivity.this);
         dbWritableConnection = vtgDatabase.getWritableDatabase();
