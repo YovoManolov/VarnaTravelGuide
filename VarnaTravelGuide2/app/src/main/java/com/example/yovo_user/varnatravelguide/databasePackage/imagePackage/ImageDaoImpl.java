@@ -37,10 +37,16 @@ public class ImageDaoImpl implements ImageDao {
                 values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
                 values.put(DbStringConstants.IM_MAIN_IMAGE, images[i].getIsMainImage());
 
-                dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
                         null, values);
-                values.clear();
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_IMAGES + "for: i = " + i );
+                }
 
+                Log.d("Images ", " newly inserted row ID: " + rowId);
+
+                values.clear();
             }
         }catch(SQLException e){
             e.printStackTrace();

@@ -36,8 +36,15 @@ public class LandmarkDaoImpl implements LandmarkDao {
                 values.put(DbStringConstants.L_ENTRANCE_TICKET,
                         landmarks[i].getEntranceTicket());
 
-                dbWritableConnection.insert(DbStringConstants.TABLE_LANDMARKS,
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_LANDMARKS,
                         null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_LANDMARKS + "for: i = " + i );
+                }
+
+                Log.d("Landmarks ", " newly inserted row ID: " + rowId);
                 values.clear();
             }
 

@@ -35,8 +35,15 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
                 values.put(DbStringConstants.SP_PRICE_CATEGORY_ID,
                         shoppingPlaces[i].getPriceCategoryId());
 
-                dbWritableConnection.insert(DbStringConstants.TABLE_SHOPPING_PLACES,
+                long rowId =  dbWritableConnection.insert(DbStringConstants.TABLE_SHOPPING_PLACES,
                         null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_SHOPPING_PLACES + "for: i = " + i );
+                }
+
+                Log.d("Shopping places  ", " newly inserted row ID: " + rowId);
 
                 values = new ContentValues();
             }
@@ -48,20 +55,29 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     }
 
     @Override
-    public List<ShoppingPlace> getAllShoppingPlaces(SQLiteDatabase dbReadableConnection) {
+    public List<ShoppingPlace> getAllShoppingPlaces(SQLiteDatabase dbWritableConnection) {
 
         List<ShoppingPlace> allShoppingPlaces = new ArrayList<ShoppingPlace>();
-        Cursor cursor = dbReadableConnection.
-                rawQuery(DbStringConstants.GET_ALL_SHOPPING_PLACES,null );
 
-        if (cursor.moveToFirst()) {
-            do {
-                ShoppingPlace shoppingPlace = new ShoppingPlace(
-                        cursor.getInt(1),
-                        cursor.getInt(2)
-                );
-                allShoppingPlaces.add(shoppingPlace);
-            } while (cursor.moveToNext());
+        dbWritableConnection.beginTransaction();
+        try{
+            Cursor cursor = dbWritableConnection.
+                    rawQuery(DbStringConstants.GET_ALL_SHOPPING_PLACES,null );
+
+            if (cursor.moveToFirst()) {
+                do {
+                    ShoppingPlace shoppingPlace = new ShoppingPlace(
+                            cursor.getInt(1),
+                            cursor.getInt(2)
+                    );
+                    allShoppingPlaces.add(shoppingPlace);
+                } while (cursor.moveToNext());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
 
         return allShoppingPlaces;
@@ -71,6 +87,7 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     public ShoppingPlace getShoppingPlaceByPlaceId
             (SQLiteDatabase dbWritableConnection,Integer placeId){
 
+        dbWritableConnection.beginTransaction();
         try{
             Cursor cursor = dbWritableConnection.
                     rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,null);

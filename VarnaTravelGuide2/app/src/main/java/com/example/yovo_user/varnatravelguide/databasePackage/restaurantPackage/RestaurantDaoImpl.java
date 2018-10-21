@@ -1,7 +1,6 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,8 +8,6 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
-import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +34,16 @@ public class RestaurantDaoImpl implements RestaurantDao {
                 values.put(DbStringConstants.R_PRICE_CATEGORY_ID,
                         restaurants[i].getPriceCategoryId());
                 values.put(DbStringConstants.R_COUSINE, restaurants[i].getCousine());
-                dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
                         null, values);
 
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_RESTAURANTS + "for: i = " + i );
+                }
+
+                Log.d("Restaurants  ", " newly inserted row ID: " + rowId);
                 values = new ContentValues();
             }
 
@@ -51,21 +55,31 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public List<Restaurant> getAllResaturants(SQLiteDatabase dbReadableConnection){
+    public List<Restaurant> getAllResaturants(SQLiteDatabase dbWritableConnection){
         List<Restaurant> allRestaurants = new ArrayList<Restaurant>();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,
-                null);
+        dbWritableConnection.beginTransaction();
 
-        if (cursor.moveToFirst()) {
-            do {
-                Restaurant restaurant = new Restaurant(
-                        cursor.getInt(1),
-                        cursor.getInt(2),
-                        cursor.getString(3)
-                );
-                allRestaurants.add(restaurant);
-            } while (cursor.moveToNext());
+        try{
+
+            Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,
+                    null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Restaurant restaurant = new Restaurant(
+                            cursor.getInt(1),
+                            cursor.getInt(2),
+                            cursor.getString(3)
+                    );
+                    allRestaurants.add(restaurant);
+                } while (cursor.moveToNext());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
         }
 
         return allRestaurants;
@@ -75,6 +89,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public Restaurant getRestaurantByPlaceId
             (SQLiteDatabase dbWritableConnection, Integer placeId){
 
+        dbWritableConnection.beginTransaction();
         try{
             Cursor cursor = dbWritableConnection.
                     rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,null);

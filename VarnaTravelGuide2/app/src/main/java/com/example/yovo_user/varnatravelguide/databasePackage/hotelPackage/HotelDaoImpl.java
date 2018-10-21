@@ -38,8 +38,16 @@ public class HotelDaoImpl implements HotelDao{
                 values.put(DbStringConstants.H_PRICE_CATEGORY_ID,
                         hotels[i].getPriceCategoryId());
 
-                dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
                         null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_HOTELS + "for: i = " + i );
+                }
+
+                Log.d("Hotels ", " newly inserted row ID: " + rowId);
+
                 values.clear();
             }
 
@@ -54,6 +62,7 @@ public class HotelDaoImpl implements HotelDao{
     public List<Hotel> getAllHotels(SQLiteDatabase dbWritableConnection) {
         List<Hotel> allHotels = new ArrayList<Hotel>();
 
+        dbWritableConnection.beginTransaction();
         try{
             Cursor cursor = dbWritableConnection.
                     rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
@@ -79,6 +88,7 @@ public class HotelDaoImpl implements HotelDao{
     public Hotel getHotelByPlaceId(
             SQLiteDatabase dbWritableConnection,Integer placeId) {
 
+        dbWritableConnection.beginTransaction();
         try{
             Cursor cursor = dbWritableConnection.
                     rawQuery(DbStringConstants.GET_ALL_HOTELS,null);

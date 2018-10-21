@@ -27,9 +27,14 @@ public class PlaceDaoImpl implements PlaceDao {
                 values.put(DbStringConstants.PL_CONTACTS, places[i].getContacts());
                 values.put(DbStringConstants.PL_DESCRIPTION, places[i].getDescription());
 
-                dbWritableConnection.insert(DbStringConstants.TABLE_PLACES,
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_PLACES,
                                                         null, values);
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                    + DbStringConstants.TABLE_PLACES + "for: i = " + i );
+                }
 
+                Log.d("Places ", " newly inserted row ID: " + rowId);
                 values.clear();
             }
 

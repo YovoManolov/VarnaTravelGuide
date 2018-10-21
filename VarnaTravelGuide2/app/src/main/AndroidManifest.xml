@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yovo_user.varnatravelguide">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -19,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListingPlacesActivity" />
-        <activity android:name=".SinglePlaceInfo"></activity>
+        <activity android:name="com.example.yovo_user.varnatravelguide.ListingPlacesActivity"/>
+        <activity android:name="com.example.yovo_user.varnatravelguide.SinglePlaceInfo"/>
     </application>
 
 </manifest>

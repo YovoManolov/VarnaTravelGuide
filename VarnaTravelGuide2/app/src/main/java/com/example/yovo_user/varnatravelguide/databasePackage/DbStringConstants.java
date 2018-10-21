@@ -202,5 +202,4 @@ public class DbStringConstants {
     public static String GET_ALL_LANDMARKS = "SELECT * FROM " + TABLE_LANDMARKS + ";";
     public static String GET_ALL_SHOPPING_PLACES = "SELECT * FROM " + TABLE_SHOPPING_PLACES + ";";
 
-
 }

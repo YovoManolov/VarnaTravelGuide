@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkHoursDaoImpl implements WorkHoursDao {
+
     @Override
     public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
@@ -47,8 +48,16 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
                     values.put(DbStringConstants.WH_SAT, workHours[i].getPlaceId());
                     values.put(DbStringConstants.WH_SUN, workHours[i].getPlaceId());
                 }
-                dbWritableConnection.insert(DbStringConstants.TABLE_WORK_HOURS,
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_WORK_HOURS,
                         null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_WORK_HOURS + "for: i = " + i );
+                }
+
+                Log.d("Work hours  ", " newly inserted row ID: " + rowId);
 
                 values = new ContentValues();
             }

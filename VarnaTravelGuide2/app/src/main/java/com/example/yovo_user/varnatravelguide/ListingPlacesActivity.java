@@ -46,14 +46,14 @@ public class ListingPlacesActivity extends AppCompatActivity {
     private VTGDatabase vtgDatabase;
     private SQLiteDatabase dbWritableConnection;
 
-    private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
+  /* private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
     private LandmarkDaoImpl landmarkDaoImpl = new LandmarkDaoImpl();
     private RestaurantDaoImpl restaurantDaoImpl = new RestaurantDaoImpl();
     private ImageDaoImpl imageDaoImpl = new ImageDaoImpl();
     private WorkHoursDaoImpl workHoursDaoImpl = new WorkHoursDaoImpl();
     private PriceCategoryDaoImpl priceCategoryDaoImpl = new PriceCategoryDaoImpl();
-    private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
+    private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
         /*Typeface myCustomFont =
                 Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
 
-        vtgDatabase = VTGDatabase.getInstance(ListingPlacesActivity.this);
+        vtgDatabase = VTGDatabase.getInstance(this.getApplicationContext());
         dbWritableConnection = vtgDatabase.getWritableDatabase();
 
         ListView listOfPlaces = (ListView) findViewById(R.id.listOfPlaces);
@@ -81,13 +81,11 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
 
-                ArrayList<Hotel> allHotels = (ArrayList<Hotel>)
-                        hotelDaoImpl.getAllHotels(dbWritableConnection);
-
+                ArrayList<Hotel> allHotels = (ArrayList<Hotel>) vtgDatabase.getAllHotels();
 
                 ArrayList<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size(); i++){
-                    hotelPlaces.add(placeDaoImpl.getPlaceById(
+                    hotelPlaces.add(vtgDatabase.getPlaceDaoImpl().getPlaceById(
                             dbWritableConnection,allHotels.get(i).getPlaceId()
                         )
                     );
@@ -95,7 +93,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
                 generateListOfPlaces(hotelPlaces);
 
-                break;
+            break;
+
             case "restaurants":
 
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
@@ -103,56 +102,60 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
 
                 ArrayList<Restaurant> allRestaurants =
-                        (ArrayList<Restaurant>)restaurantDaoImpl
+                        (ArrayList<Restaurant>)vtgDatabase.getRestaurantDaoImpl()
                                 .getAllResaturants(dbWritableConnection);
 
                 ArrayList<Place> restaurantPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < restaurantPlaces.size() ; i++){
-                    restaurantPlaces.add(placeDaoImpl.getPlaceById(
+                    restaurantPlaces.add(vtgDatabase.getPlaceDaoImpl().getPlaceById(
                             dbWritableConnection,allRestaurants.get(i).getPlaceId()
                             )
                     );
                 }
 
                 generateListOfPlaces(restaurantPlaces);
-                break;
+
+            break;
+
             case "landmarks":
 
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.landmarkslabel);
 
                 ArrayList<Landmark> allLandmarks =
-                        (ArrayList<Landmark>)landmarkDaoImpl
+                        (ArrayList<Landmark>)vtgDatabase.getLandmarkDaoImpl()
                                 .getAllLandmarks(dbWritableConnection);
 
                 ArrayList<Place> landmarkPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < landmarkPlaces.size() ; i++){
-                    landmarkPlaces.add(placeDaoImpl.getPlaceById(
+                    landmarkPlaces.add(vtgDatabase.getPlaceDaoImpl().getPlaceById(
                             dbWritableConnection,allLandmarks.get(i).getPlaceId()
                             )
                     );
                 }
 
                 generateListOfPlaces(landmarkPlaces);
-                break;
+
+            break;
             case "shoppingPlaces":
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.shoppinglabel);
 
                 ArrayList<ShoppingPlace> allShoppingPlaces =
-                        (ArrayList<ShoppingPlace>)shoppingPlacesDaoImpl
+                        (ArrayList<ShoppingPlace>)vtgDatabase.getShoppingPlacesDaoImpl()
                                 .getAllShoppingPlaces(dbWritableConnection);
 
                 ArrayList<Place> shoppingPlacePlaces = new ArrayList<> ();
                 for(int i = 0 ;i < shoppingPlacePlaces.size() ; i++){
-                    shoppingPlacePlaces.add(placeDaoImpl.getPlaceById(
+                    shoppingPlacePlaces.add(vtgDatabase.getPlaceDaoImpl().getPlaceById(
                             dbWritableConnection,allShoppingPlaces.get(i).getPlaceId()
                             )
                     );
                 }
 
                 generateListOfPlaces(shoppingPlacePlaces);
-                break;
+
+            break;
         }
     }
 
@@ -163,7 +166,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
         for(Place place : placeListToLoad ) {
 
-            Image mainImage = imageDaoImpl.
+            Image mainImage = vtgDatabase.getImageDaoImpl().
                     getMainImageForPlace(dbWritableConnection,place.getId());
 
             Drawable mainImageDrowable = loadImageFromWebOperations(mainImage.getImageURL());

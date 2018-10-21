@@ -34,9 +34,15 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
             for(int i = 0 ;i < priceCategories.length ;i++){
                 values.put(DbStringConstants.PC_PRICE_TYPE,
                         priceCategories[i].getPriceType());
-                dbWritableConnection.insert(DbStringConstants.TABLE_PRICE_CATEGORIES,
-                        null, values);
 
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_PRICE_CATEGORIES,
+                        null, values);
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_PRICE_CATEGORIES + "for: i = " + i );
+                }
+
+                Log.d("Price category ", " newly inserted row ID: " + rowId);
                 values = new ContentValues();
             }
         }catch(SQLException e){
