@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
@@ -11,12 +12,12 @@ import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 
 public class PlaceDaoImpl implements PlaceDao {
+
     @Override
     public void addPlaces(SQLiteDatabase dbWritableConnection,Place[] places){
 
         dbWritableConnection.beginTransaction();
         try{
-
             ContentValues values = new ContentValues();
             for(int i = 0 ;i < places.length ;i++){
 
@@ -54,13 +55,13 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public Place getPlaceById(SQLiteDatabase dbReadableConnection, int placeId) {
-        dbReadableConnection.beginTransaction();
+    public Place getPlaceById(SQLiteDatabase dbWritableConnection, int placeId) {
+        dbWritableConnection.beginTransaction();
         Place place = null;
 
         try{
 
-            Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_PLACE_BY_ID,
+            Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_PLACE_BY_ID,
                 new String[]{
                         String.valueOf(placeId)
                 });
@@ -80,11 +81,11 @@ public class PlaceDaoImpl implements PlaceDao {
                     } while (cursor.moveToNext());
                 }
             }
-
+            cursor.close();
         }catch(SQLException e){
             e.printStackTrace();
         }finally{
-            dbReadableConnection.endTransaction();
+            dbWritableConnection.endTransaction();
         }
         return place;
     }

@@ -87,6 +87,7 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
                 workHoursList.add(workHours);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return workHoursList;
     }

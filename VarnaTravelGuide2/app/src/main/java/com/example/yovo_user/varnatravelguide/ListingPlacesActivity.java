@@ -81,7 +81,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
 
-                ArrayList<Hotel> allHotels = (ArrayList<Hotel>) vtgDatabase.getAllHotels();
+                ArrayList<Hotel> allHotels = (ArrayList<Hotel>)
+                        vtgDatabase.getHotelDaoImpl().getAllHotels(dbWritableConnection);
 
                 ArrayList<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size(); i++){

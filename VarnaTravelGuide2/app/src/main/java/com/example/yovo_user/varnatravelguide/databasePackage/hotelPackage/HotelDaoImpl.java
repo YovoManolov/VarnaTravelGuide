@@ -75,6 +75,8 @@ public class HotelDaoImpl implements HotelDao{
                     allHotels.add(hotel);
                 } while (cursor.moveToNext());
             }
+
+            cursor.close();
         }catch(SQLException e){
             e.printStackTrace();
         }finally{

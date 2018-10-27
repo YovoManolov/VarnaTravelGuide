@@ -71,6 +71,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
                 allLandmarks.add(landmark);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return allLandmarks;
     }
@@ -94,6 +95,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
                 } while (cursor.moveToNext());
             }
 
+            cursor.close();
         }catch(SQLException e){
             e.printStackTrace();
         }finally{

@@ -108,6 +108,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
                 } while (cursor.moveToNext());
             }
 
+            cursor.close();
         }catch(SQLException e){
             e.printStackTrace();
         }finally{

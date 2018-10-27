@@ -104,6 +104,7 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
                 } while (cursor.moveToNext());
             }
 
+            cursor.close();
         }catch(SQLException e){
             e.printStackTrace();
         }finally{

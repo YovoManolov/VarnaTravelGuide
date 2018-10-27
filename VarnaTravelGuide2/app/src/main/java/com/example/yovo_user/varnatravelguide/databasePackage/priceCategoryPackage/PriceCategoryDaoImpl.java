@@ -65,6 +65,7 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
                 priceCategory = new PriceCategory(cursor.getString(1));
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return priceCategory;
     }

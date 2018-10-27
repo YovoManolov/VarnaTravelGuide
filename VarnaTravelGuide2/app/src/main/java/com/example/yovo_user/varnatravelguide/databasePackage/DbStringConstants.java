@@ -127,7 +127,7 @@ public class DbStringConstants {
             + H_NUMB_OF_STARS + " INTEGER NOT NULL, "
             + H_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
             + "FOREIGN KEY ("+H_PLACE_ID +") "
-            + "REFERENCES "+TABLE_PLACES +" (ID), "
+            + "REFERENCES " + TABLE_PLACES +" (ID), "
             + " FOREIGN KEY ("+H_PRICE_CATEGORY_ID +") "
             + " REFERENCES "+TABLE_PRICE_CATEGORIES +" (ID)"
             + " );";

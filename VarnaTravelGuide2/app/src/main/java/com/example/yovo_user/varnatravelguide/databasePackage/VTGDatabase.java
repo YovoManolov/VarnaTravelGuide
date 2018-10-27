@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.HotelDaoImpl;
@@ -25,6 +26,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePacka
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
     // Версия на Базата от Данни
     private static final int DATABASE_VERSION = 3;
-    private static final String DB_NAME = "varnaTravelGuide";
+    private static final String DB_NAME = "varnaTravelGuide.db";
 
     private static PlaceDaoImpl placeDaoImpl;
     private static HotelDaoImpl hotelDaoImpl;
@@ -47,8 +49,8 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static ShoppingPlacesDaoImpl shoppingPlacesDaoImpl;
 
     public VTGDatabase(Context context){
-            super(context, DB_NAME, null, DATABASE_VERSION);
-            dbWritableConnection = getWritableDatabase();
+         super(context, DB_NAME, null, DATABASE_VERSION);
+         dbWritableConnection = getWritableDatabase();
     }
 
     public static synchronized VTGDatabase getInstance(Context context) {
@@ -61,6 +63,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //проблемът не е между vtgDb i dao класовете,а между activity-to и dao класовете
 
         placeDaoImpl = new PlaceDaoImpl();
         hotelDaoImpl = new HotelDaoImpl();
@@ -76,6 +79,7 @@ public class VTGDatabase extends SQLiteOpenHelper {
             db.execSQL("PRAGMA foreign_keys=ON;");
         }
 
+        /*
         placeDaoImpl.createPlacesTable(db);
         priceCategoryDaoImpl.createPriceCategoryTable(db);
         imageDaoImpl.createImageTable(db);
@@ -84,16 +88,25 @@ public class VTGDatabase extends SQLiteOpenHelper {
         restaurantDaoImpl.createRestaurantTable(db);
         shoppingPlacesDaoImpl.createShoppingPlacesTable(db);
         workHoursDaoImpl.createWorkHoursTable(db);
+        */
 
-        placeDaoImpl.addPlaces(db, Place.populatePlaces());
-        priceCategoryDaoImpl.addPriceCategory(db, PriceCategory.populatePriceCategories());
-        imageDaoImpl.addImage(db, Image.populateImages());
-        hotelDaoImpl.addHotels(db, Hotel.populateHotels());
-        landmarkDaoImpl.addLandmarks(db, Landmark.populateLandmarks());
-        restaurantDaoImpl.addRestaurant(db, Restaurant.populateRestaurants() );
-        shoppingPlacesDaoImpl.addShoppingPlaces(db, ShoppingPlace.populateShoppingPlaces() );
-        workHoursDaoImpl.addWorkHours(db, WorkHours.populateWorkHours() );
+        createPlacesTable(db);
+        createPriceCategoryTable(db);
+        createImageTable(db);
+        createHotelTable(db);
+        createLandmarkTable(db);
+        createRestaurantTable(db);
+        createShoppingPlacesTable(db);
+        createWorkHoursTable(db);
 
+        addPlaces(db, Place.populatePlaces());
+        addPriceCategory(db, PriceCategory.populatePriceCategories());
+        addImage(db, Image.populateImages());
+        addHotels(db, Hotel.populateHotels());
+        addLandmarks(db, Landmark.populateLandmarks());
+        addRestaurant(db, Restaurant.populateRestaurants());
+        addShoppingPlaces(db,ShoppingPlace.populateShoppingPlaces());
+        addWorkHours(db, WorkHours.populateWorkHours());
     }
 
     @Override
@@ -135,10 +148,323 @@ public class VTGDatabase extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Hotel> getAllHotels(){
-        ArrayList<Hotel> allHotels =  (ArrayList<Hotel>)
-                getHotelDaoImpl().getAllHotels(dbWritableConnection);
-        return allHotels;
+    public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
+        Log.d("Create table message: ","Table " +
+                DbStringConstants.TABLE_PLACES + " is being created !");
     }
+
+    public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_PRICE_CATEGORIES_TABLE);
+        Log.d("Create table message: ","Table " +
+                DbStringConstants.TABLE_PRICE_CATEGORIES + " is being created !");
+    }
+
+    public void createImageTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_IMAGES_TABLE);
+        Log.d("Create table message: ","Table "
+                + DbStringConstants.TABLE_IMAGES + " is being created !");
+    }
+
+    public void createHotelTable(SQLiteDatabase db) throws SQLException {
+        DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
+        db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
+        Log.d("Create table message: ","Table "
+                + DbStringConstants.TABLE_HOTELS + " is being created !");
+
+    }
+
+    public void createLandmarkTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection,
+                DbStringConstants.TABLE_LANDMARKS);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
+        Log.d("Create table message: ","Table "
+                + DbStringConstants.TABLE_LANDMARKS + " is being created !");
+
+    }
+
+    public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
+        Log.d("Create table message: ","Table " +
+                DbStringConstants.TABLE_RESTAURANTS + " is being created !");
+    }
+
+    public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
+        Log.d("Create table message: ","Table " +
+                DbStringConstants.TABLE_SHOPPING_PLACES + " is being created !");
+    }
+
+    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
+        Log.d("Create table message: ","Table "
+                + DbStringConstants.TABLE_WORK_HOURS + " is being created !");
+
+    }
+
+
+    public void addPlaces(SQLiteDatabase dbWritableConnection,Place[] places){
+
+        dbWritableConnection.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            for(int i = 0 ;i < places.length ;i++){
+
+                values.put(DbStringConstants.PL_NAME, places[i].getName());
+                values.put(DbStringConstants.PL_ADDRESS, places[i].getAddress());
+                values.put(DbStringConstants.PL_LATITUDE, places[i].getLatitude());
+                values.put(DbStringConstants.PL_LONGITUDE, places[i].getLongitude());
+                values.put(DbStringConstants.PL_CONTACTS, places[i].getContacts());
+                values.put(DbStringConstants.PL_DESCRIPTION, places[i].getDescription());
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_PLACES,
+                        null, values);
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_PLACES + "for: i = " + i );
+                }
+
+                Log.d("Places ", " newly inserted row ID: " + rowId);
+                values.clear();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+    public void addPriceCategory(SQLiteDatabase dbWritableConnection, PriceCategory[] priceCategories) {
+
+        dbWritableConnection.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            for(int i = 0 ;i < priceCategories.length ;i++){
+                values.put(DbStringConstants.PC_PRICE_TYPE,
+                        priceCategories[i].getPriceType());
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_PRICE_CATEGORIES,
+                        null, values);
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_PRICE_CATEGORIES + "for: i = " + i );
+                }
+
+                Log.d("Price category ", " newly inserted row ID: " + rowId);
+                values = new ContentValues();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+
+    public void addImage(SQLiteDatabase dbWritableConnection, Image[] images) {
+
+        dbWritableConnection.beginTransaction();
+        try {
+            int i;
+            ContentValues values = new ContentValues();
+            for (i = 0; i < images.length; i++) {
+                values.put(DbStringConstants.IM_PLACE_ID, images[i].getPlaceId());
+                values.put(DbStringConstants.IM_IMAGE_URL, images[i].getImageURL());
+                values.put(DbStringConstants.IM_MAIN_IMAGE, images[i].getIsMainImage());
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_IMAGES,
+                        null, values);
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_IMAGES + "for: i = " + i );
+                }
+
+                Log.d("Images ", " newly inserted row ID: " + rowId);
+
+                values.clear();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+    public void addHotels(SQLiteDatabase dbWritableConnection, Hotel[] hotels) throws SQLException {
+
+        dbWritableConnection.beginTransaction();
+        try{
+
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < hotels.length; i++) {
+                values.put(DbStringConstants.H_PLACE_ID, hotels[i].getPlaceId());
+                values.put(DbStringConstants.H_NUMB_OF_STARS, hotels[i].getNumbOfStars());
+                values.put(DbStringConstants.H_PRICE_CATEGORY_ID,
+                        hotels[i].getPriceCategoryId());
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
+                        null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_HOTELS + "for: i = " + i );
+                }
+
+                Log.d("Hotels ", " newly inserted row ID: " + rowId);
+
+                values.clear();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+    public void addLandmarks(SQLiteDatabase dbWritableConnection, Landmark[] landmarks) {
+        dbWritableConnection.beginTransaction();
+        try {
+
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < landmarks.length; i++) {
+                values.put(DbStringConstants.L_PLACE_ID, landmarks[i].getPlaceId());
+                values.put(DbStringConstants.L_ENTRANCE_TICKET,
+                        landmarks[i].getEntranceTicket());
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_LANDMARKS,
+                        null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_LANDMARKS + "for: i = " + i );
+                }
+
+                Log.d("Landmarks ", " newly inserted row ID: " + rowId);
+                values.clear();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+
+    public void addRestaurant(SQLiteDatabase dbWritableConnection, Restaurant[] restaurants) {
+
+        dbWritableConnection.beginTransaction();
+        try{
+
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < restaurants.length; i++) {
+                values.put(DbStringConstants.R_PLACE_ID, restaurants[i].getPlaceId());
+                values.put(DbStringConstants.R_PRICE_CATEGORY_ID,
+                        restaurants[i].getPriceCategoryId());
+                values.put(DbStringConstants.R_COUSINE, restaurants[i].getCousine());
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
+                        null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_RESTAURANTS + "for: i = " + i );
+                }
+
+                Log.d("Restaurants  ", " newly inserted row ID: " + rowId);
+                values = new ContentValues();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+    public void addShoppingPlaces(SQLiteDatabase dbWritableConnection,
+                                  ShoppingPlace[] shoppingPlaces) {
+        dbWritableConnection.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < shoppingPlaces.length; i++) {
+                values.put(DbStringConstants.SP_PLACE_ID, shoppingPlaces[i].getPlaceId());
+                values.put(DbStringConstants.SP_PRICE_CATEGORY_ID,
+                        shoppingPlaces[i].getPriceCategoryId());
+
+                long rowId =  dbWritableConnection.insert(DbStringConstants.TABLE_SHOPPING_PLACES,
+                        null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_SHOPPING_PLACES + "for: i = " + i );
+                }
+
+                Log.d("Shopping places  ", " newly inserted row ID: " + rowId);
+
+                values = new ContentValues();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+
+    public void addWorkHours(SQLiteDatabase dbWritableConnection, WorkHours[] workHours) {
+        dbWritableConnection.beginTransaction();
+        try{
+
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < workHours.length; i++) {
+
+                values.put(DbStringConstants.WH_PLACE_ID, workHours[i].getPlaceId());
+                if (workHours[i].getIs24h() == -1) {
+                    values.put(DbStringConstants.WH_IS_24H, workHours[i].getIs24h());
+                    values.put(DbStringConstants.WH_MON_FRI, workHours[i].getMonFri());
+                } else if (workHours[i].getIs24h() == 0) {
+                    values.put(DbStringConstants.WH_MON_FRI, workHours[i].getMonFri());
+                    values.put(DbStringConstants.WH_SAT, workHours[i].getSat());
+                    values.put(DbStringConstants.WH_SUN, workHours[i].getSun());
+                } else if (workHours[i].getIs24h() == 1) {
+                    values.put(DbStringConstants.WH_IS_24H, workHours[i].getIs24h());
+                } else {
+                    values.put(DbStringConstants.WH_IS_24H, workHours[i].getPlaceId());
+                    values.put(DbStringConstants.WH_SAT, workHours[i].getPlaceId());
+                    values.put(DbStringConstants.WH_SUN, workHours[i].getPlaceId());
+                }
+
+                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_WORK_HOURS,
+                        null, values);
+
+                if(rowId  == -1){
+                    Log.d("Insert failed:", "For table "
+                            + DbStringConstants.TABLE_WORK_HOURS + "for: i = " + i );
+                }
+
+                Log.d("Work hours  ", " newly inserted row ID: " + rowId);
+
+                values = new ContentValues();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            dbWritableConnection.endTransaction();
+        }
+    }
+
+
+
+
 
 }
