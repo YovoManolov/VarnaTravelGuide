@@ -4,12 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 
 public interface HotelDao {
-    public void createHotelTable(SQLiteDatabase dbWritableConnection);
-    public void addHotels(SQLiteDatabase dbWritableConnection,
-                                                    Hotel[] hotels);
-    public List<Hotel> getAllHotels(SQLiteDatabase dbReadableConnection);
-    public Hotel getHotelByPlaceId(
-            SQLiteDatabase dbWritableConnection,
-            Integer placeId
-    );
+    public void createHotelTable();
+    public void addHotels(Hotel[] hotels);
+    public List<Hotel> getAllHotels();
+    public Hotel getHotelByPlaceId(Integer placeId);
 }

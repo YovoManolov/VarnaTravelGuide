@@ -116,7 +116,7 @@ public class DbStringConstants {
             + IM_IMAGE_URL + " TEXT NOT NULL, "
             + IM_MAIN_IMAGE + " INTEGER NOT NULL, "
             + "FOREIGN KEY ("+IM_PLACE_ID +") "
-            + "REFERENCES "+TABLE_PLACES +" (ID)"
+            + "REFERENCES \""+TABLE_PLACES +"\" (ID)"
             + " );";
 
 
@@ -127,9 +127,9 @@ public class DbStringConstants {
             + H_NUMB_OF_STARS + " INTEGER NOT NULL, "
             + H_PRICE_CATEGORY_ID + " INTEGER NOT NULL,"
             + "FOREIGN KEY ("+H_PLACE_ID +") "
-            + "REFERENCES " + TABLE_PLACES +" (ID), "
+            + "REFERENCES \""+TABLE_PLACES +"\" (ID),"
             + " FOREIGN KEY ("+H_PRICE_CATEGORY_ID +") "
-            + " REFERENCES "+TABLE_PRICE_CATEGORIES +" (ID)"
+            + " REFERENCES \""+TABLE_PRICE_CATEGORIES +"\" (ID)"
             + " );";
 
     public static String CREATE_LANDMARKS_TABLE = "CREATE TABLE IF NOT EXISTS "
@@ -138,7 +138,7 @@ public class DbStringConstants {
             + L_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + L_ENTRANCE_TICKET + " TEXT NOT NULL, "
             + "FOREIGN KEY ("+L_PLACE_ID +") "
-            + "REFERENCES "+TABLE_PLACES +" (ID)"
+            + "REFERENCES \""+TABLE_PLACES +"\" ("+PL_ID+")"
             + " );";
 
 
@@ -149,9 +149,9 @@ public class DbStringConstants {
             + R_PRICE_CATEGORY_ID + " INTEGER  NOT NULL, "
             + R_COUSINE + " TEXT NOT NULL, "
             + " FOREIGN KEY ("+R_PLACE_ID +") "
-            + " REFERENCES "+TABLE_PLACES +" (ID), "
+            + " REFERENCES \""+TABLE_PLACES +"\" (ID), "
             + " FOREIGN KEY ("+R_PRICE_CATEGORY_ID +") "
-            + " REFERENCES "+TABLE_PRICE_CATEGORIES +" (ID) "
+            + " REFERENCES \""+TABLE_PRICE_CATEGORIES +"\" (ID) "
             + " )";
 
 
@@ -161,9 +161,9 @@ public class DbStringConstants {
             + SP_PLACE_ID + " INTEGER UNIQUE NOT NULL, "
             + SP_PRICE_CATEGORY_ID + " INTEGER NOT NULL, "
             + " FOREIGN KEY ("+SP_PLACE_ID +") "
-            + " REFERENCES "+TABLE_PLACES +" (ID), "
+            + " REFERENCES \""+TABLE_PLACES +"\" (ID), "
             + " FOREIGN KEY ("+SP_PRICE_CATEGORY_ID +") "
-            + " REFERENCES "+TABLE_PRICE_CATEGORIES +" (ID) "
+            + " REFERENCES \""+TABLE_PRICE_CATEGORIES +"\" (ID) "
             +  " );";
 
 
@@ -176,14 +176,13 @@ public class DbStringConstants {
             + WH_SAT + "  TEXT ,"
             + WH_SUN + " TEXT ,"
             + " FOREIGN KEY ("+WH_PLACE_ID +") "
-            + " REFERENCES "+TABLE_PLACES +" (ID)"
+            + " REFERENCES \""+TABLE_PLACES +"\" (ID)"
             + " );";
 
     public static String CREATE_PRICE_CATEGORIES_TABLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PRICE_CATEGORIES + " ("
                 + PC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + PC_PRICE_TYPE + " TEXT NOT NULL"
-            + " );";
+                + PC_PRICE_TYPE + " TEXT NOT NULL"+ " );";
 
 
     public static String GET_PRICE_CATEGORIES_BY_ID = "SELECT * FROM "+
@@ -197,8 +196,8 @@ public class DbStringConstants {
             + "WHERE " + IM_PLACE_ID + " = ?  AND "+ IM_MAIN_IMAGE + "= ? " + ";";
     public static String GET_WORK_HOURS_BY_ID = "SELECT * FROM " + TABLE_WORK_HOURS
             +  "WHERE PLACE_ID = ? " + ";";
-    public static String GET_ALL_HOTELS = "SELECT * FROM " + TABLE_HOTELS + ";";
     public static String GET_ALL_RESTAURANTS = "SELECT * FROM " + TABLE_RESTAURANTS + ";";
+    public static String GET_ALL_HOTELS = "SELECT * FROM " + TABLE_HOTELS + ";";
     public static String GET_ALL_LANDMARKS = "SELECT * FROM " + TABLE_LANDMARKS + ";";
     public static String GET_ALL_SHOPPING_PLACES = "SELECT * FROM " + TABLE_SHOPPING_PLACES + ";";
 

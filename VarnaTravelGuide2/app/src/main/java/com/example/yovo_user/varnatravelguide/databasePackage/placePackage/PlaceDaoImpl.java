@@ -13,8 +13,15 @@ import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image
 
 public class PlaceDaoImpl implements PlaceDao {
 
+
+    private SQLiteDatabase dbWritableConnection;
+
+    public PlaceDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
+
     @Override
-    public void addPlaces(SQLiteDatabase dbWritableConnection,Place[] places){
+    public void addPlaces(Place[] places){
 
         dbWritableConnection.beginTransaction();
         try{
@@ -47,15 +54,16 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+    public void createPlacesTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
+
         Log.d("Create table message: ","Table " +
                 DbStringConstants.TABLE_PLACES + " is being created !");
     }
 
     @Override
-    public Place getPlaceById(SQLiteDatabase dbWritableConnection, int placeId) {
+    public Place getPlaceById(int placeId) {
         dbWritableConnection.beginTransaction();
         Place place = null;
 

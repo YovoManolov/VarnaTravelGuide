@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;

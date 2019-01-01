@@ -9,24 +9,29 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelDaoImpl implements HotelDao{
 
+    private SQLiteDatabase dbWritableConnection;
+
+    public HotelDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
     @Override
-    public void createHotelTable(SQLiteDatabase db) throws SQLException {
-        DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
-        db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
+    public void createHotelTable() throws SQLException {
+        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_HOTELS);
+        dbWritableConnection.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
         Log.d("Create table message: ","Table "
                 + DbStringConstants.TABLE_HOTELS + " is being created !");
 
     }
 
     @Override
-    public void addHotels(SQLiteDatabase dbWritableConnection, Hotel[] hotels) throws SQLException {
+    public void addHotels(Hotel[] hotels) throws SQLException {
 
         dbWritableConnection.beginTransaction();
         try{
@@ -59,7 +64,7 @@ public class HotelDaoImpl implements HotelDao{
     }
 
     @Override
-    public List<Hotel> getAllHotels(SQLiteDatabase dbWritableConnection) {
+    public List<Hotel> getAllHotels() {
         List<Hotel> allHotels = new ArrayList<Hotel>();
 
         dbWritableConnection.beginTransaction();
@@ -87,8 +92,7 @@ public class HotelDaoImpl implements HotelDao{
     }
 
     @Override
-    public Hotel getHotelByPlaceId(
-            SQLiteDatabase dbWritableConnection,Integer placeId) {
+    public Hotel getHotelByPlaceId(Integer placeId) {
 
         dbWritableConnection.beginTransaction();
         try{

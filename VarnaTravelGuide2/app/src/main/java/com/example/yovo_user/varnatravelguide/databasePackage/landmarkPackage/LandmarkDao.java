@@ -7,10 +7,8 @@ import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePacka
 import java.util.List;
 
 public interface LandmarkDao {
-    public void createLandmarkTable(SQLiteDatabase dbWritableConnection);
-    public void addLandmarks(SQLiteDatabase dbWritableConnection,
-                                                    Landmark[] landmarks);
-    public List<Landmark> getAllLandmarks(SQLiteDatabase dbReadableConnection);
-    public Landmark getLandmarkByPlaceId
-            (SQLiteDatabase dbWritableConnection,Integer placeId);
+    public void createLandmarkTable();
+    public void addLandmarks(Landmark[] landmarks);
+    public List<Landmark> getAllLandmarks();
+    public Landmark getLandmarkByPlaceId(Integer placeId);
 }

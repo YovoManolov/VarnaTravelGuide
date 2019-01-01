@@ -14,8 +14,14 @@ import java.util.List;
 
 public class RestaurantDaoImpl implements RestaurantDao {
 
+    private SQLiteDatabase dbWritableConnection;
+
+    public RestaurantDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
+
     @Override
-    public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
+    public void createRestaurantTable() throws SQLException  {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
         Log.d("Create table message: ","Table " +
@@ -23,7 +29,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public void addRestaurant(SQLiteDatabase dbWritableConnection, Restaurant[] restaurants) {
+    public void addRestaurant(Restaurant[] restaurants) {
 
         dbWritableConnection.beginTransaction();
         try{
@@ -55,7 +61,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public List<Restaurant> getAllResaturants(SQLiteDatabase dbWritableConnection){
+    public List<Restaurant> getAllResaturants(){
         List<Restaurant> allRestaurants = new ArrayList<Restaurant>();
 
         dbWritableConnection.beginTransaction();
@@ -86,8 +92,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public Restaurant getRestaurantByPlaceId
-            (SQLiteDatabase dbWritableConnection, Integer placeId){
+    public Restaurant getRestaurantByPlaceId(Integer placeId){
 
         dbWritableConnection.beginTransaction();
         try{

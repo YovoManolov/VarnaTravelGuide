@@ -30,14 +30,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VTGDatabase extends SQLiteOpenHelper {
+public class DatabaseHelper  extends SQLiteOpenHelper {
 
-    private static VTGDatabase vtgDatabase;
-    private SQLiteDatabase dbWritableConnection;
-
-    // Версия на Базата от Данни
-    private static final int DATABASE_VERSION = 3;
-    private static final String DB_NAME = "varnaTravelGuide.db";
+    private static DatabaseHelper dbHelper;
 
     private static PlaceDaoImpl placeDaoImpl;
     private static HotelDaoImpl hotelDaoImpl;
@@ -48,65 +43,53 @@ public class VTGDatabase extends SQLiteOpenHelper {
     private static PriceCategoryDaoImpl priceCategoryDaoImpl;
     private static ShoppingPlacesDaoImpl shoppingPlacesDaoImpl;
 
-    public VTGDatabase(Context context){
+    // Версия на Базата от Данни
+    private static final String DB_NAME = "varnaTravelGuide.db";
+    private static final int DATABASE_VERSION = 2;
+
+
+    public DatabaseHelper(Context context){
          super(context, DB_NAME, null, DATABASE_VERSION);
-         dbWritableConnection = getWritableDatabase();
     }
 
-    public static synchronized VTGDatabase getInstance(Context context) {
+    public static synchronized DatabaseHelper getInstance(Context context) {
 
-        if (vtgDatabase == null) {
-            vtgDatabase = new VTGDatabase(context);
+        if (dbHelper == null) {
+            dbHelper = new DatabaseHelper(context);
         }
-        return vtgDatabase;
+        return dbHelper;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        //проблемът не е между vtgDb i dao класовете,а между activity-to и dao класовете
+    public void onCreate(SQLiteDatabase dbWritableConnection) {
 
-        placeDaoImpl = new PlaceDaoImpl();
-        hotelDaoImpl = new HotelDaoImpl();
-        landmarkDaoImpl = new LandmarkDaoImpl();
-        restaurantDaoImpl = new RestaurantDaoImpl();
-        imageDaoImpl = new ImageDaoImpl();
-        workHoursDaoImpl = new WorkHoursDaoImpl();
-        priceCategoryDaoImpl = new PriceCategoryDaoImpl();
-        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
+        placeDaoImpl = new PlaceDaoImpl(dbWritableConnection);
+        hotelDaoImpl = new HotelDaoImpl(dbWritableConnection);
+        landmarkDaoImpl = new LandmarkDaoImpl(dbWritableConnection);
+        restaurantDaoImpl = new RestaurantDaoImpl(dbWritableConnection);
+        imageDaoImpl = new ImageDaoImpl(dbWritableConnection);
+        workHoursDaoImpl = new WorkHoursDaoImpl(dbWritableConnection);
+        priceCategoryDaoImpl = new PriceCategoryDaoImpl(dbWritableConnection);
+        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl(dbWritableConnection);
 
+        placeDaoImpl.createPlacesTable();
+        priceCategoryDaoImpl.createPriceCategoryTable();
+        imageDaoImpl.createImageTable();
+        hotelDaoImpl.createHotelTable();
+        landmarkDaoImpl.createLandmarkTable();
+        restaurantDaoImpl.createRestaurantTable();
+        shoppingPlacesDaoImpl.createShoppingPlacesTable();
+        workHoursDaoImpl.createWorkHoursTable();
 
-        if (!db.isReadOnly()) {
-            db.execSQL("PRAGMA foreign_keys=ON;");
-        }
+        placeDaoImpl.addPlaces(Place.populatePlaces());
+        priceCategoryDaoImpl.addPriceCategory(PriceCategory.populatePriceCategories());
+        imageDaoImpl.addImage(Image.populateImages());
+        hotelDaoImpl.addHotels(Hotel.populateHotels());
+        landmarkDaoImpl.addLandmarks(Landmark.populateLandmarks());
+        restaurantDaoImpl.addRestaurant(Restaurant.populateRestaurants());
+        shoppingPlacesDaoImpl.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
+        workHoursDaoImpl.addWorkHours(WorkHours.populateWorkHours());
 
-        /*
-        placeDaoImpl.createPlacesTable(db);
-        priceCategoryDaoImpl.createPriceCategoryTable(db);
-        imageDaoImpl.createImageTable(db);
-        hotelDaoImpl.createHotelTable(db);
-        landmarkDaoImpl.createLandmarkTable(db);
-        restaurantDaoImpl.createRestaurantTable(db);
-        shoppingPlacesDaoImpl.createShoppingPlacesTable(db);
-        workHoursDaoImpl.createWorkHoursTable(db);
-        */
-
-        createPlacesTable(db);
-        createPriceCategoryTable(db);
-        createImageTable(db);
-        createHotelTable(db);
-        createLandmarkTable(db);
-        createRestaurantTable(db);
-        createShoppingPlacesTable(db);
-        createWorkHoursTable(db);
-
-        addPlaces(db, Place.populatePlaces());
-        addPriceCategory(db, PriceCategory.populatePriceCategories());
-        addImage(db, Image.populateImages());
-        addHotels(db, Hotel.populateHotels());
-        addLandmarks(db, Landmark.populateLandmarks());
-        addRestaurant(db, Restaurant.populateRestaurants());
-        addShoppingPlaces(db,ShoppingPlace.populateShoppingPlaces());
-        addWorkHours(db, WorkHours.populateWorkHours());
     }
 
     @Override
@@ -147,69 +130,69 @@ public class VTGDatabase extends SQLiteOpenHelper {
         return shoppingPlacesDaoImpl;
     }
 
+//
+//    public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+//        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
+//        Log.d("Create table message: ","Table " +
+//                DbStringConstants.TABLE_PLACES + " is being created !");
+//    }
+//
+//    public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+//        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_PRICE_CATEGORIES_TABLE);
+//        Log.d("Create table message: ","Table " +
+//                DbStringConstants.TABLE_PRICE_CATEGORIES + " is being created !");
+//    }
+//
+//    public void createImageTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+//        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_IMAGES_TABLE);
+//        Log.d("Create table message: ","Table "
+//                + DbStringConstants.TABLE_IMAGES + " is being created !");
+//    }
+//
+//    public void createHotelTable(SQLiteDatabase db) throws SQLException {
+//        DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
+//        db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
+//        Log.d("Create table message: ","Table "
+//                + DbStringConstants.TABLE_HOTELS + " is being created !");
+//
+//    }
+//
+//    public void createLandmarkTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+//        DbBaseOperations.dropTableX(dbWritableConnection,
+//                DbStringConstants.TABLE_LANDMARKS);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
+//        Log.d("Create table message: ","Table "
+//                + DbStringConstants.TABLE_LANDMARKS + " is being created !");
+//
+//    }
+//
+//    public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
+//        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
+//        Log.d("Create table message: ","Table " +
+//                DbStringConstants.TABLE_RESTAURANTS + " is being created !");
+//    }
+//
+//    public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
+//        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
+//        Log.d("Create table message: ","Table " +
+//                DbStringConstants.TABLE_SHOPPING_PLACES + " is being created !");
+//    }
+//
+//    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+//        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
+//        dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
+//        Log.d("Create table message: ","Table "
+//                + DbStringConstants.TABLE_WORK_HOURS + " is being created !");
+//
+//    }
 
-    public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
-        Log.d("Create table message: ","Table " +
-                DbStringConstants.TABLE_PLACES + " is being created !");
-    }
 
-    public void createPriceCategoryTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_PRICE_CATEGORIES_TABLE);
-        Log.d("Create table message: ","Table " +
-                DbStringConstants.TABLE_PRICE_CATEGORIES + " is being created !");
-    }
-
-    public void createImageTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_IMAGES_TABLE);
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_IMAGES + " is being created !");
-    }
-
-    public void createHotelTable(SQLiteDatabase db) throws SQLException {
-        DbBaseOperations.dropTableX(db, DbStringConstants.TABLE_HOTELS);
-        db.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_HOTELS + " is being created !");
-
-    }
-
-    public void createLandmarkTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,
-                DbStringConstants.TABLE_LANDMARKS);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_LANDMARKS + " is being created !");
-
-    }
-
-    public void createRestaurantTable(SQLiteDatabase dbWritableConnection) throws SQLException  {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
-        Log.d("Create table message: ","Table " +
-                DbStringConstants.TABLE_RESTAURANTS + " is being created !");
-    }
-
-    public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
-        Log.d("Create table message: ","Table " +
-                DbStringConstants.TABLE_SHOPPING_PLACES + " is being created !");
-    }
-
-    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
-        dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_WORK_HOURS + " is being created !");
-
-    }
-
-
-    public void addPlaces(SQLiteDatabase dbWritableConnection,Place[] places){
+/*    public void addPlaces(SQLiteDatabase dbWritableConnection,Place[] places){
 
         dbWritableConnection.beginTransaction();
         try{
@@ -461,10 +444,5 @@ public class VTGDatabase extends SQLiteOpenHelper {
         }finally{
             dbWritableConnection.endTransaction();
         }
-    }
-
-
-
-
-
+    }*/
 }

@@ -9,15 +9,21 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
 
+    private SQLiteDatabase dbWritableConnection;
+
+    public ShoppingPlacesDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
+
     @Override
-    public void createShoppingPlacesTable(SQLiteDatabase dbWritableConnection)throws SQLException {
+    public void createShoppingPlacesTable()throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_SHOPPING_PLACES_TABLE);
         Log.d("Create table message: ","Table " +
@@ -25,8 +31,7 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     }
 
     @Override
-    public void addShoppingPlaces(SQLiteDatabase dbWritableConnection,
-                                        ShoppingPlace[] shoppingPlaces) {
+    public void addShoppingPlaces(ShoppingPlace[] shoppingPlaces) {
         dbWritableConnection.beginTransaction();
         try{
             ContentValues values = new ContentValues();
@@ -55,7 +60,7 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     }
 
     @Override
-    public List<ShoppingPlace> getAllShoppingPlaces(SQLiteDatabase dbWritableConnection) {
+    public List<ShoppingPlace> getAllShoppingPlaces() {
 
         List<ShoppingPlace> allShoppingPlaces = new ArrayList<ShoppingPlace>();
 
@@ -84,8 +89,7 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     }
 
     @Override
-    public ShoppingPlace getShoppingPlaceByPlaceId
-            (SQLiteDatabase dbWritableConnection,Integer placeId){
+    public ShoppingPlace getShoppingPlaceByPlaceId(Integer placeId){
 
         dbWritableConnection.beginTransaction();
         try{

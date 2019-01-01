@@ -5,11 +5,11 @@ import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.DBManager;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
@@ -24,22 +24,23 @@ import java.util.TimerTask;
 public class SinglePlaceInfo extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private VTGDatabase vtgDatabase;
-    private SQLiteDatabase dbWritableConnection;
+    private DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_place_info);
 
+        dbManager = new DBManager(this);
+        dbManager.open();
         //set text font for price category label :)
-       /* Typeface myCustomFont =
+        /* Typeface myCustomFont =
                 Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
-       /* TextView priceCategory = (TextView)findViewById(R.id.priceCategoryId);
+        /* TextView priceCategory = (TextView)findViewById(R.id.priceCategoryId);
         priceCategory.setTypeface(myCustomFont);*/
 
-        vtgDatabase = VTGDatabase.getInstance(SinglePlaceInfo.this);
-        dbWritableConnection = vtgDatabase.getWritableDatabase();
+        /* databaseHelper = DatabaseHelper.getInstance(SinglePlaceInfo.this);
+        dbWritableConnection = databaseHelper.getWritableDatabase();*/
 
         //to switch the pictures of specific place
         generateViewPager();
@@ -47,26 +48,26 @@ public class SinglePlaceInfo extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Integer placeId = Integer.valueOf(bundle.getString("PLACE_ID"));
 
-        Place chosenPlace = vtgDatabase.getPlaceDaoImpl().
-                getPlaceById(dbWritableConnection, placeId);
+        Place chosenPlace = dbManager.getPlaceDaoImpl().
+                getPlaceById(placeId);
 
         switch(DbBaseOperations.getPlaceTypeById(placeId)){
 
             case DbStringConstants.TABLE_RESTAURANTS:
-                Restaurant restaurant = vtgDatabase.getRestaurantDaoImpl().
-                        getRestaurantByPlaceId(dbWritableConnection, placeId);
+                Restaurant restaurant = dbManager.getRestaurantDaoImpl().
+                        getRestaurantByPlaceId(placeId);
                 break;
             case DbStringConstants.TABLE_SHOPPING_PLACES:
-                ShoppingPlace shoppingPlace = vtgDatabase.getShoppingPlacesDaoImpl().
-                        getShoppingPlaceByPlaceId(dbWritableConnection, placeId);
+                ShoppingPlace shoppingPlace = dbManager.getShoppingPlacesDaoImpl().
+                        getShoppingPlaceByPlaceId(placeId);
                 break;
             case DbStringConstants.TABLE_HOTELS:
-                Hotel hotel = vtgDatabase.getHotelDaoImpl().
-                        getHotelByPlaceId(dbWritableConnection, placeId);
+                Hotel hotel = dbManager.getHotelDaoImpl().
+                        getHotelByPlaceId(placeId);
                 break;
             case DbStringConstants.TABLE_LANDMARKS:
-                Landmark landmark = vtgDatabase.getLandmarkDaoImpl().
-                        getLandmarkByPlaceId(dbWritableConnection, placeId);
+                Landmark landmark = dbManager.getLandmarkDaoImpl().
+                        getLandmarkByPlaceId(placeId);
                 break;
         }
 
@@ -113,7 +114,6 @@ public class SinglePlaceInfo extends AppCompatActivity {
     public ViewPager getViewPager() {
         return viewPager;
     }
-
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
     }

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface WorkHoursDao {
-    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection);
-    public void addWorkHours(SQLiteDatabase dbWritableConnection,WorkHours[] workHours);
-    public List<WorkHours> getWorkHoursByPlaceId(int placeId,SQLiteDatabase dbReadableConnection);
+    public void createWorkHoursTable();
+    public void addWorkHours(WorkHours[] workHours);
+    public List<WorkHours> getWorkHoursByPlaceId(int placeId);
 }

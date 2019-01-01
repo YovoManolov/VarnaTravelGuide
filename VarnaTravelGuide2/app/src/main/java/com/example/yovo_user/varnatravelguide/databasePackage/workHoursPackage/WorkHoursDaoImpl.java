@@ -9,15 +9,21 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkHoursDaoImpl implements WorkHoursDao {
 
+    private SQLiteDatabase dbWritableConnection;
+
+    public WorkHoursDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
+
     @Override
-    public void createWorkHoursTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+    public void createWorkHoursTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
         Log.d("Create table message: ","Table "
@@ -26,7 +32,7 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
     }
 
     @Override
-    public void addWorkHours(SQLiteDatabase dbWritableConnection, WorkHours[] workHours) {
+    public void addWorkHours(WorkHours[] workHours) {
         dbWritableConnection.beginTransaction();
         try{
 
@@ -70,10 +76,10 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
     }
 
     @Override
-    public List<WorkHours> getWorkHoursByPlaceId(int placeId,SQLiteDatabase dbReadableConnection){
+    public List<WorkHours> getWorkHoursByPlaceId(int placeId){
         List<WorkHours> workHoursList = new ArrayList<>();
 
-        Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_WORK_HOURS_BY_ID,new String[]{
+        Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_WORK_HOURS_BY_ID,new String[]{
                 String.valueOf(placeId)
         });
 

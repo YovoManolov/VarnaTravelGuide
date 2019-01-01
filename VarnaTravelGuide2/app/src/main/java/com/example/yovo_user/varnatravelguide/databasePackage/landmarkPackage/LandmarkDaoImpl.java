@@ -9,14 +9,21 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LandmarkDaoImpl implements LandmarkDao {
+
+    private SQLiteDatabase dbWritableConnection;
+
+    public LandmarkDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
+
     @Override
-    public void createLandmarkTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+    public void createLandmarkTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,
                                         DbStringConstants.TABLE_LANDMARKS);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
@@ -26,7 +33,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
-    public void addLandmarks(SQLiteDatabase dbWritableConnection, Landmark[] landmarks) {
+    public void addLandmarks(Landmark[] landmarks) {
         dbWritableConnection.beginTransaction();
         try {
 
@@ -56,10 +63,10 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
-    public List<Landmark> getAllLandmarks(SQLiteDatabase dbReadableConnection) throws SQLException {
+    public List<Landmark> getAllLandmarks() throws SQLException {
         List<Landmark> allLandmarks = new ArrayList<Landmark>();
 
-        Cursor cursor = dbReadableConnection.rawQuery(
+        Cursor cursor = dbWritableConnection.rawQuery(
                 DbStringConstants.GET_ALL_LANDMARKS,null);
 
         if (cursor.moveToFirst()) {
@@ -77,7 +84,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
-    public Landmark getLandmarkByPlaceId(SQLiteDatabase dbWritableConnection,Integer placeId){
+    public Landmark getLandmarkByPlaceId(Integer placeId){
 
         try{
             Cursor cursor = dbWritableConnection.

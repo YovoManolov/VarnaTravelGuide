@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.VTGDatabase;
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 
 import java.util.ArrayList;
@@ -17,8 +17,14 @@ import java.util.List;
 
 public class ImageDaoImpl implements ImageDao {
 
+    private SQLiteDatabase dbWritableConnection;
+
+    public ImageDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }
+
     @Override
-    public void createImageTable(SQLiteDatabase dbWritableConnection) throws SQLException {
+    public void createImageTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
         dbWritableConnection.execSQL(DbStringConstants.CREATE_IMAGES_TABLE);
         Log.d("Create table message: ","Table "
@@ -26,7 +32,7 @@ public class ImageDaoImpl implements ImageDao {
     }
 
     @Override
-    public void addImage(SQLiteDatabase dbWritableConnection, Image[] images) {
+    public void addImage(Image[] images) {
 
         dbWritableConnection.beginTransaction();
         try {
@@ -55,12 +61,12 @@ public class ImageDaoImpl implements ImageDao {
         }
     }
 
-    public List<Image> getImagesForPlace(SQLiteDatabase dbReadableConnection,int placeId){
+    public List<Image> getImagesForPlace(int placeId){
         List<Image> allImagesForPlace = new ArrayList<>();
-        dbReadableConnection.beginTransaction();
+        dbWritableConnection.beginTransaction();
 
         try{
-            Cursor cursor = dbReadableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,
+            Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_IMAGES_FOR_PLACE,
                                         new String[]{
                     String.valueOf(placeId)
             });
@@ -77,19 +83,19 @@ public class ImageDaoImpl implements ImageDao {
         }catch(SQLException e){
             e.printStackTrace();
         }finally{
-            dbReadableConnection.endTransaction();
+            dbWritableConnection.endTransaction();
         }
 
         return allImagesForPlace;
     }
 
-    public Image getMainImageForPlace(SQLiteDatabase dbReadableConnection,int placeId){
+    public Image getMainImageForPlace(int placeId){
         Image mainImage  = null;
-        dbReadableConnection.beginTransaction();
+        dbWritableConnection.beginTransaction();
 
         try{
 
-            Cursor cursor = dbReadableConnection.rawQuery(
+            Cursor cursor = dbWritableConnection.rawQuery(
                     DbStringConstants.GET_MAIN_IMAGE_FOR_PLACE,
                     new String[]{
                             String.valueOf(placeId),
@@ -104,7 +110,7 @@ public class ImageDaoImpl implements ImageDao {
         }catch(SQLException e){
             e.printStackTrace();
         }finally{
-            dbReadableConnection.endTransaction();
+            dbWritableConnection.endTransaction();
         }
 
         return mainImage;
