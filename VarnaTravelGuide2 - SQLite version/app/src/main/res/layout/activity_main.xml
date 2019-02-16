@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp">
+
+            <LinearLayout
+                android:id="@+id/VarnaImagesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPagerId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="230dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/searhLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="230dp"
+                android:weightSum="4"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchLabel"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ems="20"
+                    android:inputType="textPersonName"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:layout_marginTop="20dp"
+                    android:singleLine="false"
+                    android:text="@string/search_label"/>
+
+                <EditText
+                    android:id="@+id/textToSearch"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="10dp"
+                    android:layout_marginTop="20dp"
+                    android:singleLine="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/categoriesButtonsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="10"
+                android:layout_marginTop="280dp"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.GridLayout
+                    android:id="@+id/mainLinksGridL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:layout_centerHorizontal="true"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    app:alignmentMode="alignMargins"
+                    app:columnCount="2"
+                    app:columnOrderPreserved="false"
+                    android:padding="14dp"
+                    app:rowCount="2">
+
+                    <!-- Row 1 -->
+                    <!-- Column 1 -->
+                    <!--hotels-->
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/hotelsCV_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <!--android:layout_margin="16dp"-->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icons8_bed_48"></ImageView>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <!-- Row 1 -->
+                    <!-- Column 2 -->
+                    <!--restaurants-->
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/restaurantsCV_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icons8_meal_64"></ImageView>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <!-- Row 2 -->
+                    <!-- Column 1 -->
+                    <!--landmarks-->
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/landmarksCV_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1"
+
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icons8_palace_48"></ImageView>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+
+                    <!-- Row 2 -->
+                    <!-- Column 2 -->
+                    <!--shopping places-->
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/shopping_placesCV_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icons8_shopping_cart_64"></ImageView>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </android.support.v7.widget.GridLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/listLinksLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="530dp"
+                android:orientation="vertical">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:id="@+id/listLinksItems"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/logo" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

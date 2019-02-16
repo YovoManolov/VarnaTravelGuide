@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VarnaTravelGuide</string>
+    <string name="search_label">Search :</string>
+    <string name="title_activity_public_transport">PublicTransportActivity</string>
+</resources>
