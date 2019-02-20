@@ -15,6 +15,9 @@ import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.La
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +33,13 @@ public class SinglePlaceInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_place_info);
+
+
+        StitchAppClient stitchAppClient  = Stitch.getDefaultAppClient();
+        RemoteMongoClient mongoClient = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory,
+                "mongodb-atlas"
+        );
 
         dbManager = new DBManager(this.getApplicationContext());
         dbManager.open();

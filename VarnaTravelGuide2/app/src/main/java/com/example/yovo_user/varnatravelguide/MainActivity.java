@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +20,16 @@ import android.widget.TextView;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.mongodb.stitch.android.core.auth.StitchAuth;
+import com.mongodb.stitch.android.core.auth.StitchAuthListener;
+import com.mongodb.stitch.android.core.auth.StitchUser;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -29,14 +40,22 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private android.support.v7.widget.GridLayout  mainLinksGridL;
     private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
+    private StitchAppClient stitchClient = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        Stitch.initializeDefaultAppClient(
+                    getResources().getString( R.string.my_app_id )
+             );
+        this.stitchClient = Stitch.getDefaultAppClient();
+
+        Task<StitchUser> taskAuthorization
+                    = this.stitchClient.getAuth().loginWithCredential(new AnonymousCredential());
+
         setContentView(R.layout.activity_main);
-        /*Typeface myCustomFont =
-                    Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
 
         generateViewPager();
 
