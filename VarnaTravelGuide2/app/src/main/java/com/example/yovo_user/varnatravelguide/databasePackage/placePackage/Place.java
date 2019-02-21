@@ -159,7 +159,6 @@ public class Place {
                                 "Facebook: https://www.facebook.com/lolandpopbg\n" +
                                 "https://lolandpop.bg/\n",
                         "\n" +
-                                "\n" +
                                 "   Confectionery LOLLIPOP Bulgaria - is the first workshop " +
                                 "for handmade candies from natural ingredients in Bulgaria!\n" +
                                 "\n" +
@@ -169,7 +168,7 @@ public class Place {
                         "Varna, bul. Primorski park II 482",
                         43.215300, 27.954959,
                         "LL :  052 385 466\n" +
-                                "e-mail: information@grandmall-varna.com\n" +
+                                "e-mail: office.park@piccadilly.bg\n" +
                                 "Facebook: https://www.facebook.com/PikadiliPark\n",
                         "\n" +
                                 "   The building is a retail complex on separate " +
@@ -181,10 +180,7 @@ public class Place {
                 new Place("Retail Park Varna",
                         "Blvd. \"Vladislav Varnenchik\" 310, 9009 West Industrial Zone, Varna",
                         43.223435, 27.872933,
-                        "Cell./Mob. :  0700 33 939\n" +
-                                "e-mail: information@grandmall-varna.com\n" +
-                                "Facebook: www.facebook.com/GrandMallVarna\n" +
-                                "http://www.grandmall-varna.com/en/\n",
+                        "\n",
                         "\n" +
                                 "Retail Park Varna is the first of its kind in Varna and " +
                                 "the Northeastern part of Bulgaria. It has been established" +
@@ -202,8 +198,7 @@ public class Place {
                         43.210998, 27.926977,
                         "Cell./Mob. : 088 856 8023\n" +
                                 "e-mail: tinaartbg@gmail.com\n" +
-                                "Facebook: https://www.facebook.com/pg/TinaArtShop\n" +
-                                "http://www.grandmall-varna.com/en/\n",
+                                "Facebook: https://www.facebook.com/pg/TinaArtShop\n",
                         "\n" +
                                 "  Art Gallery Tina Art offers paintings, small sculpture," +
                                 "original silver jewelry, ceramics, artistic ceramics, framing." +
@@ -219,7 +214,6 @@ public class Place {
                         "LL: 052 603 108  \n" +
                                 "Cell./Mob. : +359 898 506 505 \n" +
                                 "e-mail: hotel_acropolis@yahoo.com\n" +
-                                "impuls_ood@abv.bg\n" +
                                 "www.hotelacropolis.net\n",
                         "The family hotel \"Acropolis\" is situated in" +
                                 " a quiet and peaceful place in the trade center of Varna," +
@@ -232,8 +226,7 @@ public class Place {
                         43.199029, 27.919575,
                         "LL: 052 335 237 \n" +
                                 "Cell./Mob. : +359 888 445 989 \n" +
-                                "e-mail: impuls_ood@abv.bg\n" +
-                                "info@hotelacropolis.net\n" +
+                                "e-mail: impuls_ood@abv.bg\n"
                                 "http://www.villa-jana.com/\n",
                         "This hotel is located on the way to the Black Sea resort" +
                                 " of Golden Sands and is situated in a quiet place in a" +
@@ -244,7 +237,7 @@ public class Place {
                                 "in the entire building." ),
                 new Place("Villa Duchessa Varna",
                         "Varna 9010, Primorski Park, Saltanat 64",
-                        43.2136639, 43.213663,
+                        43.214039, 27.943327,
                         "LL: 052 71 66 44 / 052 71 66 55 \n" +
                                 " Cell./Mob. : 0887 42 44 83 \n" +
                                 "e-mail: duc_varna@abv.bg\n" +
@@ -261,7 +254,7 @@ public class Place {
                 new Place("Hotel Boutique Splendid",
                         "Str. Bratia Shkorpil 30,\n" +
                                 "Varna 9000, Bulgaria",
-                        43.2136639, 43.213663,
+                43.205848, 27.910952,
                         "LL: +359 52 681 414 \n" +
                                 " Cell./Mob. : +359 88888 71 64\n" +
                                 "e-mail: info@boutiquesplendid.net\n" +
@@ -276,10 +269,10 @@ public class Place {
                                 " will contribute to your pleasant stay in the heart" +
                                 " of Varna City."),
                 new Place("Rosslyn Dimyat Hotel",
-                        "Varna 9010, Primorski Park, Saltanat 64",
-                        43.2136639, 43.213663,
+                        "bul.\"Knyaz Boris I\" 111,9002 Varna, Bulgaria\n",
+                        43.209699, 27.928747,
                         "LL: +359 52 910 800 \n" +
-                                "e-mail: bul.\"Knyaz Boris I\" 111,9002 Varna, Bulgaria\n" +
+                                "e-mail: reception.dimyat@rosslyn-hotels.com \n" +
                                 "http://dimyat.rosslyn-hotels.com\n",
                         "With a central location and next to the sea garden," +
                                 " Rosslyn Dimyat Hotel is ideal to make the most of Your" +
@@ -335,14 +328,14 @@ public class Place {
                                 "Nearest city:\t Aksakovo",
                         43.225932, 27.706441,
                         " +359 5313 20 95",
-                        "Natural phenomenon “Stone Forest” is better known with " +
-                                "its Bulgarian name “Pobiti kamani” which could be " +
-                                "translated as “stones beaten into the ground”. Seven" +
-                                " large and several separate small groups are located on " +
-                                "the north and south from the Beloslav Lake. These are" +
-                                " numerous limestone pillars as high as 10 m, hollow or" +
-                                " solid cylinders, truncated cones and single rocks and" +
-                                " cliffs."),
+                        "    The Madara Rider or Madara Horseman " +
+                                "(Bulgarian: Мадарски конник, Madarski konnik) is" +
+                                " an early medieval large rock relief carved on the" +
+                                " Madara Plateau east of Shumen in northeastern Bulgaria, " +
+                                "near the village of Madara. The monument is dated in the" +
+                                " very late 7th, or more often very early 8th century," +
+                                " during the reign of Bulgar Khan Tervel. In 1979 became" +
+                                " enlisted on the UNESCO World Heritage List."),
                 //TODO : description to be changes
                 new Place(
                         "Regional History Museum of Varna",
@@ -350,14 +343,17 @@ public class Place {
                                 "Nearest city:\tAksakovo",
                         43.207054, 27.914544,
                         "LL: + 359 52 618011",
-                        "Natural phenomenon “Stone Forest” is better known with " +
-                                "its Bulgarian name “Pobiti kamani” which could be " +
-                                "translated as “stones beaten into the ground”. Seven" +
-                                " large and several separate small groups are located on " +
-                                "the north and south from the Beloslav Lake. These are" +
-                                " numerous limestone pillars as high as 10 m, hollow or" +
-                                " solid cylinders, truncated cones and single rocks and" +
-                                " cliffs.")
+                        "\n" +
+                                "The Varna Archaeological Museum is the historical " +
+                                "and archaeological museum in Varna. It was founded in " +
+                                "1887 by the brothers Karel and Hermann Shkorpil.\n" +
+                                "\n" +
+                                "The museum is preserved in 1972 near Varna, the oldest" +
+                                " gold in the world: the Ethnolite treasure of Varna," +
+                                " dated to 4200-4600 BC. It consists of jewels and bracelets," +
+                                " mostly forged or cast. The alloy gold is a purity of 13 to" +
+                                "23 carats, with a total weight of about 6 kg. It is protected " +
+                                "by special mode.")
         };
     }
 
