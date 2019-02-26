@@ -9,12 +9,33 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.HotelListAdapter;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceDaoImpl implements PlaceDao {
 
-
     private SQLiteDatabase dbWritableConnection;
+
+    private StitchAppClient stitchAppClient  = Stitch.getDefaultAppClient();
+    private RemoteMongoClient mongoClient  = stitchAppClient.getServiceClient(
+            RemoteMongoClient.factory, "mongodb-atlas");
+
+    private PlaceListAdapter _placeListAdapter;
 
     public PlaceDaoImpl(SQLiteDatabase dbWritableConnection) {
         this.dbWritableConnection = dbWritableConnection;
@@ -63,39 +84,35 @@ public class PlaceDaoImpl implements PlaceDao {
                 DbStringConstants.TABLE_PLACES + " is being created !");
     }
 
-    @Override
-    public Place getPlaceById(int placeId) {
-        dbWritableConnection.beginTransaction();
-        Place place = null;
-
-        try{
-
-            Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_PLACE_BY_ID,
-                new String[]{
-                        String.valueOf(placeId)
-                });
-
-            if(cursor.getCount()!= 1){
-
-                if (cursor.moveToFirst()) {
-                    do {
-                        place = new Place(
-                                cursor.getString(1),
-                                cursor.getString(2),
-                                cursor.getDouble(3),
-                                cursor.getDouble(4),
-                                cursor.getString(5),
-                                cursor.getString(6)
-                        );
-                    } while (cursor.moveToNext());
-                }
-            }
-            cursor.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
+    private List<Place> convertDocsToPlaces(final List<Document> documents) {
+        final List<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
+        for (final Document doc : documents) {
+            listOfPlaceObjects.add(new Place(doc));
         }
+        return listOfPlaceObjects;
+    }
+
+    @Override
+    public Place getPlaceById(ObjectId place_id) {
+        Place place ;
+
+        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("places");
+
+        Document filter = new Document("_id",place_id);
+        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        final ArrayList<Document> foundDocuments = new ArrayList<>();
+
+        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _placeListAdapter.clear();
+                _placeListAdapter.addAll(convertDocsToPlaces(foundDocuments));
+                _placeListAdapter.notifyDataSetChanged();
+            }
+        });
+
         return place;
     }
 }

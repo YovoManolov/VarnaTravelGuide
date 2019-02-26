@@ -1,19 +1,27 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
 
 
+
+import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
+
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+
 public class Place {
-    private int id;
+    private ObjectId _id;
     private String name;
     private String address;
     private double latitude;
     private double longitude;
     private String contacts;
     private String description;
-
+    private ArrayList<Image> images;
     public Place(){};
     public Place(String name, String address,
-                 double latitude, double longitude, String contacts,
-                 String description) {
+                      double latitude, double longitude, String contacts,
+                      String description) {
         this.name = name;
         this.address = address;
         this.latitude = latitude;
@@ -22,12 +30,16 @@ public class Place {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
-    }
+    public Place(final Document document) {
 
-    public void setId(int id) {
-        this.id = id;
+        _id = document.getObjectId("_id");
+        name = document.getString("name");
+        address = document.getString("address");
+        latitude = document.getDouble("latitude");
+        longitude = document.getDouble("longitude");
+        contacts = document.getString("contacts");
+        description = document.getString("description");
+        images = Image.convertDocsToImages((ArrayList<Document>) document.get("images"));
     }
 
     public String getName() {
@@ -78,7 +90,16 @@ public class Place {
         this.description = description;
     }
 
-    public static Place[] populatePlaces() {
+
+    public ArrayList<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<Image> images) {
+        this.images = images;
+    }
+
+   /* public static Place[] populatePlaces() {
         return new Place[]{
                 //restaurants
                 new Place("Complex Valsheben Izvor Devnia",
@@ -355,6 +376,6 @@ public class Place {
                                 "23 carats, with a total weight of about 6 kg. It is protected " +
                                 "by special mode.")
         };
-    }
+    }*/
 
 }

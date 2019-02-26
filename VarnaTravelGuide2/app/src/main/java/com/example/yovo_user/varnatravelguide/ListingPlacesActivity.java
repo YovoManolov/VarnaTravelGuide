@@ -35,6 +35,12 @@ import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePacka
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlacesDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+
+import org.bson.Document;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -47,6 +53,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
     private String typeOfPlacesToLoad;
     private List<ListLinksItem> listItems = new ArrayList<>();
     private DBManager dbManager;
+    StitchAppClient stitchAppClient;
+    RemoteMongoClient mongoClient ;
 
   /* private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
@@ -65,6 +73,12 @@ public class ListingPlacesActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
 
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        mongoClient = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory, "mongodb-atlas"
+        );
+
+
         dbManager = new DBManager(this.getApplicationContext());
         dbManager.open();
         /*Typeface myCustomFont =
@@ -82,12 +96,8 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Hotel> allHotels =(ArrayList<Hotel>)
                         dbManager.getHotelDaoImpl().getAllHotels();
 
-                ArrayList<Place> hotelPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < allHotels.size(); i++){
-                    hotelPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allHotels.get(i).getPlaceId())
-                    );
-                }
+                ArrayList<Place> hotelPlaces =(ArrayList<Place>)
+                        dbManager.getPlaceDaoImpl().getAllPlaces();
 
                 generateListOfPlaces(hotelPlaces);
             break;

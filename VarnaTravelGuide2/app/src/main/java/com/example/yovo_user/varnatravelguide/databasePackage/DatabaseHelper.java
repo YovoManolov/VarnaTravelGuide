@@ -62,7 +62,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase dbWritableConnection) {
-
+/*
         placeDaoImpl = new PlaceDaoImpl(dbWritableConnection);
         hotelDaoImpl = new HotelDaoImpl(dbWritableConnection);
         landmarkDaoImpl = new LandmarkDaoImpl(dbWritableConnection);
@@ -79,34 +79,16 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         landmarkDaoImpl.createLandmarkTable();
         restaurantDaoImpl.createRestaurantTable();
         shoppingPlacesDaoImpl.createShoppingPlacesTable();
-        workHoursDaoImpl.createWorkHoursTable();
+        workHoursDaoImpl.createWorkHoursTable();*/
 
-        placeDaoImpl.addPlaces(Place.populatePlaces());
+/*        placeDaoImpl.addPlaces(Place.populatePlaces());
         priceCategoryDaoImpl.addPriceCategory(PriceCategory.populatePriceCategories());
         imageDaoImpl.addImage(Image.populateImages());
         hotelDaoImpl.addHotels(Hotel.populateHotels());
         landmarkDaoImpl.addLandmarks(Landmark.populateLandmarks());
         restaurantDaoImpl.addRestaurant(Restaurant.populateRestaurants());
         shoppingPlacesDaoImpl.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
-        workHoursDaoImpl.addWorkHours(WorkHours.populateWorkHours());
-
-        List<Hotel> allHotels = new ArrayList<Hotel>();
-        Cursor cursor = dbWritableConnection.
-                rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Hotel hotel = new Hotel(cursor.getInt(1),
-                        cursor.getInt(2),
-                        cursor.getInt(3));
-                allHotels.add(hotel);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        for(Hotel hotel : allHotels){
-            System.out.println(hotel.toString());
-        }
+        workHoursDaoImpl.addWorkHours(WorkHours.populateWorkHours());*/
     }
 
     @Override

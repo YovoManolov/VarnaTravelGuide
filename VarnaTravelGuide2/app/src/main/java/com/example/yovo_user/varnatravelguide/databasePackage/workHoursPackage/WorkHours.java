@@ -79,7 +79,7 @@ public class WorkHours {
                 new WorkHours(5,0, "09:00h - 02:00h", " 09:00h - 02:00h"," 09:00h - 02:00h"),
 
 
-               //SHOPPING PLACES
+                //SHOPPING PLACES
 
 
                 //Grand Mall Varna

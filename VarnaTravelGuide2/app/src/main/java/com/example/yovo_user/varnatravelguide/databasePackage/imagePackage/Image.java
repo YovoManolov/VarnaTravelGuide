@@ -1,38 +1,22 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.imagePackage;
 
-public class Image {
+import org.bson.Document;
 
-    private int id;
-    private int placeId;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Image {
     private String imageURL;
     private int isMainImage;
 
-    public Image(int id, int placeId, String imageURL) {
-        this.id = id;
-        this.placeId = placeId;
-        this.imageURL = imageURL;
-    }
-
-    public Image(int placeId, String imageURL,int isMainImage) {
-        this.placeId = placeId;
+    public Image(String imageURL,int isMainImage) {
         this.imageURL = imageURL;
         this.isMainImage = isMainImage;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(int placeId) {
-        this.placeId = placeId;
+    public Image(final Document document) {
+        imageURL = document.getString("imageURL");
+        isMainImage = document.getInteger("mainImage");
     }
 
     public String getImageURL() {
@@ -51,7 +35,15 @@ public class Image {
         this.isMainImage = isMainImage;
     }
 
-    public static Image[] populateImages() {
+    public static ArrayList<Image> convertDocsToImages(final List<Document> documents) {
+        final ArrayList<Image> listOfImageObjects = new ArrayList<>(documents.size());
+        for (final Document doc : documents) {
+            listOfImageObjects.add(new Image(doc));
+        }
+        return listOfImageObjects;
+    }
+
+   /* public static Image[] populateImages() {
         return new Image[]{
 
                 ////////// RESTAURANTS //////////
@@ -306,9 +298,6 @@ public class Image {
                 new Image(18,
                         "1QU-OvV4fqR8PgPl_0RmGOk12wzPxHMS8",0),
 
-
-
-
                 //Madara Rider
                 new Image(19,
                         "1M9-GFAKp8BmZCeukA6BzPWxMDrYFboXB",0),
@@ -325,8 +314,6 @@ public class Image {
                 new Image(19,
                         "1D6q6u7bMbibs5aXdj_Mj3kj-nxRWRMAo",0),
 
-
-
                 //Regional History Museum of Varna
                 new Image(20,
                         "1Y_hJJ8U00gcqfzIYs_Fcj0FPqJFtojU8",1),
@@ -339,5 +326,5 @@ public class Image {
                 new Image(20,
                         "1PniiFpdgIQRvsGirJDSqUf2VXODvQgKQ",0),
         };
-    }
+    }*/
 }

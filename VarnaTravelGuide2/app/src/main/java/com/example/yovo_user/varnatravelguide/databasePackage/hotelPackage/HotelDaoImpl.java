@@ -10,18 +10,40 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+
+import org.bson.BsonDocument;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelDaoImpl implements HotelDao{
 
-    private SQLiteDatabase dbWritableConnection;
+    /*private SQLiteDatabase dbWritableConnection;
 
     public HotelDaoImpl(SQLiteDatabase dbWritableConnection) {
         this.dbWritableConnection = dbWritableConnection;
-    }
-    @Override
+    }*/
+
+    StitchAppClient stitchAppClient  = Stitch.getDefaultAppClient();
+    RemoteMongoClient mongoClient  = stitchAppClient.getServiceClient(
+    RemoteMongoClient.factory, "mongodb-atlas");
+    HotelListAdapter _hotelListAdapter;
+
+    RemoteMongoCollection<Document> hotelsCollection = mongoClient
+            .getDatabase("VarnaTravelGuide")
+            .getCollection("hotels");
+
+    /*@Override
     public void createHotelTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_HOTELS);
 
@@ -34,9 +56,9 @@ public class HotelDaoImpl implements HotelDao{
         Log.d("Create table message: ","Table "
                 + DbStringConstants.TABLE_HOTELS + " is being created !");
 
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void addHotels(Hotel[] hotels) throws SQLException {
 
         dbWritableConnection.beginTransaction();
@@ -65,37 +87,45 @@ public class HotelDaoImpl implements HotelDao{
         }finally{
             dbWritableConnection.endTransaction();
         }
-    }
+    }*/
 
     @Override
     public List<Hotel> getAllHotels() {
         List<Hotel> allHotels = new ArrayList<Hotel>();
 
-        dbWritableConnection.beginTransaction();
-        try{
-            Cursor cursor = dbWritableConnection.
-                    rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+        final ArrayList<Document> hotelDocumentsList = new ArrayList<>();
 
-            if (cursor.moveToFirst()) {
-                do {
-                    Hotel hotel = new Hotel(cursor.getInt(1),
-                                            cursor.getInt(2),
-                                            cursor.getInt(3));
-                    allHotels.add(hotel);
-                } while (cursor.moveToNext());
+        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("hotels");
+
+        Document filter = new Document();
+        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        final ArrayList<Document> hotelDocuments = new ArrayList<>();
+
+        cursor.into(hotelDocuments).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _hotelListAdapter.clear();
+                _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
+                _hotelListAdapter.notifyDataSetChanged();
             }
+        });
 
-            cursor.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
+        allHotels = convertDocsToHotels(hotelDocuments);
 
         return allHotels;
     }
 
-    @Override
+    private List<Hotel> convertDocsToHotels(final List<Document> documents) {
+        final List<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
+        for (final Document doc : documents) {
+            listOfHotelObjects.add(new Hotel(doc));
+        }
+        return listOfHotelObjects;
+    }
+
+ /*   @Override
     public Hotel getHotelByPlaceId(Integer placeId) {
 
         dbWritableConnection.beginTransaction();
@@ -123,7 +153,7 @@ public class HotelDaoImpl implements HotelDao{
         }
 
         return null;
-    }
+    }*/
 
     public SQLiteDatabase getDbWritableConnection() {
         return dbWritableConnection;
