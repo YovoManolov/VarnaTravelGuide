@@ -69,7 +69,7 @@ public class ImageDaoImpl implements ImageDao {
         }
     }*/
 
-    public List<Image> getImagesForPlace(ObjectId placeId){
+    /*public List<Image> getImagesForPlace(ObjectId placeId){
         List<Image> allImagesForPlace = new ArrayList<>();
         dbWritableConnection.beginTransaction();
 
@@ -96,8 +96,9 @@ public class ImageDaoImpl implements ImageDao {
 
         return allImagesForPlace;
     }
-
-    public Image getMainImageForPlace(int placeId){
+    */
+/*
+    public Image getMainImageForPlace(ObjectId placeId){
         Image mainImage  = null;
         dbWritableConnection.beginTransaction();
 
@@ -122,5 +123,5 @@ public class ImageDaoImpl implements ImageDao {
         }
 
         return mainImage;
-    }
+    }*/
 }

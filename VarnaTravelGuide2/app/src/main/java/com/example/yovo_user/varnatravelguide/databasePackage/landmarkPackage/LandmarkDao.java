@@ -4,11 +4,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
 
+import org.bson.types.ObjectId;
+
 import java.util.List;
 
 public interface LandmarkDao {
-    public void createLandmarkTable();
-    public void addLandmarks(Landmark[] landmarks);
+    /*public void createLandmarkTable();
+    public void addLandmarks(Landmark[] landmarks);*/
     public List<Landmark> getAllLandmarks();
-    public Landmark getLandmarkByPlaceId(Integer placeId);
+    public Landmark getLandmarkByPlaceId(ObjectId place_id);
 }

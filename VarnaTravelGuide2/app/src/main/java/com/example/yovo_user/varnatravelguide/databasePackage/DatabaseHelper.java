@@ -66,7 +66,6 @@ public class DatabaseHelper {
         return dbHelper;
     }*/
 
-    @Override
     public void onCreate(SQLiteDatabase dbWritableConnection) {
 
         placeDaoImpl = new PlaceDaoImpl(mongoClient);
@@ -97,11 +96,11 @@ public class DatabaseHelper {
         workHoursDaoImpl.addWorkHours(WorkHours.populateWorkHours());*/
     }
 
-    @Override
+   /* @Override
     public void onUpgrade(SQLiteDatabase dbWritableConnection, int oldVersion, int newVersion) {
         DbBaseOperations.upgradeDb(dbWritableConnection,oldVersion,newVersion);
         onCreate(dbWritableConnection);
-    }
+    }*/
 
     public HotelDaoImpl getHotelDaoImpl() {
         return hotelDaoImpl;

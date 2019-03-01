@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 
 public class Place {
+
     private ObjectId _id;
     private String name;
     private String address;
@@ -40,6 +41,14 @@ public class Place {
         contacts = document.getString("contacts");
         description = document.getString("description");
         images = Image.convertDocsToImages((ArrayList<Document>) document.get("images"));
+    }
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -89,7 +98,6 @@ public class Place {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public ArrayList<Image> getImages() {
         return images;

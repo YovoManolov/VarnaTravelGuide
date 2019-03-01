@@ -10,8 +10,7 @@ public class Restaurant {
     private ObjectId place_id;
     private String cuisine;
 
-    public Restaurant(ObjectId _id, ObjectId place_id, int priceCategoryId, String cousine) {
-        this._id = _id;
+    public Restaurant(ObjectId place_id, String cousine) {
         this.place_id = place_id;
         this.cuisine = cousine;
     }
@@ -21,17 +20,8 @@ public class Restaurant {
     }
 
     public Restaurant(final Document document) {
-        _id = document.getObjectId("_id");
         place_id = document.getObjectId("place_id");
         cuisine = document.getString("cuisine");
-    }
-
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
     }
 
     public ObjectId getPlace_id() {

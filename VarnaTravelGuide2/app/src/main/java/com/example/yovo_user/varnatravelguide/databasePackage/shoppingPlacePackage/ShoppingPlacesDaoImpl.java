@@ -10,21 +10,32 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.PlaceListAdapter;
+import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+
+import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
 
-    //private SQLiteDatabase dbWritableConnection;
     private RemoteMongoClient mongoClient;
+    private ShoppingPlacesListAdapter _shoppingPlacesListAdapter;
+    private PlaceListAdapter _placesListAdapter;
 
     public ShoppingPlacesDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
     }
 
-   /* @Override
+    /*@Override
     public void createShoppingPlacesTable()throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         try{
@@ -35,8 +46,8 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
         Log.d("Create table message: ","Table " +
                 DbStringConstants.TABLE_SHOPPING_PLACES + " is being created !");
     }*/
-
-   /* @Override
+/*
+    @Override
     public void addShoppingPlaces(ShoppingPlace[] shoppingPlaces) {
         dbWritableConnection.beginTransaction();
         try{
@@ -63,36 +74,18 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
         }
     }*/
 
-    @Override
-    public List<ShoppingPlace> getAllShoppingPlaces() {
-
-        List<ShoppingPlace> allShoppingPlaces = new ArrayList<ShoppingPlace>();
-
-        dbWritableConnection.beginTransaction();
-        try{
-            Cursor cursor = dbWritableConnection.
-                    rawQuery(DbStringConstants.GET_ALL_SHOPPING_PLACES,null );
-
-            if (cursor.moveToFirst()) {
-                do {
-                    ShoppingPlace shoppingPlace = new ShoppingPlace(
-                            cursor.getInt(1),
-                            cursor.getInt(2)
-                    );
-                    allShoppingPlaces.add(shoppingPlace);
-                } while (cursor.moveToNext());
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
+   /*private List<Place> convertDocsToShoppingPlaces(final List<Document> documents) {
+        final List<Place> listOfShoppingPlaceObjects = new ArrayList<>(documents.size());
+        for (final Document doc : documents) {
+            listOfShoppingPlaceObjects.add(new Place(doc));
         }
-
-        return allShoppingPlaces;
+        return listOfShoppingPlaceObjects;
     }
 
-    @Override
+*/
+
+
+   /* @Override
     public ShoppingPlace getShoppingPlaceByPlaceId(Integer placeId){
 
         dbWritableConnection.beginTransaction();
@@ -120,5 +113,5 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
         }
 
         return null;
-    }
+    }*/
 }

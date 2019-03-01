@@ -9,6 +9,8 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.HotelListAdapter;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
@@ -17,20 +19,21 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantDaoImpl implements RestaurantDao {
 
-    //private SQLiteDatabase dbWritableConnection;
     private RemoteMongoClient mongoClient;
+    private RestaurantListAdapter _restaurantListAdapter;
 
     public RestaurantDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
     }
 
-    @Override
+    /*@Override
     public void createRestaurantTable() throws SQLException  {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
         try{
@@ -40,9 +43,9 @@ public class RestaurantDaoImpl implements RestaurantDao {
         }
         Log.d("Create table message: ","Table " +
                 DbStringConstants.TABLE_RESTAURANTS + " is being created !");
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void addRestaurant(Restaurant[] restaurants) {
 
         dbWritableConnection.beginTransaction();
@@ -70,65 +73,64 @@ public class RestaurantDaoImpl implements RestaurantDao {
         }finally{
             dbWritableConnection.endTransaction();
         }
-    }
+    }*/
 
     @Override
     public List<Restaurant> getAllResaturants(){
-        List<Hotel> allHotels = new ArrayList<Hotel>();
-
-        final ArrayList<Document> hotelDocumentsList = new ArrayList<>();
+        List<Restaurant>  allRestaurants = new ArrayList<Restaurant>();
+        final ArrayList<Document> restaurantDocumentsList = new ArrayList<>();
 
         RemoteMongoCollection<Document> hotelsCollection =  mongoClient
                 .getDatabase("VarnaTravelGuide")
-                .getCollection("hotels");
+                .getCollection("restaurants");
 
         Document filter = new Document();
         SyncFindIterable cursor = hotelsCollection.sync().find(filter);
-        final ArrayList<Document> hotelDocuments = new ArrayList<>();
 
-        cursor.into(hotelDocuments).addOnCompleteListener(new OnCompleteListener() {
+        cursor.into(restaurantDocumentsList).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
-                _hotelListAdapter.clear();
-                _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
-                _hotelListAdapter.notifyDataSetChanged();
+                _restaurantListAdapter.clear();
+                _restaurantListAdapter.addAll(convertDocsToResaturants(restaurantDocumentsList));
+                _restaurantListAdapter.notifyDataSetChanged();
             }
         });
 
-        allHotels = convertDocsToHotels(hotelDocuments);
+        allRestaurants = convertDocsToResaturants(restaurantDocumentsList);
 
-        return allHotels;
+        return allRestaurants;
+    }
+
+    private List<Restaurant> convertDocsToResaturants(final List<Document> documents) {
+        final List<Restaurant> listOfHotelObjects = new ArrayList<>(documents.size());
+        for (final Document doc : documents) {
+            listOfHotelObjects.add(new Restaurant(doc));
+        }
+        return listOfHotelObjects;
     }
 
     @Override
-    public Restaurant getRestaurantByPlaceId(Integer placeId){
+    public Restaurant getRestaurantByPlaceId(ObjectId place_id){
 
-        dbWritableConnection.beginTransaction();
-        try{
-            Cursor cursor = dbWritableConnection.
-                    rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,null);
+        RemoteMongoCollection<Document> restaurantCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("restaurants");
 
-            if (cursor.moveToFirst()) {
-                do {
-                    Restaurant restaurant = new Restaurant(
-                            cursor.getInt(1),
-                            cursor.getInt(2),
-                            cursor.getString(3)
-                    );
+        Document filter = new Document("_id",place_id);
+        SyncFindIterable cursor = restaurantCollection.sync().find(filter);
+        final ArrayList<Document> foundDocuments = new ArrayList<>();
 
-                    if(restaurant.getPlaceId() == placeId){
-                        return restaurant;
-                    }
-                } while (cursor.moveToNext());
+        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _restaurantListAdapter.clear();
+                _restaurantListAdapter.addAll(convertDocsToResaturants(foundDocuments));
+                _restaurantListAdapter.notifyDataSetChanged();
             }
+        });
 
-            cursor.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
-
-        return null;
+        ArrayList<Restaurant> resultList =
+                (ArrayList<Restaurant>)convertDocsToResaturants(foundDocuments);
+        return  resultList.get(0);
     }
 }

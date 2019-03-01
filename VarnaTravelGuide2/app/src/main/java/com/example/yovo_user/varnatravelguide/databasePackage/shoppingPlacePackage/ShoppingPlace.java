@@ -2,47 +2,27 @@ package com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePack
 
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 
-public class ShoppingPlace {
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
-    private int id;
-    private int placeId;
+
+//за сега нямам нужда от този клас понеже цялата информация за
+//местата за пазаруване се пази в Places
+public class ShoppingPlace {
+    
+    private ObjectId place_id;
     private int priceCategoryId;
 
-    public ShoppingPlace(int id, int placeId, int priceCategoryId) {
-        this.id = id;
-        this.placeId = placeId;
+    public ShoppingPlace(ObjectId place_id, int priceCategoryId) {
+        this.place_id = place_id;
         this.priceCategoryId = priceCategoryId;
     }
 
-    public ShoppingPlace(int placeId, int priceCategoryId) {
-        this.placeId = placeId;
+    public ShoppingPlace(Document document) {
+        place_id = document.getObjectId("place_id");
         this.priceCategoryId = priceCategoryId;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(int placeId) {
-        this.placeId = placeId;
-    }
-
-    public int getPriceCategoryId() {
-        return priceCategoryId;
-    }
-
-    public void setPriceCategoryId(int priceCategoryId) {
-        this.priceCategoryId = priceCategoryId;
-    }
-
+   /*
     public static ShoppingPlace[] populateShoppingPlaces() {
         return new ShoppingPlace[]{
                 new ShoppingPlace(6,4 ),
@@ -51,5 +31,5 @@ public class ShoppingPlace {
                 new ShoppingPlace(9,4 ),
                 new ShoppingPlace(10,4)
         };
-    }
+    }*/
 }

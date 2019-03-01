@@ -23,7 +23,7 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
         this.mongoClient = mongoClient;
     }
 
-    @Override
+    /*@Override
     public List<WorkHours> getWorkHoursByPlaceId(int placeId){
         List<WorkHours> workHoursList = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
         cursor.close();
 
         return workHoursList;
-    }
+    }*/
     /*    @Override
         public void createWorkHoursTable() throws SQLException {
             DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);

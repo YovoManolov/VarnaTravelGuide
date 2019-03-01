@@ -25,22 +25,18 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 public class DBManager {
 
     private DatabaseHelper dbHelper;
-    private Context context;
-    private SQLiteDatabase dbWritableConnection;
+    /*
+        private Context context;
+        private SQLiteDatabase dbWritableConnection;
+    */
 
-    public DBManager(Context c) {
+    /* public DBManager(Context c) {
         this.context = c;
-    }
+    }*/
 
     public DBManager open() throws SQLException {
-        dbHelper = DatabaseHelper.getInstance(this.context);
-        //dbHelper = DatabaseHelper.getInstance(context.getApplicationContext());
-        this.dbWritableConnection = dbHelper.getWritableDatabase();
-
+        dbHelper = new DatabaseHelper();
         return this;
-    }
-    public void close() {
-        dbHelper.close();
     }
 
     public PlaceDaoImpl getPlaceDaoImpl() {
@@ -65,8 +61,6 @@ public class DBManager {
     public ImageDaoImpl getImageDaoImpl() {
         return dbHelper.getImageDaoImpl();
     }
-
-
 
     public WorkHoursDaoImpl getWorkHoursDaoImpl() {
         return dbHelper.getWorkHoursDaoImpl();

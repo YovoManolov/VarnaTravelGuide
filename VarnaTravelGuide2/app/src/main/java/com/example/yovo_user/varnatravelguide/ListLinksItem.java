@@ -5,12 +5,14 @@ import android.graphics.drawable.Drawable;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 
+import org.bson.types.ObjectId;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListLinksItem {
 
-    private int placeId;
+    private ObjectId placeId;
     private String heading;
     private String desc;
     private String url;
@@ -26,18 +28,18 @@ public class ListLinksItem {
         this.image = image;
     }
 
-    public ListLinksItem(int placeId, String heading, String desc , Drawable imageDrawable) {
+    public ListLinksItem(ObjectId placeId, String heading, String desc , Drawable imageDrawable) {
         this.placeId = placeId;
         this.heading = heading;
         this.desc = desc;
         this.imageDrawable = imageDrawable;
     }
 
-    public int getPlaceId() {
+    public ObjectId getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(int placeId) {
+    public void setPlaceId(ObjectId placeId) {
         this.placeId = placeId;
     }
 

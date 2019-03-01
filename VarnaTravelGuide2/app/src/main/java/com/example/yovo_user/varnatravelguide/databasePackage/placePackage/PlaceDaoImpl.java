@@ -95,7 +95,6 @@ public class PlaceDaoImpl implements PlaceDao {
 
     @Override
     public Place getPlaceById(ObjectId place_id) {
-        Place place ;
 
         RemoteMongoCollection<Document> hotelsCollection =  mongoClient
                 .getDatabase("VarnaTravelGuide")
@@ -116,5 +115,43 @@ public class PlaceDaoImpl implements PlaceDao {
 
         ArrayList<Place> resultList = (ArrayList<Place>)convertDocsToPlaces(foundDocuments);
         return  resultList.get(0);
+    }
+
+    @Override
+    public List<Place> getPlacesByTypeOfPlace(int typeOfPlace) {
+
+        List<Place> allShoppingPlaces = new ArrayList<>();
+        final ArrayList<Document> shoppingPlacesList = new ArrayList<>();
+
+        RemoteMongoCollection placesCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("places");
+
+        Document filter = new Document("typeOfPlace",typeOfPlace);
+        SyncFindIterable cursor = placesCollection.sync().find(filter);
+
+        cursor.into(allShoppingPlaces).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _placeListAdapter.clear();
+                _placeListAdapter.addAll(convertDocsToPlaces(shoppingPlacesList));
+                _placeListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        return allShoppingPlaces;
+    }
+
+
+    public Image getMainImageForPlace(ArrayList<Image> images ){
+        boolean found = false;
+        for(Image i: images){
+            if(i.getIsMainImage() == 1){
+                found = true;
+                return i;
+            }
+        }
+        Log.i("Error images: ","No main image found in the array of Images !");
+        return null;
     }
 }

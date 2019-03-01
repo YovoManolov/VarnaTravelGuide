@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ShoppingPlaceDao {
 
-    public void createShoppingPlacesTable();
+/*    public void createShoppingPlacesTable();
     public void addShoppingPlaces(ShoppingPlace[] shoppingPlaces);
     public List<ShoppingPlace> getAllShoppingPlaces();
-    public ShoppingPlace getShoppingPlaceByPlaceId(Integer placeId);
+    public ShoppingPlace getShoppingPlaceByPlaceId(Integer placeId);*/
 
 }

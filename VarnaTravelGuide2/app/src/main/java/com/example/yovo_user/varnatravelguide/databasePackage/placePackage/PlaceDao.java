@@ -4,8 +4,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 public interface PlaceDao {
 /*    public void createPlacesTable();
     public void addPlaces(Place[] places);*/
     public Place getPlaceById(ObjectId placeId);
+    public List<Place> getPlacesByTypeOfPlace(int typeOfPlace);
 }

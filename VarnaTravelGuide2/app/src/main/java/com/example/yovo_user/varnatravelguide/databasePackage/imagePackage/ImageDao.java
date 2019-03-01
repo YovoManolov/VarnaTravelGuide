@@ -7,5 +7,5 @@ import java.util.List;
 public interface ImageDao {
     //public void createImageTable();
     //public void addImage(Image[] images);
-    public List<Image> getImagesForPlace(int placeId);
+    /*public List<Image> getImagesForPlace(int placeId);*/
 }

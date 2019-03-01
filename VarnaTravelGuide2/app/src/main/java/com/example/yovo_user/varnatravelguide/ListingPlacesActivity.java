@@ -79,7 +79,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
         );
 
 
-        dbManager = new DBManager(this.getApplicationContext());
+        dbManager = new DBManager();
         dbManager.open();
         /*Typeface myCustomFont =
                 Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
@@ -119,21 +119,9 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Place> restaurantPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < restaurantPlaces.size() ; i++){
                     restaurantPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allRestaurants.get(i).getPlaceId())
+                            .getPlaceById(allRestaurants.get(i).getPlace_id())
                     );
                 }
-
-                ArrayList<Restaurant> allRestaurants =(ArrayList<Restaurant>)
-                        dbManager.getRestaurantDaoImpl().getAllResaturants();
-
-                ArrayList<Place> hotelPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < allHotels.size() ; i++){
-                    hotelPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allHotels.get(i).getplace_id())
-                    );
-                }
-
-
 
                 generateListOfPlaces(restaurantPlaces);
 
@@ -151,7 +139,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Place> landmarkPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < landmarkPlaces.size() ; i++){
                     landmarkPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allLandmarks.get(i).getPlaceId())
+                            .getPlaceById(allLandmarks.get(i).getPlace_id()   )
                     );
                 }
 
@@ -162,18 +150,12 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.shoppinglabel);
 
-                ArrayList<ShoppingPlace> allShoppingPlaces =
-                        (ArrayList<ShoppingPlace>)dbManager.getShoppingPlacesDaoImpl()
-                                .getAllShoppingPlaces();
+                // typeOfPlace= 3 stands for shoppingPlaces
+                ArrayList<Place> allShoppingPlaces =
+                        (ArrayList<Place>)dbManager.getPlaceDaoImpl()
+                                .getPlacesByTypeOfPlace(3);
 
-                ArrayList<Place> shoppingPlacePlaces = new ArrayList<> ();
-                for(int i = 0 ;i < shoppingPlacePlaces.size() ; i++){
-                    shoppingPlacePlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allShoppingPlaces.get(i).getPlaceId())
-                    );
-                }
-
-                generateListOfPlaces(shoppingPlacePlaces);
+                generateListOfPlaces(allShoppingPlaces);
 
             break;
         }
@@ -186,13 +168,12 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
         for(Place place : placeListToLoad ) {
 
-            Image mainImage = dbManager.getImageDaoImpl().
-                    getMainImageForPlace(place.getId());
+            Image mainImage = dbManager.getPlaceDaoImpl().getMainImageForPlace(place.getImages());
 
             Drawable mainImageDrowable = loadImageFromWebOperations(mainImage.getImageURL());
 
             listItems.add(new ListLinksItem(
-                            place.getId(),
+                            place.get_id(),
                             place.getName(),
                             place.getDescription(),
                             mainImageDrowable));
@@ -254,12 +235,11 @@ public class ListingPlacesActivity extends AppCompatActivity {
                                             SinglePlaceInfo.class);
                 Bundle bundle = new Bundle();
                 Place chosenPlace = (Place) adapter.getItemAtPosition(position);
-                bundle.putString("PLACE_ID",String.valueOf(chosenPlace.getId()));
+                bundle.putString("PLACE_ID",String.valueOf(chosenPlace.get_id()));
 
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
     }
-
 }

@@ -28,6 +28,22 @@ public class Landmark {
         entranceTicket = document.getString("entranceTicket");
     }
 
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
+
+    public ObjectId getPlace_id() {
+        return place_id;
+    }
+
+    public void setPlace_id(ObjectId place_id) {
+        this.place_id = place_id;
+    }
+
     public String getEntranceTicket() {
         return entranceTicket;
     }
@@ -35,7 +51,6 @@ public class Landmark {
     public void setEntranceTicket(String entranceTicket) {
         this.entranceTicket = entranceTicket;
     }
-
 
 /*   public static Landmark[] populateLandmarks() {
         return new Landmark[] {
