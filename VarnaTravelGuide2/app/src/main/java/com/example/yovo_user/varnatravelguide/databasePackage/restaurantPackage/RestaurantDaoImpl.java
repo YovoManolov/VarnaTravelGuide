@@ -8,16 +8,26 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+
+import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantDaoImpl implements RestaurantDao {
 
-    private SQLiteDatabase dbWritableConnection;
+    //private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
 
-    public RestaurantDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
+    public RestaurantDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
     }
 
     @Override
@@ -64,33 +74,30 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public List<Restaurant> getAllResaturants(){
-        List<Restaurant> allRestaurants = new ArrayList<Restaurant>();
+        List<Hotel> allHotels = new ArrayList<Hotel>();
 
-        dbWritableConnection.beginTransaction();
+        final ArrayList<Document> hotelDocumentsList = new ArrayList<>();
 
-        try{
+        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("hotels");
 
-            Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_ALL_RESTAURANTS,
-                    null);
+        Document filter = new Document();
+        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        final ArrayList<Document> hotelDocuments = new ArrayList<>();
 
-            if (cursor.moveToFirst()) {
-                do {
-                    Restaurant restaurant = new Restaurant(
-                            cursor.getInt(1),
-                            cursor.getInt(2),
-                            cursor.getString(3)
-                    );
-                    allRestaurants.add(restaurant);
-                } while (cursor.moveToNext());
+        cursor.into(hotelDocuments).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _hotelListAdapter.clear();
+                _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
+                _hotelListAdapter.notifyDataSetChanged();
             }
+        });
 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
+        allHotels = convertDocsToHotels(hotelDocuments);
 
-        return allRestaurants;
+        return allHotels;
     }
 
     @Override

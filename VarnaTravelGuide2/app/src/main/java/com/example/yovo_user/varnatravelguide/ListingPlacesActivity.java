@@ -96,8 +96,12 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 ArrayList<Hotel> allHotels =(ArrayList<Hotel>)
                         dbManager.getHotelDaoImpl().getAllHotels();
 
-                ArrayList<Place> hotelPlaces =(ArrayList<Place>)
-                        dbManager.getPlaceDaoImpl().getAllPlaces();
+                ArrayList<Place> hotelPlaces = new ArrayList<> ();
+                for(int i = 0 ;i < allHotels.size() ; i++){
+                    hotelPlaces.add(dbManager.getPlaceDaoImpl()
+                            .getPlaceById(allHotels.get(i).getplace_id())
+                    );
+                }
 
                 generateListOfPlaces(hotelPlaces);
             break;
@@ -118,6 +122,18 @@ public class ListingPlacesActivity extends AppCompatActivity {
                             .getPlaceById(allRestaurants.get(i).getPlaceId())
                     );
                 }
+
+                ArrayList<Restaurant> allRestaurants =(ArrayList<Restaurant>)
+                        dbManager.getRestaurantDaoImpl().getAllResaturants();
+
+                ArrayList<Place> hotelPlaces = new ArrayList<> ();
+                for(int i = 0 ;i < allHotels.size() ; i++){
+                    hotelPlaces.add(dbManager.getPlaceDaoImpl()
+                            .getPlaceById(allHotels.get(i).getplace_id())
+                    );
+                }
+
+
 
                 generateListOfPlaces(restaurantPlaces);
 

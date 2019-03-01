@@ -11,19 +11,23 @@ import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageDaoImpl implements ImageDao {
 
-    private SQLiteDatabase dbWritableConnection;
+    //private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
 
-    public ImageDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
+    public ImageDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
     }
 
-    @Override
+/*    @Override
     public void createImageTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_IMAGES);
 
@@ -35,9 +39,9 @@ public class ImageDaoImpl implements ImageDao {
 
         Log.d("Create table message: ","Table "
                 + DbStringConstants.TABLE_IMAGES + " is being created !");
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void addImage(Image[] images) {
 
         dbWritableConnection.beginTransaction();
@@ -63,9 +67,9 @@ public class ImageDaoImpl implements ImageDao {
         }finally{
             dbWritableConnection.endTransaction();
         }
-    }
+    }*/
 
-    public List<Image> getImagesForPlace(int placeId){
+    public List<Image> getImagesForPlace(ObjectId placeId){
         List<Image> allImagesForPlace = new ArrayList<>();
         dbWritableConnection.beginTransaction();
 

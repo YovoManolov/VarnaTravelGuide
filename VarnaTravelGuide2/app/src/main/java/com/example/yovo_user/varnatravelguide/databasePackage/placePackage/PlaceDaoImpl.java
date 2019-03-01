@@ -29,19 +29,16 @@ import java.util.List;
 
 public class PlaceDaoImpl implements PlaceDao {
 
-    private SQLiteDatabase dbWritableConnection;
+    //private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
 
-    private StitchAppClient stitchAppClient  = Stitch.getDefaultAppClient();
-    private RemoteMongoClient mongoClient  = stitchAppClient.getServiceClient(
-            RemoteMongoClient.factory, "mongodb-atlas");
+    public PlaceDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
+    }
 
     private PlaceListAdapter _placeListAdapter;
 
-    public PlaceDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
-    }
-
-    @Override
+    /*@Override
     public void addPlaces(Place[] places){
 
         dbWritableConnection.beginTransaction();
@@ -71,7 +68,11 @@ public class PlaceDaoImpl implements PlaceDao {
         }
     }
 
-    @Override
+    public PlaceDaoImpl(SQLiteDatabase dbWritableConnection) {
+        this.dbWritableConnection = dbWritableConnection;
+    }*/
+
+    /*@Override
     public void createPlacesTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
         try{
@@ -83,7 +84,7 @@ public class PlaceDaoImpl implements PlaceDao {
         Log.d("Create table message: ","Table " +
                 DbStringConstants.TABLE_PLACES + " is being created !");
     }
-
+    */
     private List<Place> convertDocsToPlaces(final List<Document> documents) {
         final List<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
@@ -113,6 +114,7 @@ public class PlaceDaoImpl implements PlaceDao {
             }
         });
 
-        return place;
+        ArrayList<Place> resultList = (ArrayList<Place>)convertDocsToPlaces(foundDocuments);
+        return  resultList.get(0);
     }
 }

@@ -10,34 +10,57 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkHoursDaoImpl implements WorkHoursDao {
 
-    private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
 
-    public WorkHoursDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
+    public WorkHoursDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
     }
 
     @Override
-    public void createWorkHoursTable() throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
+    public List<WorkHours> getWorkHoursByPlaceId(int placeId){
+        List<WorkHours> workHoursList = new ArrayList<>();
 
-        try{
-            dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
-        }catch(SQLException e){
-            e.printStackTrace();
+        Cursor cursor = mongoClient.rawQuery(DbStringConstants.GET_WORK_HOURS_BY_ID,new String[]{
+                String.valueOf(placeId)
+        });
+
+        if (cursor.moveToFirst()) {
+            do {
+                WorkHours workHours = new WorkHours(cursor.getInt(1),
+                        cursor.getInt(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5));
+                workHoursList.add(workHours);
+            } while (cursor.moveToNext());
         }
+        cursor.close();
 
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_WORK_HOURS + " is being created !");
-
+        return workHoursList;
     }
+    /*    @Override
+        public void createWorkHoursTable() throws SQLException {
+            DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_WORK_HOURS);
 
-    @Override
+            try{
+                dbWritableConnection.execSQL(DbStringConstants.CREATE_WORK_HOURS_TABLE);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+
+            Log.d("Create table message: ","Table "
+                    + DbStringConstants.TABLE_WORK_HOURS + " is being created !");
+
+        }*/
+
+/*    @Override
     public void addWorkHours(WorkHours[] workHours) {
         dbWritableConnection.beginTransaction();
         try{
@@ -75,28 +98,7 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
         }finally{
             dbWritableConnection.endTransaction();
         }
-    }
+    }*/
 
-    @Override
-    public List<WorkHours> getWorkHoursByPlaceId(int placeId){
-        List<WorkHours> workHoursList = new ArrayList<>();
 
-        Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_WORK_HOURS_BY_ID,new String[]{
-                String.valueOf(placeId)
-        });
-
-        if (cursor.moveToFirst()) {
-            do {
-                WorkHours workHours = new WorkHours(cursor.getInt(1),
-                        cursor.getInt(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5));
-                workHoursList.add(workHours);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        return workHoursList;
-    }
 }

@@ -10,19 +10,21 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
 
-    private SQLiteDatabase dbWritableConnection;
+    //private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
 
-    public ShoppingPlacesDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
+    public ShoppingPlacesDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
     }
 
-    @Override
+   /* @Override
     public void createShoppingPlacesTable()throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_SHOPPING_PLACES);
         try{
@@ -32,9 +34,9 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
         }
         Log.d("Create table message: ","Table " +
                 DbStringConstants.TABLE_SHOPPING_PLACES + " is being created !");
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void addShoppingPlaces(ShoppingPlace[] shoppingPlaces) {
         dbWritableConnection.beginTransaction();
         try{
@@ -59,7 +61,7 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
         }finally{
             dbWritableConnection.endTransaction();
         }
-    }
+    }*/
 
     @Override
     public List<ShoppingPlace> getAllShoppingPlaces() {

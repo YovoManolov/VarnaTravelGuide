@@ -25,14 +25,19 @@ import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePacka
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlacesDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper  extends SQLiteOpenHelper {
+public class DatabaseHelper {
 
     private static DatabaseHelper dbHelper;
+    private StitchAppClient stitchAppClient;
+    private RemoteMongoClient mongoClient;
 
     private PlaceDaoImpl placeDaoImpl;
     private HotelDaoImpl hotelDaoImpl;
@@ -47,39 +52,40 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
     private static final String DB_NAME = "varnaTravelGuide.db";
     private static final int DATABASE_VERSION = 2;
 
-
-    public DatabaseHelper(Context context){
-         super(context, DB_NAME, null, DATABASE_VERSION);
+    public DatabaseHelper(){
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        mongoClient  = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory, "mongodb-atlas");
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context) {
+    /*public static synchronized DatabaseHelper getInstance(Context context) {
 
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
         }
         return dbHelper;
-    }
+    }*/
 
     @Override
     public void onCreate(SQLiteDatabase dbWritableConnection) {
-/*
-        placeDaoImpl = new PlaceDaoImpl(dbWritableConnection);
-        hotelDaoImpl = new HotelDaoImpl(dbWritableConnection);
-        landmarkDaoImpl = new LandmarkDaoImpl(dbWritableConnection);
-        restaurantDaoImpl = new RestaurantDaoImpl(dbWritableConnection);
-        imageDaoImpl = new ImageDaoImpl(dbWritableConnection);
-        workHoursDaoImpl = new WorkHoursDaoImpl(dbWritableConnection);
-        priceCategoryDaoImpl = new PriceCategoryDaoImpl(dbWritableConnection);
-        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl(dbWritableConnection);
 
-        placeDaoImpl.createPlacesTable();
-        priceCategoryDaoImpl.createPriceCategoryTable();
-        imageDaoImpl.createImageTable();
-        hotelDaoImpl.createHotelTable();
-        landmarkDaoImpl.createLandmarkTable();
-        restaurantDaoImpl.createRestaurantTable();
-        shoppingPlacesDaoImpl.createShoppingPlacesTable();
-        workHoursDaoImpl.createWorkHoursTable();*/
+        placeDaoImpl = new PlaceDaoImpl(mongoClient);
+        hotelDaoImpl = new HotelDaoImpl(mongoClient);
+        landmarkDaoImpl = new LandmarkDaoImpl(mongoClient);
+        restaurantDaoImpl = new RestaurantDaoImpl(mongoClient);
+        imageDaoImpl = new ImageDaoImpl(mongoClient);
+        workHoursDaoImpl = new WorkHoursDaoImpl(mongoClient);
+        priceCategoryDaoImpl = new PriceCategoryDaoImpl(mongoClient);
+        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl(mongoClient);
+
+//        placeDaoImpl.createPlacesTable();
+//        priceCategoryDaoImpl.createPriceCategoryTable();
+//        imageDaoImpl.createImageTable();
+//        hotelDaoImpl.createHotelTable();
+//        landmarkDaoImpl.createLandmarkTable();
+//        restaurantDaoImpl.createRestaurantTable();
+//        shoppingPlacesDaoImpl.createShoppingPlacesTable();
+//        workHoursDaoImpl.createWorkHoursTable();
 
 /*        placeDaoImpl.addPlaces(Place.populatePlaces());
         priceCategoryDaoImpl.addPriceCategory(PriceCategory.populatePriceCategories());

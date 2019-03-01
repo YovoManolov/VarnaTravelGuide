@@ -7,5 +7,5 @@ public interface HotelDao {
     /*public void createHotelTable();*/
     /*public void addHotels(Hotel[] hotels);*/
     public List<Hotel> getAllHotels();
-    public Hotel getHotelByPlaceId(Integer placeId);
+    //public Hotel getHotelByPlaceId(Integer placeId);
 }

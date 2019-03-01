@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import org.bson.types.ObjectId;
 
 public interface PlaceDao {
-    public void createPlacesTable();
-    public void addPlaces(Place[] places);
+/*    public void createPlacesTable();
+    public void addPlaces(Place[] places);*/
     public Place getPlaceById(ObjectId placeId);
 }

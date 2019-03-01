@@ -28,15 +28,12 @@ import java.util.List;
 
 public class HotelDaoImpl implements HotelDao{
 
-    /*private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
 
-    public HotelDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
-    }*/
+    public HotelDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
+    }
 
-    StitchAppClient stitchAppClient  = Stitch.getDefaultAppClient();
-    RemoteMongoClient mongoClient  = stitchAppClient.getServiceClient(
-    RemoteMongoClient.factory, "mongodb-atlas");
     HotelListAdapter _hotelListAdapter;
 
     RemoteMongoCollection<Document> hotelsCollection = mongoClient
@@ -154,14 +151,6 @@ public class HotelDaoImpl implements HotelDao{
 
         return null;
     }*/
-
-    public SQLiteDatabase getDbWritableConnection() {
-        return dbWritableConnection;
-    }
-
-    public void setDbWritableConnection(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
-    }
 
 
 }

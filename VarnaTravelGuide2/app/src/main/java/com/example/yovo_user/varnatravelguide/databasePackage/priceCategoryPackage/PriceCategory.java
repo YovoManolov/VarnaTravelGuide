@@ -1,30 +1,40 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage;
 
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import java.lang.annotation.Documented;
+
 public class PriceCategory {
 
-    private int id ;
-    private String priceType;
+    private ObjectId priceCategory_id ;
+    private String descr;
 
     public PriceCategory(){}
-    public PriceCategory(String priceType) {
-        this.priceType = priceType;
+    public PriceCategory(String descr) {
+        this.descr = descr;
     }
 
-    public int getId() {
-        return id;
+    public PriceCategory(Document document) {
+        priceCategory_id = document.getObjectId("priceCategory_id");
+        descr = document.getString("descr");
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ObjectId getPriceCategory_id() {
+        return priceCategory_id;
     }
 
-    public String getPriceType() {
-        return priceType;
+    public void setPriceCategory_id(ObjectId priceCategory_id) {
+        this.priceCategory_id = priceCategory_id;
     }
 
-    public void setPriceType(String priceType) {
-        this.priceType = priceType;
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public static PriceCategory[] populatePriceCategories() {

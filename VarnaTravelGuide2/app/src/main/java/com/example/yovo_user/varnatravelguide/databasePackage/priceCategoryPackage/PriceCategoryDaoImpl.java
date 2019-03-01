@@ -11,19 +11,30 @@ import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.PlaceListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+
+import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PriceCategoryDaoImpl implements PriceCategoryDao {
 
-    private SQLiteDatabase dbWritableConnection;
+    private RemoteMongoClient mongoClient;
+    private PriceCategoryListAdapter _priceCategoryListAdapter;
 
-    public PriceCategoryDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
+    public PriceCategoryDaoImpl(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
     }
 
-    @Override
+   /* @Override
     public void createPriceCategoryTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PRICE_CATEGORIES);
         try{
@@ -34,8 +45,8 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
         Log.d("Create table message: ","Table " +
                 DbStringConstants.TABLE_PRICE_CATEGORIES + " is being created !");
     }
-
-    @Override
+*/
+   /* @Override
     public void addPriceCategory(PriceCategory[] priceCategories) {
 
         dbWritableConnection.beginTransaction();
@@ -60,22 +71,43 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
         }finally{
             dbWritableConnection.endTransaction();
         }
+    }*/
+
+   /* private List<PriceCategory> convertDocsToHotels(final List<Document> documents) {
+        final List<PriceCategory> listOfHotelObjects = new ArrayList<>(documents.size());
+        for (final Document doc : documents) {
+            listOfHotelObjects.add(new PriceCategory(doc));
+        }
+        return listOfHotelObjects;
     }
+*/
 
-
-    public PriceCategory getPriceCategoryById(int placeCategoryId){
+    /*public PriceCategory getPriceCategoryById(int placeCategoryId){
         PriceCategory priceCategory = null;
 
-        Cursor cursor = dbWritableConnection.rawQuery(DbStringConstants.GET_PRICE_CATEGORIES_BY_ID,
-                new String[]{String.valueOf(placeCategoryId)  });
+        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("places");
 
-        if (cursor.moveToFirst()) {
-            do {
-                priceCategory = new PriceCategory(cursor.getString(1));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
+        Document filter = new Document("_id",place_id);
+        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        final ArrayList<Document> foundDocuments = new ArrayList<>();
+
+        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _priceCategoryListAdapter.clear();
+                _priceCategoryListAdapter.addAll(convertDocsToPlaces(foundDocuments));
+                _priceCategoryListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        ArrayList<Place> resultList = (ArrayList<Place>)convertDocsToPlaces(foundDocuments);
+        return  resultList.get(0);
+
+
+
 
         return priceCategory;
-    }
+    }*/
 }
