@@ -8,18 +8,21 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Place {
 
     private ObjectId _id;
     private String name;
     private String address;
-    private double latitude;
-    private double longitude;
+    private Double latitude;
+    private Double longitude;
     private String contacts;
     private String description;
+    private Integer typeOfPlace;
     private ArrayList<Image> images;
-    public Place(){};
+
+   /* public Place(){};
     public Place(String name, String address,
                       double latitude, double longitude, String contacts,
                       String description) {
@@ -29,7 +32,7 @@ public class Place {
         this.longitude = longitude;
         this.contacts = contacts;
         this.description = description;
-    }
+    }*/
 
     public Place(final Document document) {
 
@@ -40,6 +43,7 @@ public class Place {
         longitude = document.getDouble("longitude");
         contacts = document.getString("contacts");
         description = document.getString("description");
+        typeOfPlace = document.getInteger("typeOfPlace");
         images = Image.convertDocsToImages((ArrayList<Document>) document.get("images"));
     }
 
@@ -67,19 +71,19 @@ public class Place {
         this.address = address;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -106,6 +110,15 @@ public class Place {
     public void setImages(ArrayList<Image> images) {
         this.images = images;
     }
+
+    public Integer getTypeOfPlace() {
+        return typeOfPlace;
+    }
+
+    public void setTypeOfPlace(Integer typeOfPlace) {
+        this.typeOfPlace = typeOfPlace;
+    }
+
 
    /* public static Place[] populatePlaces() {
         return new Place[]{

@@ -19,6 +19,7 @@ import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 
+import org.bson.types.ObjectId;
 import org.w3c.dom.Text;
 
 import java.util.Timer;
@@ -34,14 +35,7 @@ public class SinglePlaceInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_place_info);
 
-
-        StitchAppClient stitchAppClient  = Stitch.getDefaultAppClient();
-        RemoteMongoClient mongoClient = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory,
-                "mongodb-atlas"
-        );
-
-        dbManager = new DBManager(this.getApplicationContext());
+        dbManager = new DBManager();
         dbManager.open();
         //set text font for price category label :)
         /* Typeface myCustomFont =
@@ -56,28 +50,35 @@ public class SinglePlaceInfo extends AppCompatActivity {
         generateViewPager();
 
         Bundle bundle = getIntent().getExtras();
-        Integer placeId = Integer.valueOf(bundle.getString("PLACE_ID"));
+        ObjectId placeId = new ObjectId( bundle.getByteArray("PLACE_ID"));
 
         Place chosenPlace = dbManager.getPlaceDaoImpl().
                 getPlaceById(placeId);
 
-        switch(DbBaseOperations.getPlaceTypeById(placeId)){
+        /*
+        typeOfPlace :
+        1 - restaurants
+        2 - hotel
+        3 - shopping places
+        4 - landmarks
+        */
+        switch(chosenPlace.getTypeOfPlace()){
 
-            case DbStringConstants.TABLE_RESTAURANTS:
+            case 1:
                 Restaurant restaurant = dbManager.getRestaurantDaoImpl().
                         getRestaurantByPlaceId(placeId);
                 break;
-            case DbStringConstants.TABLE_SHOPPING_PLACES:
-                ShoppingPlace shoppingPlace = dbManager.getShoppingPlacesDaoImpl().
-                        getShoppingPlaceByPlaceId(placeId);
-                break;
-            case DbStringConstants.TABLE_HOTELS:
+            case 2:
                 Hotel hotel = dbManager.getHotelDaoImpl().
                         getHotelByPlaceId(placeId);
                 break;
-            case DbStringConstants.TABLE_LANDMARKS:
+            case 3:
                 Landmark landmark = dbManager.getLandmarkDaoImpl().
                         getLandmarkByPlaceId(placeId);
+                break;
+            case 4:
+                Place shoppingPlace = dbManager.getPlaceDaoImpl().
+                        getPlaceById(placeId);
                 break;
         }
 

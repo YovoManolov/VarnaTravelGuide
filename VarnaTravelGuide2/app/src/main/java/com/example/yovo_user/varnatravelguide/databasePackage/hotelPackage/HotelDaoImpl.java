@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
+import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
@@ -18,6 +19,7 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.BsonDocument;
 import org.bson.Document;
@@ -29,10 +31,10 @@ import java.util.List;
 public class HotelDaoImpl implements HotelDao{
 
     private RemoteMongoClient mongoClient;
-
-    public HotelDaoImpl(RemoteMongoClient mongoClient) {
+    private StitchAppClient stitchAppClient;
+/*    public HotelDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
-    }
+    }*/
 
     HotelListAdapter _hotelListAdapter;
 
@@ -40,6 +42,13 @@ public class HotelDaoImpl implements HotelDao{
             .getDatabase("VarnaTravelGuide")
             .getCollection("hotels");
 
+
+    public HotelDaoImpl() {
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+        mongoClient  = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory, "mongodb-atlas");
+    }
     /*@Override
     public void createHotelTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_HOTELS);
@@ -122,35 +131,27 @@ public class HotelDaoImpl implements HotelDao{
         return listOfHotelObjects;
     }
 
- /*   @Override
-    public Hotel getHotelByPlaceId(Integer placeId) {
+    @Override
+    public Hotel getHotelByPlaceId(Object placeId) {
 
-        dbWritableConnection.beginTransaction();
-        try{
-            Cursor cursor = dbWritableConnection.
-                    rawQuery(DbStringConstants.GET_ALL_HOTELS,null);
+        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
+                .getDatabase("VarnaTravelGuide")
+                .getCollection("hotels");
 
-            if (cursor.moveToFirst()) {
-                do {
-                    Hotel hotel = new Hotel(
-                            cursor.getInt(1),
-                            cursor.getInt(2),
-                            cursor.getInt(3));
+        Document filter = new Document("_id",placeId);
+        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        final ArrayList<Document> foundDocuments = new ArrayList<>();
 
-                    if(hotel.getPlaceId() == placeId){
-                        return hotel;
-                    }
-                } while (cursor.moveToNext());
+        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                _hotelListAdapter.clear();
+                _hotelListAdapter.addAll(convertDocsToHotels(foundDocuments));
+                _hotelListAdapter.notifyDataSetChanged();
             }
+        });
 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
-
-        return null;
-    }*/
-
-
+        ArrayList<Hotel> resultList = (ArrayList<Hotel>)convertDocsToHotels(foundDocuments);
+        return  resultList.get(0);
+    }
 }

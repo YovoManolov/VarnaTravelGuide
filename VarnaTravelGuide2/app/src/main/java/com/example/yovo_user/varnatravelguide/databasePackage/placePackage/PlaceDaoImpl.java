@@ -20,6 +20,7 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -31,9 +32,16 @@ public class PlaceDaoImpl implements PlaceDao {
 
     //private SQLiteDatabase dbWritableConnection;
     private RemoteMongoClient mongoClient;
-
-    public PlaceDaoImpl(RemoteMongoClient mongoClient) {
+    private StitchAppClient stitchAppClient;
+  /*  public PlaceDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
+    }*/
+
+    public PlaceDaoImpl() {
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+        mongoClient  = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory, "mongodb-atlas");
     }
 
     private PlaceListAdapter _placeListAdapter;
@@ -95,6 +103,8 @@ public class PlaceDaoImpl implements PlaceDao {
 
     @Override
     public Place getPlaceById(ObjectId place_id) {
+
+
 
         RemoteMongoCollection<Document> hotelsCollection =  mongoClient
                 .getDatabase("VarnaTravelGuide")

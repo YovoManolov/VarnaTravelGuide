@@ -39,6 +39,7 @@ import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
 
@@ -73,14 +74,9 @@ public class ListingPlacesActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
 
-        stitchAppClient  = Stitch.getDefaultAppClient();
-        mongoClient = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas"
-        );
-
-
         dbManager = new DBManager();
         dbManager.open();
+
         /*Typeface myCustomFont =
                 Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
         initActivity(typeOfPlacesToLoad);
@@ -235,7 +231,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                                             SinglePlaceInfo.class);
                 Bundle bundle = new Bundle();
                 Place chosenPlace = (Place) adapter.getItemAtPosition(position);
-                bundle.putString("PLACE_ID",String.valueOf(chosenPlace.get_id()));
+                bundle.putByteArray("PLACE_ID",chosenPlace.get_id().toByteArray());
 
                 intent.putExtras(bundle);
                 startActivity(intent);

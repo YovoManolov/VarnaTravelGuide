@@ -28,6 +28,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -53,9 +54,21 @@ public class DatabaseHelper {
     private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(){
-        stitchAppClient  = Stitch.getDefaultAppClient();
+
+/*        stitchAppClient  = Stitch.getDefaultAppClient();
+        //this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
+                RemoteMongoClient.factory, "mongodb-atlas");*/
+
+        placeDaoImpl = new PlaceDaoImpl();
+        hotelDaoImpl = new HotelDaoImpl();
+        landmarkDaoImpl = new LandmarkDaoImpl();
+        restaurantDaoImpl = new RestaurantDaoImpl();
+        //imageDaoImpl = new ImageDaoImpl();
+        workHoursDaoImpl = new WorkHoursDaoImpl();
+        priceCategoryDaoImpl = new PriceCategoryDaoImpl();
+        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
+
     }
 
     /*public static synchronized DatabaseHelper getInstance(Context context) {
@@ -68,6 +81,8 @@ public class DatabaseHelper {
 
     public void onCreate(SQLiteDatabase dbWritableConnection) {
 
+
+        /*
         placeDaoImpl = new PlaceDaoImpl(mongoClient);
         hotelDaoImpl = new HotelDaoImpl(mongoClient);
         landmarkDaoImpl = new LandmarkDaoImpl(mongoClient);
@@ -75,7 +90,8 @@ public class DatabaseHelper {
         imageDaoImpl = new ImageDaoImpl(mongoClient);
         workHoursDaoImpl = new WorkHoursDaoImpl(mongoClient);
         priceCategoryDaoImpl = new PriceCategoryDaoImpl(mongoClient);
-        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl(mongoClient);
+        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl(mongoClient);*/
+
 
 //        placeDaoImpl.createPlacesTable();
 //        priceCategoryDaoImpl.createPriceCategoryTable();

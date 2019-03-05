@@ -15,9 +15,12 @@ import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -29,11 +32,20 @@ public class LandmarkDaoImpl implements LandmarkDao {
 
     private RemoteMongoClient mongoClient;
     private LandmarkListAdapter _landmarkListAdapter;
+    private StitchAppClient stitchAppClient;
 
+/*
     public LandmarkDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
     }
+*/
 
+    public LandmarkDaoImpl() {
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+        mongoClient  = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory, "mongodb-atlas");
+    }
 
    /* @Override
     public void createLandmarkTable() throws SQLException {

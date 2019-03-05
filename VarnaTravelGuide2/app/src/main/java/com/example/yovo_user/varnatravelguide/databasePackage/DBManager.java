@@ -47,32 +47,12 @@ public class DBManager {
         return dbHelper.getHotelDaoImpl();
     }
 
-
     public LandmarkDaoImpl getLandmarkDaoImpl() {
         return dbHelper.getLandmarkDaoImpl();
     }
 
-
     public RestaurantDaoImpl getRestaurantDaoImpl() {
         return dbHelper.getRestaurantDaoImpl();
-    }
-
-
-    public ImageDaoImpl getImageDaoImpl() {
-        return dbHelper.getImageDaoImpl();
-    }
-
-    public WorkHoursDaoImpl getWorkHoursDaoImpl() {
-        return dbHelper.getWorkHoursDaoImpl();
-    }
-
-
-    public PriceCategoryDaoImpl getPriceCategoryDaoImpl() {
-        return dbHelper.getPriceCategoryDaoImpl();
-    }
-
-    public ShoppingPlacesDaoImpl getShoppingPlacesDaoImpl() {
-        return dbHelper.getShoppingPlacesDaoImpl();
     }
 
 }

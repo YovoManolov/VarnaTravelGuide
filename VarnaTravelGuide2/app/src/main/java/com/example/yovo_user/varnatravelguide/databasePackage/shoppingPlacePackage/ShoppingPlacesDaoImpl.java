@@ -16,9 +16,12 @@ import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
 
@@ -30,9 +33,18 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     private RemoteMongoClient mongoClient;
     private ShoppingPlacesListAdapter _shoppingPlacesListAdapter;
     private PlaceListAdapter _placesListAdapter;
-
+    private StitchAppClient stitchAppClient;
+/*
     public ShoppingPlacesDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
+    }
+*/
+
+    public ShoppingPlacesDaoImpl() {
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+        mongoClient  = stitchAppClient.getServiceClient(
+                RemoteMongoClient.factory, "mongodb-atlas");
     }
 
     /*@Override

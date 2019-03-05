@@ -23,9 +23,9 @@ public class ImageDaoImpl implements ImageDao {
     //private SQLiteDatabase dbWritableConnection;
     private RemoteMongoClient mongoClient;
 
-    public ImageDaoImpl(RemoteMongoClient mongoClient) {
+/*    public ImageDaoImpl(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
-    }
+    }*/
 
 /*    @Override
     public void createImageTable() throws SQLException {
