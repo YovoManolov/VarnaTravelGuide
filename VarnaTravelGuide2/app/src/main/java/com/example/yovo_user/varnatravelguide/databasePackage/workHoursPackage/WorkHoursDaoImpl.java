@@ -23,18 +23,16 @@ public class WorkHoursDaoImpl implements WorkHoursDao {
     private RemoteMongoClient mongoClient;
     private StitchAppClient stitchAppClient;
 
-/*
-    public WorkHoursDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-    }
-*/
-
     public WorkHoursDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
+/*    public WorkHoursDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
-    }
+    }*/
 
     /*@Override
     public List<WorkHours> getWorkHoursByPlaceId(int placeId){

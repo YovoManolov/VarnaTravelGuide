@@ -34,18 +34,19 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
     private ShoppingPlacesListAdapter _shoppingPlacesListAdapter;
     private PlaceListAdapter _placesListAdapter;
     private StitchAppClient stitchAppClient;
-/*
-    public ShoppingPlacesDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-    }
-*/
 
+    public ShoppingPlacesDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
+/*
     public ShoppingPlacesDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
     }
+*/
 
     /*@Override
     public void createShoppingPlacesTable()throws SQLException {

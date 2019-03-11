@@ -25,8 +25,12 @@ import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePacka
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlacesDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.client.MongoClient;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.core.auth.StitchAuth;
+import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
@@ -36,9 +40,8 @@ import java.util.List;
 
 public class DatabaseHelper {
 
-    private static DatabaseHelper dbHelper;
     private StitchAppClient stitchAppClient;
-    private RemoteMongoClient mongoClient;
+    public static RemoteMongoClient mongoClient;
 
     private PlaceDaoImpl placeDaoImpl;
     private HotelDaoImpl hotelDaoImpl;
@@ -49,74 +52,148 @@ public class DatabaseHelper {
     private PriceCategoryDaoImpl priceCategoryDaoImpl;
     private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl;
 
-    // Версия на Базата от Данни
-    private static final String DB_NAME = "varnaTravelGuide.db";
-    private static final int DATABASE_VERSION = 2;
-
     public DatabaseHelper(){
 
-/*        stitchAppClient  = Stitch.getDefaultAppClient();
-        //this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+        stitchAppClient  = Stitch.getDefaultAppClient();
+        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+
         mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");*/
+                RemoteMongoClient.factory, "mongodb-atlas");
 
         placeDaoImpl = new PlaceDaoImpl();
-        hotelDaoImpl = new HotelDaoImpl();
         landmarkDaoImpl = new LandmarkDaoImpl();
         restaurantDaoImpl = new RestaurantDaoImpl();
         //imageDaoImpl = new ImageDaoImpl();
         workHoursDaoImpl = new WorkHoursDaoImpl();
         priceCategoryDaoImpl = new PriceCategoryDaoImpl();
         shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
+        hotelDaoImpl = new HotelDaoImpl();
 
     }
 
-    /*public static synchronized DatabaseHelper getInstance(Context context) {
+    public static RemoteMongoClient getMongoClient() {
+        return mongoClient;
+    }
 
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(context);
+    public void setMongoClient(RemoteMongoClient mongoClient) {
+        this.mongoClient = mongoClient;
+    }
+/*
+   used when no anonymous authentication is used.
+
+
+    private static class MyAuthListener implements StitchAuthListener {
+
+        private WeakReference<MainActivity> _main;
+        private StitchUser _user;
+
+        public MyAuthListener(final MainActivity activity) {
+            _main = new WeakReference<>(activity);
         }
-        return dbHelper;
-    }*/
 
-    public void onCreate(SQLiteDatabase dbWritableConnection) {
+        @Override
+        public void onAuthEvent(final StitchAuth auth) {
+            if (auth.isLoggedIn() && _user == null) {
+                Log.d(TAG, "Logged into Stitch");
+                _user = auth.getUser();
+                return;
+            }
 
+            if (!auth.isLoggedIn() && _user != null) {
+                _user = null;
+                onLogout();
+            }
+        }
 
-        /*
-        placeDaoImpl = new PlaceDaoImpl(mongoClient);
-        hotelDaoImpl = new HotelDaoImpl(mongoClient);
-        landmarkDaoImpl = new LandmarkDaoImpl(mongoClient);
-        restaurantDaoImpl = new RestaurantDaoImpl(mongoClient);
-        imageDaoImpl = new ImageDaoImpl(mongoClient);
-        workHoursDaoImpl = new WorkHoursDaoImpl(mongoClient);
-        priceCategoryDaoImpl = new PriceCategoryDaoImpl(mongoClient);
-        shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl(mongoClient);*/
+        public void onLogout() {
+            final MainActivity activity = _main.get();
 
+            final List<Task<Void>> futures = new ArrayList<Task<Void>>();
+            if (activity != null) {
+                activity._handler.removeCallbacks(activity._refresher);
 
-//        placeDaoImpl.createPlacesTable();
-//        priceCategoryDaoImpl.createPriceCategoryTable();
-//        imageDaoImpl.createImageTable();
-//        hotelDaoImpl.createHotelTable();
-//        landmarkDaoImpl.createLandmarkTable();
-//        restaurantDaoImpl.createRestaurantTable();
-//        shoppingPlacesDaoImpl.createShoppingPlacesTable();
-//        workHoursDaoImpl.createWorkHoursTable();
+                if (activity._googleApiClient != null) {
+                    final TaskCompletionSource<Void> future = new TaskCompletionSource<>();
+                    GoogleSignInApi.signOut(
+                            activity._googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull final Status ignored) {
+                            future.setResult(null);
+                        }
+                    });
+                    futures.add(future.getTask());
+                }
 
-/*        placeDaoImpl.addPlaces(Place.populatePlaces());
-        priceCategoryDaoImpl.addPriceCategory(PriceCategory.populatePriceCategories());
-        imageDaoImpl.addImage(Image.populateImages());
-        hotelDaoImpl.addHotels(Hotel.populateHotels());
-        landmarkDaoImpl.addLandmarks(Landmark.populateLandmarks());
-        restaurantDaoImpl.addRestaurant(Restaurant.populateRestaurants());
-        shoppingPlacesDaoImpl.addShoppingPlaces(ShoppingPlace.populateShoppingPlaces());
-        workHoursDaoImpl.addWorkHours(WorkHours.populateWorkHours());*/
+                if (activity._fbInitOnce) {
+                    LoginManager.getInstance().logOut();
+                }
+
+                Tasks.whenAll(futures).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull final Task<Void> ignored) {
+                        activity.setupLogin();
+                    }
+                });
+            }
+        }
     }
 
-   /* @Override
-    public void onUpgrade(SQLiteDatabase dbWritableConnection, int oldVersion, int newVersion) {
-        DbBaseOperations.upgradeDb(dbWritableConnection,oldVersion,newVersion);
-        onCreate(dbWritableConnection);
-    }*/
+    private static class ListRefresher implements Runnable {
+
+        private WeakReference<MainActivity> _main;
+
+        private ListRefresher(final MainActivity activity) {
+            _main = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void run() {
+            final MainActivity activity = _main.get();
+            if (activity != null && activity._client.getAuth().isLoggedIn()) {
+                activity.refreshList();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            final GoogleSignInResult result = GoogleSignInApi.getSignInResultFromIntent(data);
+            handleGooglSignInResult(result);
+            return;
+        }
+
+        if (_callbackManager != null) {
+            _callbackManager.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+        Log.e(TAG, "Nowhere to send activity result for ourselves");
+    }
+
+    private void handleGooglSignInResult(final GoogleSignInResult result) {
+        if (result == null) {
+            Log.e(TAG, "Got a null GoogleSignInResult");
+            return;
+        }
+
+        Log.d(TAG, "handleGooglSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            final GoogleCredential googleCredential = new GoogleCredential(result.getSignInAccount().getServerAuthCode());
+            _client.getAuth().loginWithCredential(googleCredential).addOnCompleteListener(new OnCompleteListener<StitchUser>() {
+                @Override
+                public void onComplete(@NonNull final Task<StitchUser> task) {
+                    if (task.isSuccessful()) {
+                        initTodoView();
+                    } else {
+                        Log.e(TAG, "Error logging in with Google", task.getException());
+                    }
+                }
+            });
+        }
+    }
+*/
 
     public HotelDaoImpl getHotelDaoImpl() {
         return hotelDaoImpl;

@@ -32,23 +32,22 @@ public class HotelDaoImpl implements HotelDao{
 
     private RemoteMongoClient mongoClient;
     private StitchAppClient stitchAppClient;
-/*    public HotelDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-    }*/
+
+    public HotelDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
 
     HotelListAdapter _hotelListAdapter;
 
-    RemoteMongoCollection<Document> hotelsCollection = mongoClient
-            .getDatabase("VarnaTravelGuide")
-            .getCollection("hotels");
 
-
-    public HotelDaoImpl() {
+/*    public HotelDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
-    }
+    }*/
+
+
     /*@Override
     public void createHotelTable() throws SQLException {
         DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_HOTELS);
@@ -97,7 +96,6 @@ public class HotelDaoImpl implements HotelDao{
 
     @Override
     public List<Hotel> getAllHotels() {
-        List<Hotel> allHotels = new ArrayList<Hotel>();
 
         final ArrayList<Document> hotelDocumentsList = new ArrayList<>();
 
@@ -105,22 +103,22 @@ public class HotelDaoImpl implements HotelDao{
                 .getDatabase("VarnaTravelGuide")
                 .getCollection("hotels");
 
-        Document filter = new Document();
-        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        //Document filter = new Document("{}",);
+        SyncFindIterable cursor = hotelsCollection.sync().find();
         final ArrayList<Document> hotelDocuments = new ArrayList<>();
 
-        cursor.into(hotelDocuments).addOnCompleteListener(new OnCompleteListener() {
+        cursor.into(hotelDocuments);/*.addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
                 _hotelListAdapter.clear();
                 _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
                 _hotelListAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
+        _hotelListAdapter.clear();
+        _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
 
-        allHotels = convertDocsToHotels(hotelDocuments);
-
-        return allHotels;
+        return _hotelListAdapter.getAllHotels();
     }
 
     private List<Hotel> convertDocsToHotels(final List<Document> documents) {

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
@@ -33,18 +34,20 @@ public class PlaceDaoImpl implements PlaceDao {
     //private SQLiteDatabase dbWritableConnection;
     private RemoteMongoClient mongoClient;
     private StitchAppClient stitchAppClient;
-  /*  public PlaceDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-    }*/
+    private PlaceListAdapter _placeListAdapter;
+
 
     public PlaceDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
+  /*  public PlaceDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
-    }
+    }*/
 
-    private PlaceListAdapter _placeListAdapter;
 
     /*@Override
     public void addPlaces(Place[] places){

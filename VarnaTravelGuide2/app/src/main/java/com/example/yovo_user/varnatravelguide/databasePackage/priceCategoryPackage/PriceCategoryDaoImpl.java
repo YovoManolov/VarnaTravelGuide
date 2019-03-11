@@ -34,17 +34,17 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
     private PriceCategoryListAdapter _priceCategoryListAdapter;
     private StitchAppClient stitchAppClient;
 
-    public PriceCategoryDaoImpl() {
+/*  public PriceCategoryDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
-    }
-
-
-/*    public PriceCategoryDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
     }*/
+
+
+    public PriceCategoryDaoImpl() {
+        this.mongoClient =DatabaseHelper.getMongoClient();
+    }
 
    /* @Override
     public void createPriceCategoryTable() throws SQLException {

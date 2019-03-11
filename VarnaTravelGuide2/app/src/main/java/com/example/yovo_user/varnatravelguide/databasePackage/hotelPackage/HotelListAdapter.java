@@ -8,6 +8,7 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 //for MongoDb
@@ -25,5 +26,13 @@ public class HotelListAdapter  extends ArrayAdapter<Hotel> {
         super(context, resource, items);
         _itemSource = itemSource;
         pendingChanges = new ArrayList<>();
+    }
+
+
+    public List<Hotel> getAllHotels(){
+        List<Hotel> allHotels = new LinkedList<>();
+        for (int i = 0 ;i< super.getCount(); i++)
+        allHotels.add(getItem(i));
+        return allHotels;
     }
 }

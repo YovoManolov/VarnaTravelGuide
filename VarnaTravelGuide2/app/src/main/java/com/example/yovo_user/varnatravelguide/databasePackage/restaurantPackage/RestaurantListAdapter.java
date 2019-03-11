@@ -9,6 +9,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import org.bson.BsonValue;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
@@ -25,5 +26,12 @@ class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         super(context, resource, items);
         _itemSource = itemSource;
         pendingChanges = new ArrayList<>();
+    }
+
+    public List<Restaurant> getAllRestaurants(){
+        List<Restaurant> allRestaurants = new LinkedList<>();
+        for (int i = 0 ;i< super.getCount(); i++)
+            allRestaurants.add(getItem(i));
+        return allRestaurants;
     }
 }

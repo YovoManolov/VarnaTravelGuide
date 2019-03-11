@@ -34,18 +34,18 @@ public class LandmarkDaoImpl implements LandmarkDao {
     private LandmarkListAdapter _landmarkListAdapter;
     private StitchAppClient stitchAppClient;
 
-/*
-    public LandmarkDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
+    public LandmarkDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
     }
-*/
-
+/*
     public LandmarkDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
     }
+*/
+
 
    /* @Override
     public void createLandmarkTable() throws SQLException {

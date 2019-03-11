@@ -46,15 +46,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        Stitch.initializeDefaultAppClient(
-                    getResources().getString( R.string.my_app_id )
-             );
-        this.stitchClient = Stitch.getDefaultAppClient();
-
-        Task<StitchUser> taskAuthorization
-                    = this.stitchClient.getAuth().loginWithCredential(new AnonymousCredential());
-
+      /*  Stitch.initializeDefaultAppClient(
+                getResources().getString( R.string.my_app_id )
+        );*/
         setContentView(R.layout.activity_main);
 
         generateViewPager();

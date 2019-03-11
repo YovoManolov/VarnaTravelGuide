@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
@@ -33,18 +34,16 @@ public class RestaurantDaoImpl implements RestaurantDao {
     private RestaurantListAdapter _restaurantListAdapter;
     private StitchAppClient stitchAppClient;
 
-/*
-    public RestaurantDaoImpl(RemoteMongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-    }
-*/
-
     public RestaurantDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
+    /*    public RestaurantDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
         mongoClient  = stitchAppClient.getServiceClient(
                 RemoteMongoClient.factory, "mongodb-atlas");
-    }
+    }*/
 
     /*@Override
     public void createRestaurantTable() throws SQLException  {
