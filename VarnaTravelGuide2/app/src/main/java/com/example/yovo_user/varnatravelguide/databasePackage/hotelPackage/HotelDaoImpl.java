@@ -1,31 +1,19 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
-import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
-import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
-import org.bson.BsonDocument;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class HotelDaoImpl implements HotelDao{
@@ -37,8 +25,12 @@ public class HotelDaoImpl implements HotelDao{
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
 
-    HotelListAdapter _hotelListAdapter;
-
+    HotelListAdapter _hotelListAdapter; /*= new HotelListAdapter(
+            this,
+            R.layout.todo_item,
+            new ArrayList<TodoItem>(),
+            getItemsCollection());
+        ((ListView) findViewById(R.id.todoList)).setAdapter(_itemAdapter);*/
 
 /*    public HotelDaoImpl() {
         stitchAppClient  = Stitch.getDefaultAppClient();
@@ -97,32 +89,31 @@ public class HotelDaoImpl implements HotelDao{
     @Override
     public List<Hotel> getAllHotels() {
 
-        final ArrayList<Document> hotelDocumentsList = new ArrayList<>();
-
         RemoteMongoCollection<Document> hotelsCollection =  mongoClient
                 .getDatabase("VarnaTravelGuide")
                 .getCollection("hotels");
 
-        //Document filter = new Document("{}",);
-        SyncFindIterable cursor = hotelsCollection.sync().find();
-        final ArrayList<Document> hotelDocuments = new ArrayList<>();
+        Document filter = new Document();
+        RemoteFindIterable<Document> cursor = hotelsCollection.find(filter);
+        ArrayList<Document> hotelDocuments = new ArrayList<>();
 
-        cursor.into(hotelDocuments);/*.addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _hotelListAdapter.clear();
-                _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
-                _hotelListAdapter.notifyDataSetChanged();
-            }
-        });*/
-        _hotelListAdapter.clear();
+        cursor.into(hotelDocuments);
+        ArrayList<Hotel> hotelsList = new ArrayList<>();
+        hotelsList = convertDocsToHotels(hotelDocuments);
+
+      /*  _hotelListAdapter.clear();
         _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
+        _hotelListAdapter.notifyDataSetChanged();*/
 
-        return _hotelListAdapter.getAllHotels();
+        //_hotelListAdapter.clear();
+        //_hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
+
+
+        return hotelsList;
     }
 
-    private List<Hotel> convertDocsToHotels(final List<Document> documents) {
-        final List<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
+    private ArrayList<Hotel> convertDocsToHotels(final List<Document> documents) {
+        ArrayList<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
             listOfHotelObjects.add(new Hotel(doc));
         }
@@ -149,7 +140,7 @@ public class HotelDaoImpl implements HotelDao{
             }
         });
 
-        ArrayList<Hotel> resultList = (ArrayList<Hotel>)convertDocsToHotels(foundDocuments);
+        ArrayList<Hotel> resultList = convertDocsToHotels(foundDocuments);
         return  resultList.get(0);
     }
 }
