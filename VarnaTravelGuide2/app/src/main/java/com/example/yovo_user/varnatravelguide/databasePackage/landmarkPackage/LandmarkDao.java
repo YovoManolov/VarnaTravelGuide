@@ -11,6 +11,6 @@ import java.util.List;
 public interface LandmarkDao {
     /*public void createLandmarkTable();
     public void addLandmarks(Landmark[] landmarks);*/
-    public List<Landmark> getAllLandmarks();
-    public Landmark getLandmarkByPlaceId(ObjectId place_id);
+    public List<Landmark> getAllLandmarks() throws InterruptedException;
+    public Landmark getLandmarkByPlaceId(ObjectId place_id) throws InterruptedException;
 }

@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
@@ -96,8 +97,8 @@ public class PlaceDaoImpl implements PlaceDao {
                 DbStringConstants.TABLE_PLACES + " is being created !");
     }
     */
-    private List<Place> convertDocsToPlaces(final List<Document> documents) {
-        final List<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
+    private ArrayList<Place> convertDocsToPlaces(ArrayList<Document> documents) {
+        final ArrayList<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
             listOfPlaceObjects.add(new Place(doc));
         }
@@ -107,52 +108,53 @@ public class PlaceDaoImpl implements PlaceDao {
     @Override
     public Place getPlaceById(ObjectId place_id) {
 
-
-
-        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
+        RemoteMongoCollection<Document> hotelsCollection =  DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("places");
 
-        Document filter = new Document("_id",place_id);
-        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
-        final ArrayList<Document> foundDocuments = new ArrayList<>();
+        Document filter = new Document();
+        RemoteFindIterable cursor = hotelsCollection.find();
 
-        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _placeListAdapter.clear();
-                _placeListAdapter.addAll(convertDocsToPlaces(foundDocuments));
-                _placeListAdapter.notifyDataSetChanged();
-            }
-        });
+        Task <ArrayList<Document>> foundDocuments =
+                cursor.into(new ArrayList<Document>());
 
-        ArrayList<Place> resultList = (ArrayList<Place>)convertDocsToPlaces(foundDocuments);
-        return  resultList.get(0);
+        ArrayList<Place> placeList = null;
+        try {
+            foundDocuments.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(foundDocuments.isComplete()){
+            placeList = convertDocsToPlaces(foundDocuments.getResult());
+        }
+
+        return  placeList.get(0);
     }
 
     @Override
     public List<Place> getPlacesByTypeOfPlace(int typeOfPlace) {
 
-        List<Place> allShoppingPlaces = new ArrayList<>();
+
         final ArrayList<Document> shoppingPlacesList = new ArrayList<>();
 
-        RemoteMongoCollection placesCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
+        RemoteMongoCollection placesCollection =  DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("places");
 
-        Document filter = new Document("typeOfPlace",typeOfPlace);
-        SyncFindIterable cursor = placesCollection.sync().find(filter);
+        Document filter = new Document();
+        RemoteFindIterable cursor = placesCollection.find();
 
-        cursor.into(allShoppingPlaces).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _placeListAdapter.clear();
-                _placeListAdapter.addAll(convertDocsToPlaces(shoppingPlacesList));
-                _placeListAdapter.notifyDataSetChanged();
-            }
-        });
+        Task <ArrayList<Document>> placesDocuments =
+                cursor.into(new ArrayList<Document>());
 
-        return allShoppingPlaces;
+        ArrayList<Place> resultList = null;
+        try {
+            placesDocuments.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(placesDocuments.isComplete()){
+            resultList = convertDocsToPlaces(placesDocuments.getResult());
+        }
+        return resultList;
     }
 
 

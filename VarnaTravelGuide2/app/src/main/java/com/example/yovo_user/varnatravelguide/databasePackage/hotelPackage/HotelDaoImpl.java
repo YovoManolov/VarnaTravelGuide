@@ -4,11 +4,14 @@ import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoDatabase;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
+import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
 
@@ -86,34 +89,8 @@ public class HotelDaoImpl implements HotelDao{
         }
     }*/
 
-    @Override
-    public List<Hotel> getAllHotels() {
-
-        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
-                .getCollection("hotels");
-
-        Document filter = new Document();
-        RemoteFindIterable<Document> cursor = hotelsCollection.find(filter);
-        ArrayList<Document> hotelDocuments = new ArrayList<>();
-
-        cursor.into(hotelDocuments);
-        ArrayList<Hotel> hotelsList = new ArrayList<>();
-        hotelsList = convertDocsToHotels(hotelDocuments);
-
-      /*  _hotelListAdapter.clear();
-        _hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
-        _hotelListAdapter.notifyDataSetChanged();*/
-
-        //_hotelListAdapter.clear();
-        //_hotelListAdapter.addAll(convertDocsToHotels(hotelDocuments));
-
-
-        return hotelsList;
-    }
-
-    private ArrayList<Hotel> convertDocsToHotels(final List<Document> documents) {
-        ArrayList<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
+    private final List<Hotel> convertDocsToHotels(List<Document> documents) {
+        List<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
             listOfHotelObjects.add(new Hotel(doc));
         }
@@ -121,26 +98,48 @@ public class HotelDaoImpl implements HotelDao{
     }
 
     @Override
-    public Hotel getHotelByPlaceId(Object placeId) {
+    public final List<Hotel> getAllHotels() {
 
-        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
-                .getCollection("hotels");
+        RemoteMongoCollection<Document> hotelsCollection =
+                DatabaseHelper.getVarnaTravelGuideDB()
+                        .getCollection("hotels");
 
-        Document filter = new Document("_id",placeId);
-        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
-        final ArrayList<Document> foundDocuments = new ArrayList<>();
+        RemoteFindIterable cursor = hotelsCollection.find();
+        Task <ArrayList<Document>> hotelDocuments = cursor.into(new ArrayList<Document>());
 
-        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
+        hotelDocuments.addOnCompleteListener(new OnCompleteListener<ArrayList<Document>>() {
+
             @Override
-            public void onComplete(@NonNull Task task) {
-                _hotelListAdapter.clear();
-                _hotelListAdapter.addAll(convertDocsToHotels(foundDocuments));
-                _hotelListAdapter.notifyDataSetChanged();
+            public void onComplete(@NonNull Task<ArrayList<Document>> task) {
+
+                hotelsList = convertDocsToHotels(task.getResult());
+                return hotelsList;
             }
         });
 
-        ArrayList<Hotel> resultList = convertDocsToHotels(foundDocuments);
+
+    }
+
+    @Override
+    public Hotel getHotelByPlaceId(Object placeId) {
+
+        RemoteMongoCollection<Document> hotelsCollection =
+                DatabaseHelper.getVarnaTravelGuideDB()
+                .getCollection("hotels");
+
+        Document filter = new Document("_id",placeId);
+        RemoteFindIterable cursor = hotelsCollection.find(filter);
+
+        Task <ArrayList<Document>> foundDocuments = cursor.into(new ArrayList<Document>());
+        List<Hotel> resultList = null;
+        try {
+            foundDocuments.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(foundDocuments.isComplete()){
+            resultList = convertDocsToHotels(foundDocuments.getResult());
+        }
         return  resultList.get(0);
     }
 }

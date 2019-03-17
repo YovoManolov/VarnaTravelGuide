@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
@@ -89,32 +90,30 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public List<Restaurant> getAllResaturants(){
-        List<Restaurant>  allRestaurants = new ArrayList<Restaurant>();
-        final ArrayList<Document> restaurantDocumentsList = new ArrayList<>();
 
-        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
+        RemoteMongoCollection<Document> hotelsCollection =
+                DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("restaurants");
 
-        Document filter = new Document();
-        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
+        RemoteFindIterable cursor = hotelsCollection.find();
+        Task <ArrayList<Document>> restaurantDocumentsList =
+                                cursor.into(new ArrayList<Document>());
 
-        cursor.into(restaurantDocumentsList).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _restaurantListAdapter.clear();
-                _restaurantListAdapter.addAll(convertDocsToResaturants(restaurantDocumentsList));
-                _restaurantListAdapter.notifyDataSetChanged();
-            }
-        });
-
-        allRestaurants = convertDocsToResaturants(restaurantDocumentsList);
+        List<Restaurant>  allRestaurants = null;
+        try {
+            restaurantDocumentsList.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(restaurantDocumentsList.isComplete()){
+            allRestaurants = convertDocsToResaturants(restaurantDocumentsList.getResult());
+        }
 
         return allRestaurants;
     }
 
-    private List<Restaurant> convertDocsToResaturants(final List<Document> documents) {
-        final List<Restaurant> listOfHotelObjects = new ArrayList<>(documents.size());
+    private ArrayList<Restaurant> convertDocsToResaturants(ArrayList<Document> documents) {
+        final ArrayList<Restaurant> listOfHotelObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
             listOfHotelObjects.add(new Restaurant(doc));
         }
@@ -129,20 +128,21 @@ public class RestaurantDaoImpl implements RestaurantDao {
                 .getCollection("restaurants");
 
         Document filter = new Document("_id",place_id);
-        SyncFindIterable cursor = restaurantCollection.sync().find(filter);
+
+        RemoteFindIterable cursor = restaurantCollection.find(filter);
         final ArrayList<Document> foundDocuments = new ArrayList<>();
 
-        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _restaurantListAdapter.clear();
-                _restaurantListAdapter.addAll(convertDocsToResaturants(foundDocuments));
-                _restaurantListAdapter.notifyDataSetChanged();
-            }
-        });
+        Task <ArrayList<Document>> restaurantDocuments = cursor.into(new ArrayList<Document>());
 
-        ArrayList<Restaurant> resultList =
-                (ArrayList<Restaurant>)convertDocsToResaturants(foundDocuments);
+        ArrayList<Restaurant> resultList = null;
+        try {
+            restaurantDocuments.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(restaurantDocuments.isComplete()){
+            resultList = convertDocsToResaturants(restaurantDocuments.getResult());
+        }
         return  resultList.get(0);
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface WorkHoursDao {
-/*    public void createWorkHoursTable();
-    public void addWorkHours(WorkHours[] workHours);
-    public List<WorkHours> getWorkHoursByPlaceId(int placeId);*/
+    /*    public void createWorkHoursTable();
+        public void addWorkHours(WorkHours[] workHours);
+        public List<WorkHours> getWorkHoursByPlaceId(int placeId);*/
 }

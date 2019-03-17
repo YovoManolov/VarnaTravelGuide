@@ -32,6 +32,7 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.auth.StitchAuth;
 import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoDatabase;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import java.io.Serializable;
@@ -42,6 +43,7 @@ public class DatabaseHelper {
 
     private StitchAppClient stitchAppClient;
     public static RemoteMongoClient mongoClient;
+   public static RemoteMongoDatabase varnaTravelGuideDB;
 
     private PlaceDaoImpl placeDaoImpl;
     private HotelDaoImpl hotelDaoImpl;
@@ -57,8 +59,12 @@ public class DatabaseHelper {
         stitchAppClient  = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
 
-        mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
+        mongoClient  = this.stitchAppClient.getServiceClient(RemoteMongoClient.factory,
+                "mongodb-atlas");
+                //stitchAppClient.getServiceClienst(
+                //RemoteMongoClient.factory, "mongodb-atlas");
+
+        varnaTravelGuideDB = mongoClient.getDatabase("varnaTravelGuideDB");
 
         placeDaoImpl = new PlaceDaoImpl();
         landmarkDaoImpl = new LandmarkDaoImpl();
@@ -71,6 +77,14 @@ public class DatabaseHelper {
 
     }
 
+    public static RemoteMongoDatabase getVarnaTravelGuideDB() {
+        return varnaTravelGuideDB;
+    }
+
+    public static void setVarnaTravelGuideDB(RemoteMongoDatabase varnaTravelGuideDB) {
+        DatabaseHelper.varnaTravelGuideDB = varnaTravelGuideDB;
+    }
+
     public static RemoteMongoClient getMongoClient() {
         return mongoClient;
     }
@@ -78,9 +92,40 @@ public class DatabaseHelper {
     public void setMongoClient(RemoteMongoClient mongoClient) {
         this.mongoClient = mongoClient;
     }
+
+    public HotelDaoImpl getHotelDaoImpl() {
+        return hotelDaoImpl;
+    }
+
+    public PlaceDaoImpl getPlaceDaoImpl() {
+        return placeDaoImpl;
+    }
+
+    public LandmarkDaoImpl getLandmarkDaoImpl() {
+        return landmarkDaoImpl;
+    }
+
+    public ImageDaoImpl getImageDaoImpl() {
+        return imageDaoImpl;
+    }
+
+    public RestaurantDaoImpl getRestaurantDaoImpl() {
+        return restaurantDaoImpl;
+    }
+
+    public WorkHoursDaoImpl getWorkHoursDaoImpl() {
+        return workHoursDaoImpl;
+    }
+
+    public PriceCategoryDaoImpl getPriceCategoryDaoImpl() {
+        return priceCategoryDaoImpl;
+    }
+
+    public ShoppingPlacesDaoImpl getShoppingPlacesDaoImpl() {
+        return shoppingPlacesDaoImpl;
+    }
 /*
    used when no anonymous authentication is used.
-
 
     private static class MyAuthListener implements StitchAuthListener {
 
@@ -195,37 +240,7 @@ public class DatabaseHelper {
     }
 */
 
-    public HotelDaoImpl getHotelDaoImpl() {
-        return hotelDaoImpl;
-    }
 
-    public PlaceDaoImpl getPlaceDaoImpl() {
-        return placeDaoImpl;
-    }
-
-    public LandmarkDaoImpl getLandmarkDaoImpl() {
-        return landmarkDaoImpl;
-    }
-
-    public ImageDaoImpl getImageDaoImpl() {
-        return imageDaoImpl;
-    }
-
-    public RestaurantDaoImpl getRestaurantDaoImpl() {
-        return restaurantDaoImpl;
-    }
-
-    public WorkHoursDaoImpl getWorkHoursDaoImpl() {
-        return workHoursDaoImpl;
-    }
-
-    public PriceCategoryDaoImpl getPriceCategoryDaoImpl() {
-        return priceCategoryDaoImpl;
-    }
-
-    public ShoppingPlacesDaoImpl getShoppingPlacesDaoImpl() {
-        return shoppingPlacesDaoImpl;
-    }
 
 //
 //    public void createPlacesTable(SQLiteDatabase dbWritableConnection) throws SQLException {

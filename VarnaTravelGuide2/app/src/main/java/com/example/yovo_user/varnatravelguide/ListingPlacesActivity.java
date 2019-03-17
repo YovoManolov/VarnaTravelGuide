@@ -54,8 +54,6 @@ public class ListingPlacesActivity extends AppCompatActivity {
     private String typeOfPlacesToLoad;
     private List<ListLinksItem> listItems = new ArrayList<>();
     private DBManager dbManager;
-    StitchAppClient stitchAppClient;
-    RemoteMongoClient mongoClient ;
 
   /* private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
     private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
@@ -89,10 +87,11 @@ public class ListingPlacesActivity extends AppCompatActivity {
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
 
-                ArrayList<Hotel> allHotels =(ArrayList<Hotel>)
+
+                List<Hotel> allHotels =
                         dbManager.getHotelDaoImpl().getAllHotels();
 
-                ArrayList<Place> hotelPlaces = new ArrayList<> ();
+                List<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size() ; i++){
                     hotelPlaces.add(dbManager.getPlaceDaoImpl()
                             .getPlaceById(allHotels.get(i).getplace_id())
@@ -158,7 +157,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
     }
 
 
-    private void generateListOfPlaces(ArrayList<Place> placeListToLoad){
+    private void generateListOfPlaces(List<Place> placeListToLoad){
 
         ListView listLinksItemsFromView = (ListView) findViewById(R.id.listOfPlaces);
 

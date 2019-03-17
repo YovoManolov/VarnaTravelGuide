@@ -14,9 +14,11 @@ import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mongodb.client.FindIterable;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
@@ -31,8 +33,6 @@ import java.util.List;
 public class LandmarkDaoImpl implements LandmarkDao {
 
     private RemoteMongoClient mongoClient;
-    private LandmarkListAdapter _landmarkListAdapter;
-    private StitchAppClient stitchAppClient;
 
     public LandmarkDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
@@ -45,7 +45,6 @@ public class LandmarkDaoImpl implements LandmarkDao {
                 RemoteMongoClient.factory, "mongodb-atlas");
     }
 */
-
 
    /* @Override
     public void createLandmarkTable() throws SQLException {
@@ -91,35 +90,33 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }*/
 
     @Override
-    public List<Landmark> getAllLandmarks() throws SQLException {
-        List<Landmark> allLandmarks = new ArrayList<Landmark>();
+    public List<Landmark> getAllLandmarks() {
 
-        final ArrayList<Document> landmarkDocumentsList = new ArrayList<>();
-
-        RemoteMongoCollection<Document> landmarksCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
+        RemoteMongoCollection<Document> landmarksCollection =
+                DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("landmarks");
 
-        Document filter = new Document();
-        SyncFindIterable cursor = landmarksCollection.sync().find(filter);
+        RemoteFindIterable cursor = landmarksCollection.find();
 
-        cursor.into(landmarkDocumentsList).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _landmarkListAdapter.clear();
-                _landmarkListAdapter.addAll(convertDocsToLandmarks(landmarkDocumentsList));
-                _landmarkListAdapter.notifyDataSetChanged();
-            }
-        });
+        Task <ArrayList<Document>> landmarkDocumentsList
+                = cursor.into(new ArrayList<Document>());
 
-        allLandmarks = convertDocsToLandmarks(landmarkDocumentsList);
+        List<Landmark> allLandmarks = null;
+        try {
+            landmarkDocumentsList.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(landmarkDocumentsList.isComplete()){
+            allLandmarks = convertDocsToLandmarks(landmarkDocumentsList.getResult());
+        }
 
         return allLandmarks;
     }
 
 
-    private List<Landmark> convertDocsToLandmarks (final List<Document> documents) {
-        final List<Landmark> listOfRestaurantObjects = new ArrayList<>(documents.size());
+    private ArrayList<Landmark> convertDocsToLandmarks (ArrayList<Document> documents) {
+        final ArrayList<Landmark> listOfRestaurantObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
             listOfRestaurantObjects.add(new Landmark(doc));
         }
@@ -129,25 +126,24 @@ public class LandmarkDaoImpl implements LandmarkDao {
     @Override
     public Landmark getLandmarkByPlaceId(ObjectId place_id) {
 
-        RemoteMongoCollection<Document> restaurantCollection = mongoClient
-                .getDatabase("VarnaTravelGuide")
-                .getCollection("restaurants");
+        RemoteMongoCollection<Document> landmarkCollection =
+                DatabaseHelper.getVarnaTravelGuideDB()
+                .getCollection("landmarks");
 
         Document filter = new Document("_id", place_id);
-        SyncFindIterable cursor = restaurantCollection.sync().find(filter);
-        final ArrayList<Document> foundDocuments = new ArrayList<>();
+        RemoteFindIterable cursor = landmarkCollection.find(filter);
 
-        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _landmarkListAdapter.clear();
-                _landmarkListAdapter.addAll(convertDocsToLandmarks(foundDocuments));
-                _landmarkListAdapter.notifyDataSetChanged();
-            }
-        });
+        Task <ArrayList<Document>> foundDocuments = cursor.into(new ArrayList<Document>());
 
-        ArrayList<Landmark> resultList =
-                (ArrayList<Landmark>) convertDocsToLandmarks(foundDocuments);
+        ArrayList<Landmark> resultList = null;
+        try {
+            foundDocuments.wait(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(foundDocuments.isComplete()){
+            resultList = convertDocsToLandmarks(foundDocuments.getResult());
+        }
         return resultList.get(0);
     }
 }

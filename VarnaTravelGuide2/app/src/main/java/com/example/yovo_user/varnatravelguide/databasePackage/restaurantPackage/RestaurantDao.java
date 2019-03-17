@@ -11,6 +11,6 @@ import java.util.List;
 public interface RestaurantDao {
 /*    public void createRestaurantTable();
     public void addRestaurant(Restaurant[] restaurants);*/
-    public List<Restaurant> getAllResaturants();
+    public List<Restaurant> getAllResaturants() throws InterruptedException;
     public Restaurant getRestaurantByPlaceId(ObjectId place_id);
 }

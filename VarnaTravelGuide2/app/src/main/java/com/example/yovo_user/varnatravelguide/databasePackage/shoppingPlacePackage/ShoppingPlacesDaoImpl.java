@@ -39,14 +39,14 @@ public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
 
-/*
-    public ShoppingPlacesDaoImpl() {
-        stitchAppClient  = Stitch.getDefaultAppClient();
-        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
-        mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
-    }
-*/
+    /*
+        public ShoppingPlacesDaoImpl() {
+            stitchAppClient  = Stitch.getDefaultAppClient();
+            this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
+            mongoClient  = stitchAppClient.getServiceClient(
+                    RemoteMongoClient.factory, "mongodb-atlas");
+        }
+    */
 
     /*@Override
     public void createShoppingPlacesTable()throws SQLException {
