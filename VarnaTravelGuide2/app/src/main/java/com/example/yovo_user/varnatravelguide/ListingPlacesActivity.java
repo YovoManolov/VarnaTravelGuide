@@ -55,15 +55,6 @@ public class ListingPlacesActivity extends AppCompatActivity {
     private List<ListLinksItem> listItems = new ArrayList<>();
     private DBManager dbManager;
 
-  /* private PlaceDaoImpl placeDaoImpl = new PlaceDaoImpl();
-    private HotelDaoImpl hotelDaoImpl = new HotelDaoImpl();
-    private LandmarkDaoImpl landmarkDaoImpl = new LandmarkDaoImpl();
-    private RestaurantDaoImpl restaurantDaoImpl = new RestaurantDaoImpl();
-    private ImageDaoImpl imageDaoImpl = new ImageDaoImpl();
-    private WorkHoursDaoImpl workHoursDaoImpl = new WorkHoursDaoImpl();
-    private PriceCategoryDaoImpl priceCategoryDaoImpl = new PriceCategoryDaoImpl();
-    private ShoppingPlacesDaoImpl shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +65,6 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
         dbManager = new DBManager();
         dbManager.open();
-
-        /*Typeface myCustomFont =
-                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
         initActivity(typeOfPlacesToLoad);
     }
 
@@ -86,7 +74,6 @@ public class ListingPlacesActivity extends AppCompatActivity {
             case "hotels":
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
-
 
                 List<Hotel> allHotels =
                         dbManager.getHotelDaoImpl().getAllHotels();

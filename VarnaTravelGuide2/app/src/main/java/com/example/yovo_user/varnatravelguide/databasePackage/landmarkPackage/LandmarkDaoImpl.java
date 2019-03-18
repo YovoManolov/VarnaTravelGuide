@@ -37,57 +37,6 @@ public class LandmarkDaoImpl implements LandmarkDao {
     public LandmarkDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
-/*
-    public LandmarkDaoImpl() {
-        stitchAppClient  = Stitch.getDefaultAppClient();
-        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
-        mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
-    }
-*/
-
-   /* @Override
-    public void createLandmarkTable() throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,
-                                        DbStringConstants.TABLE_LANDMARKS);
-        try{
-            dbWritableConnection.execSQL(DbStringConstants.CREATE_LANDMARKS_TABLE);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_LANDMARKS + " is being created !");
-
-    }
-
-    @Override
-    public void addLandmarks(Landmark[] landmarks) {
-        dbWritableConnection.beginTransaction();
-        try {
-            for (int i = 0; i < landmarks.length; i++) {
-                ContentValues values = new ContentValues();
-                values.put(DbStringConstants.L_PLACE_ID, landmarks[i].getPlaceId());
-                values.put(DbStringConstants.L_ENTRANCE_TICKET,
-                        landmarks[i].getEntranceTicket());
-
-                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_LANDMARKS,
-                        null, values);
-
-                if(rowId  == -1){
-                    Log.d("Insert failed:", "For table "
-                            + DbStringConstants.TABLE_LANDMARKS + "for: i = " + i );
-                }
-
-                Log.d("Landmarks ", " newly inserted row ID: " + rowId);
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
-    }*/
 
     @Override
     public List<Landmark> getAllLandmarks() {
@@ -137,7 +86,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
 
         ArrayList<Landmark> resultList = null;
         try {
-            foundDocuments.wait(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

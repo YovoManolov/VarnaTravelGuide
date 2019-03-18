@@ -108,26 +108,25 @@ public class PlaceDaoImpl implements PlaceDao {
     @Override
     public Place getPlaceById(ObjectId place_id) {
 
-        RemoteMongoCollection<Document> hotelsCollection =  DatabaseHelper.getVarnaTravelGuideDB()
+        RemoteMongoCollection<Document> placesCollection =  DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("places");
 
-        Document filter = new Document();
-        RemoteFindIterable cursor = hotelsCollection.find();
+        Document filter = new Document("_id", place_id);
+        RemoteFindIterable cursor = placesCollection.find(filter);
 
         Task <ArrayList<Document>> foundDocuments =
                 cursor.into(new ArrayList<Document>());
 
-        ArrayList<Place> placeList = null;
-        try {
-            foundDocuments.wait(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while(foundDocuments.isComplete() == false) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        if(foundDocuments.isComplete()){
-            placeList = convertDocsToPlaces(foundDocuments.getResult());
-        }
+        ArrayList<Place> placeList = convertDocsToPlaces(foundDocuments.getResult());
 
-        return  placeList.get(0);
+        return placeList.get(0);
     }
 
     @Override
@@ -147,7 +146,7 @@ public class PlaceDaoImpl implements PlaceDao {
 
         ArrayList<Place> resultList = null;
         try {
-            placesDocuments.wait(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

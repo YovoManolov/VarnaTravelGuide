@@ -22,72 +22,10 @@ import java.util.List;
 public class HotelDaoImpl implements HotelDao{
 
     private RemoteMongoClient mongoClient;
-    private StitchAppClient stitchAppClient;
 
     public HotelDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
-
-    HotelListAdapter _hotelListAdapter; /*= new HotelListAdapter(
-            this,
-            R.layout.todo_item,
-            new ArrayList<TodoItem>(),
-            getItemsCollection());
-        ((ListView) findViewById(R.id.todoList)).setAdapter(_itemAdapter);*/
-
-/*    public HotelDaoImpl() {
-        stitchAppClient  = Stitch.getDefaultAppClient();
-        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
-        mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
-    }*/
-
-
-    /*@Override
-    public void createHotelTable() throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection, DbStringConstants.TABLE_HOTELS);
-
-        try{
-            dbWritableConnection.execSQL(DbStringConstants.CREATE_HOTELS_TABLE);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        Log.d("Create table message: ","Table "
-                + DbStringConstants.TABLE_HOTELS + " is being created !");
-
-    }*/
-
-   /* @Override
-    public void addHotels(Hotel[] hotels) throws SQLException {
-
-        dbWritableConnection.beginTransaction();
-        try{
-
-            for (int i = 0; i < hotels.length; i++) {
-                ContentValues values = new ContentValues();
-                values.put(DbStringConstants.H_PLACE_ID, hotels[i].getPlaceId());
-                values.put(DbStringConstants.H_NUMB_OF_STARS, hotels[i].getNumbOfStars());
-                values.put(DbStringConstants.H_PRICE_CATEGORY_ID,
-                        hotels[i].getPriceCategoryId());
-
-                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_HOTELS,
-                        null, values);
-
-                if(rowId  == -1){
-                    Log.d("Insert failed:", "For table "
-                            + DbStringConstants.TABLE_HOTELS + "for: i = " + i );
-                }
-
-                Log.d("Hotels ", " newly inserted row ID: " + rowId);
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
-    }*/
 
     private final List<Hotel> convertDocsToHotels(List<Document> documents) {
         List<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
@@ -105,19 +43,19 @@ public class HotelDaoImpl implements HotelDao{
                         .getCollection("hotels");
 
         RemoteFindIterable cursor = hotelsCollection.find();
+
         Task <ArrayList<Document>> hotelDocuments = cursor.into(new ArrayList<Document>());
 
-        hotelDocuments.addOnCompleteListener(new OnCompleteListener<ArrayList<Document>>() {
-
-            @Override
-            public void onComplete(@NonNull Task<ArrayList<Document>> task) {
-
-                hotelsList = convertDocsToHotels(task.getResult());
-                return hotelsList;
+        while(hotelDocuments.isComplete() == false) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+        }
+        List<Hotel> hotelsList = convertDocsToHotels(hotelDocuments.getResult());
 
-
+        return hotelsList;
     }
 
     @Override
@@ -133,7 +71,7 @@ public class HotelDaoImpl implements HotelDao{
         Task <ArrayList<Document>> foundDocuments = cursor.into(new ArrayList<Document>());
         List<Hotel> resultList = null;
         try {
-            foundDocuments.wait(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

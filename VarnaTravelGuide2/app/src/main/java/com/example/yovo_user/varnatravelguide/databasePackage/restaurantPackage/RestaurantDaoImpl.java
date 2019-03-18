@@ -32,61 +32,10 @@ import java.util.List;
 public class RestaurantDaoImpl implements RestaurantDao {
 
     private RemoteMongoClient mongoClient;
-    private RestaurantListAdapter _restaurantListAdapter;
-    private StitchAppClient stitchAppClient;
 
     public RestaurantDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
-
-    /*    public RestaurantDaoImpl() {
-        stitchAppClient  = Stitch.getDefaultAppClient();
-        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
-        mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
-    }*/
-
-    /*@Override
-    public void createRestaurantTable() throws SQLException  {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_RESTAURANTS);
-        try{
-            dbWritableConnection.execSQL(DbStringConstants.CREATE_RESTAURANTS_TABLE);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        Log.d("Create table message: ","Table " +
-                DbStringConstants.TABLE_RESTAURANTS + " is being created !");
-    }*/
-
-   /* @Override
-    public void addRestaurant(Restaurant[] restaurants) {
-
-        dbWritableConnection.beginTransaction();
-        try{
-            for (int i = 0; i < restaurants.length; i++) {
-                ContentValues values = new ContentValues();
-                values.put(DbStringConstants.R_PLACE_ID, restaurants[i].getPlaceId());
-                values.put(DbStringConstants.R_PRICE_CATEGORY_ID,
-                        restaurants[i].getPriceCategoryId());
-                values.put(DbStringConstants.R_COUSINE, restaurants[i].getCousine());
-
-                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_RESTAURANTS,
-                        null, values);
-
-                if(rowId  == -1){
-                    Log.d("Insert failed:", "For table "
-                            + DbStringConstants.TABLE_RESTAURANTS + "for: i = " + i );
-                }
-
-                Log.d("Restaurants  ", " newly inserted row ID: " + rowId);
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
-    }*/
 
     @Override
     public List<Restaurant> getAllResaturants(){
@@ -101,7 +50,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         List<Restaurant>  allRestaurants = null;
         try {
-            restaurantDocumentsList.wait(2000);
+            restaurantDocumentsList.wait(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -136,7 +85,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         ArrayList<Restaurant> resultList = null;
         try {
-            restaurantDocuments.wait(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
