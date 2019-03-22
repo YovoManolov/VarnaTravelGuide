@@ -36,7 +36,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/searhLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -46,13 +46,12 @@
                 android:weightSum="4"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/searchLabel"
+                <Button
+                    android:id="@+id/searchButton"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ems="20"
-                    android:inputType="textPersonName"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:layout_marginTop="20dp"
@@ -61,23 +60,24 @@
 
                 <EditText
                     android:id="@+id/textToSearch"
-                    android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="3"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:paddingStart="0dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:singleLine="false" />
-            </LinearLayout>
+                    android:paddingStart="0dp"
+                    android:singleLine="false"
+                    android:text="  " />
+            </LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/categoriesButtonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:weightSum="10"
-                android:layout_marginTop="280dp"
+                android:layout_marginTop="230dp"
                 android:orientation="vertical">
 
 

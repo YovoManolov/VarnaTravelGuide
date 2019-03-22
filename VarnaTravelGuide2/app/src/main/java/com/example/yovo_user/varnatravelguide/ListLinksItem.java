@@ -15,17 +15,24 @@ public class ListLinksItem {
     private ObjectId placeId;
     private String heading;
     private String desc;
-    private String url;
+    private String imageUrl;
     private int image;
     private Drawable imageDrawable;
 
     public ListLinksItem(){}
 
-    public ListLinksItem(String heading, String desc, String url, int image) {
+    public ListLinksItem(String heading, String desc, String imageUrl, int image) {
         this.heading = heading;
         this.desc = desc;
-        this.url = url;
+        this.imageUrl = imageUrl;
         this.image = image;
+    }
+
+    public ListLinksItem(ObjectId placeId, String heading, String desc , String imageUrl) {
+        this.placeId = placeId;
+        this.heading = heading;
+        this.desc = desc;
+        this.imageUrl = imageUrl;
     }
 
     public ListLinksItem(ObjectId placeId, String heading, String desc , Drawable imageDrawable) {
@@ -59,20 +66,20 @@ public class ListLinksItem {
         this.desc = desc;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public int getImage() {
         return image;
     }
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Drawable getImageDrawable() {
@@ -97,5 +104,4 @@ public class ListLinksItem {
             )
         };
     }
-
 }

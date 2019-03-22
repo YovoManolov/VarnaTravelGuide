@@ -1,11 +1,19 @@
 package com.example.yovo_user.varnatravelguide;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,10 +48,14 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
+import com.squareup.picasso.Picasso;
 
 import org.bson.Document;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.lang.annotation.Target;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,7 +95,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
                     hotelPlaces.add(dbManager.getPlaceDaoImpl()
                             .getPlaceById(allHotels.get(i).getplace_id())
                     );
-                }
+                };
 
                 generateListOfPlaces(hotelPlaces);
             break;
@@ -152,13 +164,14 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
             Image mainImage = dbManager.getPlaceDaoImpl().getMainImageForPlace(place.getImages());
 
-            Drawable mainImageDrowable = loadImageFromWebOperations(mainImage.getImageURL());
+            String imageUrl = "https://drive.google.com/uc?id=" + mainImage.getImageURL();
+            //Drawable mainImageDrowable = getDrawableFromURL("https://drive.google.com/uc?id=" + mainImage.getImageURL());
 
             listItems.add(new ListLinksItem(
                             place.get_id(),
                             place.getName(),
                             place.getDescription(),
-                            mainImageDrowable));
+                            imageUrl));
         }
 
         ArrayAdapter<ListLinksItem> adapter = new CustomAdapter();
@@ -169,7 +182,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<ListLinksItem> {
         public CustomAdapter() {
-            super(ListingPlacesActivity.this, R.layout.list_item, listItems);
+            super(ListingPlacesActivity.this, R.layout.list_item2, listItems);
         }
 
         @Override
@@ -177,7 +190,7 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
             if(convertView == null) {
                 convertView = getLayoutInflater().
-                        inflate(R.layout.list_item, parent,false);
+                        inflate(R.layout.list_item2, parent,false);
             }
 
             ListLinksItem currentItem = listItems.get(position);
@@ -188,22 +201,48 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
             heading.setText(currentItem.getHeading());
             desc.setText(currentItem.getDesc());
-            linkImage.setImageDrawable(currentItem.getImageDrawable());
+            //linkImage.setImageDrawable(currentItem.getImageDrawable());
+            Picasso picasso = Picasso.get();
+            picasso.load(currentItem.getImageUrl()).into(linkImage);
 
             return convertView;
         }
     }
 
-    public static Drawable loadImageFromWebOperations(String uriImageId) {
-        try {
-            InputStream is = (InputStream)
-                    new URL("https://drive.google.com/uc?id=" + uriImageId).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
+   /* public static Drawable getDrawableFromURL(String imageURL) {
+
+
+        Picasso picasso = Picasso.get();
+
+
+      *//*  try {
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        java.net.URL url = new java.net.URL(imageURL);
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setDoInput(true);
+                        connection.connect();
+                        InputStream input = connection.getInputStream();
+                        Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                        Drawable d  =  new BitmapDrawable(Resources.getSystem(), myBitmap);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            thread.start();
+
             return d;
-        } catch (Exception e) {
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
             return null;
-        }
-    }
+        }*//*
+    }*/
 
     private void setClickEvents( ListView listOfPlaces ){
 

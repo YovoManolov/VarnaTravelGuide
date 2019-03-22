@@ -89,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<ListLinksItem> {
         public CustomAdapter() {
-            super(MainActivity.this,
-                                    R.layout.list_item, listUrlLinks);
+            super(MainActivity.this, R.layout.list_item, listUrlLinks);
         }
 
         @Override
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListLinksItem currentItem = listUrlLinks.get(position);
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(currentItem.getUrl()));
+                i.setData(Uri.parse(currentItem.getImageUrl()));
                 startActivity(i);
             }
         });
