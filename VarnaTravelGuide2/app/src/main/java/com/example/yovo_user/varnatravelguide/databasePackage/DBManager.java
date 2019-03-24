@@ -35,7 +35,9 @@ public class DBManager {
     }*/
 
     public DBManager open() throws SQLException {
-        dbHelper = new DatabaseHelper();
+        if(dbHelper == null){
+            dbHelper = new DatabaseHelper();
+        }
         return this;
     }
 

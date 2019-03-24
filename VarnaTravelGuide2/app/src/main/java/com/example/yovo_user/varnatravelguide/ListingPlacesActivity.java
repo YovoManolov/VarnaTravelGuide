@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,30 +26,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DBManager;
-import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
-import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
-import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.HotelDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.ImageDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
-import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.LandmarkDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.PlaceDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategory;
-import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategoryDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
-import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.RestaurantDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
-import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlacesDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.pedromassango.doubleclick.DoubleClick;
+import com.pedromassango.doubleclick.DoubleClickListener;
 import com.squareup.picasso.Picasso;
+import com.google.android.gms.maps.MapView;
+
 
 import org.bson.Document;
 
@@ -61,7 +52,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListingPlacesActivity extends AppCompatActivity {
+public class ListingPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    private GoogleMap gmap;
+    private MapView mapView;
+    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     private String typeOfPlacesToLoad;
     private List<ListLinksItem> listItems = new ArrayList<>();
@@ -74,6 +69,15 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
+
+        Bundle mapViewBundle = null;
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        }
+
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(mapViewBundle);
+        mapView.getMapAsync(this);
 
         dbManager = new DBManager();
         dbManager.open();
@@ -201,48 +205,13 @@ public class ListingPlacesActivity extends AppCompatActivity {
 
             heading.setText(currentItem.getHeading());
             desc.setText(currentItem.getDesc());
-            //linkImage.setImageDrawable(currentItem.getImageDrawable());
+
             Picasso picasso = Picasso.get();
             picasso.load(currentItem.getImageUrl()).into(linkImage);
 
             return convertView;
         }
     }
-
-   /* public static Drawable getDrawableFromURL(String imageURL) {
-
-
-        Picasso picasso = Picasso.get();
-
-
-      *//*  try {
-            Thread thread = new Thread(new Runnable(){
-                @Override
-                public void run() {
-                    try {
-                        java.net.URL url = new java.net.URL(imageURL);
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setDoInput(true);
-                        connection.connect();
-                        InputStream input = connection.getInputStream();
-                        Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                        Drawable d  =  new BitmapDrawable(Resources.getSystem(), myBitmap);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            thread.start();
-
-            return d;
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }*//*
-    }*/
 
     private void setClickEvents( ListView listOfPlaces ){
 
@@ -253,14 +222,83 @@ public class ListingPlacesActivity extends AppCompatActivity {
                                     long arg3)
             {
                 Intent intent = new Intent(ListingPlacesActivity.this,
-                                            SinglePlaceInfo.class);
+                        SinglePlaceInfo.class);
                 Bundle bundle = new Bundle();
-                Place chosenPlace = (Place) adapter.getItemAtPosition(position);
-                bundle.putByteArray("PLACE_ID",chosenPlace.get_id().toByteArray());
+
+                ListLinksItem listLinksItem = (ListLinksItem) adapter.getItemAtPosition(position);
+                bundle.putByteArray("PLACE_ID",listLinksItem.getPlaceId().toByteArray());
 
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
+        listOfPlaces.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapter, View v, int position,
+                                   long arg3)
+            {
+                ListLinksItem listLinksItem = (ListLinksItem) adapter.getItemAtPosition(position);
+                Place selectedPlace = dbManager.getPlaceDaoImpl()
+                        .getPlaceById(listLinksItem.getPlaceId());
+
+                LatLng ny = new LatLng(selectedPlace.getLatitude(),selectedPlace.getLongitude());
+                gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        if (mapViewBundle == null) {
+            mapViewBundle = new Bundle();
+            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
+        }
+
+        mapView.onSaveInstanceState(mapViewBundle);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+    @Override
+    protected void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
+    @Override
+    protected void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gmap = googleMap;
+        LatLng ny = new LatLng(43.204666,27.910543);
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
     }
 }

@@ -50,7 +50,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         List<Restaurant>  allRestaurants = null;
         try {
-            restaurantDocumentsList.wait(1000);
+            restaurantDocumentsList.wait(600);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -76,7 +76,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
                 .getDatabase("VarnaTravelGuide")
                 .getCollection("restaurants");
 
-        Document filter = new Document("_id",place_id);
+        Document filter = new Document("place_id",place_id);
 
         RemoteFindIterable cursor = restaurantCollection.find(filter);
         final ArrayList<Document> foundDocuments = new ArrayList<>();
@@ -85,7 +85,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         ArrayList<Restaurant> resultList = null;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(600);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

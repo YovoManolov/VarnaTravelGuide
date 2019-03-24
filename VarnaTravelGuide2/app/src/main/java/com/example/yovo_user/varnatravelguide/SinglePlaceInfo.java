@@ -11,6 +11,7 @@ import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
+import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
@@ -22,6 +23,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import org.bson.types.ObjectId;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +31,8 @@ public class SinglePlaceInfo extends AppCompatActivity {
 
     private ViewPager viewPager;
     private DBManager dbManager;
+    private Place chosenPlace;
+    private ObjectId placeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +41,14 @@ public class SinglePlaceInfo extends AppCompatActivity {
 
         dbManager = new DBManager();
         dbManager.open();
-        //set text font for price category label :)
-        /* Typeface myCustomFont =
-                Typeface.createFromAsset(getAssets(),"font/montserrat_italic.otf");*/
-        /* TextView priceCategory = (TextView)findViewById(R.id.priceCategoryId);
-        priceCategory.setTypeface(myCustomFont);*/
-
-        /* databaseHelper = DatabaseHelper.getInstance(SinglePlaceInfo.this);
-        dbWritableConnection = databaseHelper.getWritableDatabase();*/
-
-        //to switch the pictures of specific place
-        generateViewPager();
 
         Bundle bundle = getIntent().getExtras();
-        ObjectId placeId = new ObjectId( bundle.getByteArray("PLACE_ID"));
+        this.placeId = new ObjectId( bundle.getByteArray("PLACE_ID"));
 
-        Place chosenPlace = dbManager.getPlaceDaoImpl().
-                getPlaceById(placeId);
+        chosenPlace = dbManager.getPlaceDaoImpl().getPlaceById(placeId);
+
+        generateViewPager();
+        //to switch the pictures of specific place
 
         /*
         typeOfPlace :
@@ -87,9 +82,11 @@ public class SinglePlaceInfo extends AppCompatActivity {
     }
 
     private void generateViewPager(){
+        ArrayList<Image> images = new ArrayList<Image>();
+        images = dbManager.getPlaceDaoImpl().getPlaceById(placeId).getImages();
 
         setViewPager((ViewPager) findViewById(R.id.viewPagerId));
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,images);
         viewPager.setAdapter(viewPagerAdapter);
 
         Timer timer = new Timer();

@@ -64,8 +64,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateViewPager(){
 
+
+       Integer[] images = {
+                R.drawable.varna_tour_logo,
+                R.drawable.varna_center,
+                R.drawable.varna_sky_view,
+                R.drawable.varna_coastline
+        };
+
         setViewPager((ViewPager) findViewById(R.id.viewPagerId));
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,images);
         viewPager.setAdapter(viewPagerAdapter);
 
         Timer timer = new Timer();

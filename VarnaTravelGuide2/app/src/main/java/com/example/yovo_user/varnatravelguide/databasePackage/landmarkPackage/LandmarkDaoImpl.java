@@ -79,14 +79,14 @@ public class LandmarkDaoImpl implements LandmarkDao {
                 DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("landmarks");
 
-        Document filter = new Document("_id", place_id);
+        Document filter = new Document("place_id", place_id);
         RemoteFindIterable cursor = landmarkCollection.find(filter);
 
         Task <ArrayList<Document>> foundDocuments = cursor.into(new ArrayList<Document>());
 
         ArrayList<Landmark> resultList = null;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(600);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

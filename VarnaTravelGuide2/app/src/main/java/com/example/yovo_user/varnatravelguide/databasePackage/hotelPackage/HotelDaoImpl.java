@@ -48,7 +48,7 @@ public class HotelDaoImpl implements HotelDao{
 
         while(hotelDocuments.isComplete() == false) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(600);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -65,13 +65,13 @@ public class HotelDaoImpl implements HotelDao{
                 DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("hotels");
 
-        Document filter = new Document("_id",placeId);
+        Document filter = new Document("place_id",placeId);
         RemoteFindIterable cursor = hotelsCollection.find(filter);
 
         Task <ArrayList<Document>> foundDocuments = cursor.into(new ArrayList<Document>());
         List<Hotel> resultList = null;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(600);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

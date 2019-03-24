@@ -119,7 +119,7 @@ public class PlaceDaoImpl implements PlaceDao {
 
         while(foundDocuments.isComplete() == false) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(600);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -146,7 +146,7 @@ public class PlaceDaoImpl implements PlaceDao {
 
         ArrayList<Place> resultList = null;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(600);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
