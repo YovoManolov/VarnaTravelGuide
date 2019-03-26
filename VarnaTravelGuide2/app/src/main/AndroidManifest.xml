@@ -36,4 +36,9 @@
         <activity android:name="com.example.yovo_user.varnatravelguide.SinglePlaceInfo"/>
     </application>
 
+
+     <uses-feauture
+         android:glEsVersion="0x00020000"
+         android:required="true"
+         />
 </manifest>

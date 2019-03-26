@@ -1,8 +1,11 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 public class WorkHours {
-    private int id;
-    private int placeId;
+    private ObjectId _id;
+   // private Object placeId;
     private int is24h;
     private String monFri;
     private String sat;
@@ -18,20 +21,12 @@ public class WorkHours {
         this.sun = sun;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(int placeId) {
-        this.placeId = placeId;
+    public WorkHours(final Document document) {
+        _id = document.getObjectId("_id");
+        is24h = document.getInteger("is_24H");
+        monFri = document.getString("mond_fird");
+        sat = document.getString("sat");
+        sun = document.getString("sun");
     }
 
     public String getMonFri() {
@@ -62,8 +57,19 @@ public class WorkHours {
 
     public void setIs24h(int is24h) { this.is24h = is24h;  }
 
+    @Override
+    public String toString() {
+        if(is24h == 1){
+            return " 24 hours open";
+        }else{
+            return " Monday- Friday: " + monFri
+                    +"\n Saturday: " + sat
+                    +"\n Sun: " + sun;
+        }
+    }
+
     //INFO: WHEN is24h is -1 ake info from monFri field
-    public static WorkHours[] populateWorkHours() {
+/*    public static WorkHours[] populateWorkHours() {
         return new WorkHours[]{
                 //RESTAURANTS
 
@@ -126,5 +132,5 @@ public class WorkHours {
                 new WorkHours(20,-1,"10.00 h - 17.00 h Почивни дни:"+
                         " неделя и понеделник",null, null)
         };
-    }
+    }*/
 }

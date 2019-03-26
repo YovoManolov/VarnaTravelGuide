@@ -42,61 +42,11 @@ public class PlaceDaoImpl implements PlaceDao {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
 
-  /*  public PlaceDaoImpl() {
-        stitchAppClient  = Stitch.getDefaultAppClient();
-        this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
-        mongoClient  = stitchAppClient.getServiceClient(
-                RemoteMongoClient.factory, "mongodb-atlas");
-    }*/
-
-
-    /*@Override
-    public void addPlaces(Place[] places){
-
-        dbWritableConnection.beginTransaction();
-        try{
-            for(int i = 0 ;i < places.length ;i++){
-                ContentValues values = new ContentValues();
-                values.put(DbStringConstants.PL_NAME, places[i].getName());
-                values.put(DbStringConstants.PL_ADDRESS, places[i].getAddress());
-                values.put(DbStringConstants.PL_LATITUDE, places[i].getLatitude());
-                values.put(DbStringConstants.PL_LONGITUDE, places[i].getLongitude());
-                values.put(DbStringConstants.PL_CONTACTS, places[i].getContacts());
-                values.put(DbStringConstants.PL_DESCRIPTION, places[i].getDescription());
-
-                long rowId = dbWritableConnection.insert(DbStringConstants.TABLE_PLACES,
-                                                        null, values);
-                if(rowId  == -1){
-                    Log.d("Insert failed:", "For table "
-                    + DbStringConstants.TABLE_PLACES + "for: i = " + i );
-                }
-                Log.d("Places ", " newly inserted row ID: " + rowId);
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally{
-            dbWritableConnection.endTransaction();
-        }
-    }
 
     public PlaceDaoImpl(SQLiteDatabase dbWritableConnection) {
         this.dbWritableConnection = dbWritableConnection;
-    }*/
-
-    /*@Override
-    public void createPlacesTable() throws SQLException {
-        DbBaseOperations.dropTableX(dbWritableConnection,DbStringConstants.TABLE_PLACES);
-        try{
-            dbWritableConnection.execSQL(DbStringConstants.CREATE_PLACES_TABLE);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        Log.d("Create table message: ","Table " +
-                DbStringConstants.TABLE_PLACES + " is being created !");
     }
-    */
+
     private ArrayList<Place> convertDocsToPlaces(ArrayList<Document> documents) {
         final ArrayList<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {

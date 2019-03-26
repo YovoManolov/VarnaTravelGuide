@@ -57,4 +57,7 @@ public class DBManager {
         return dbHelper.getRestaurantDaoImpl();
     }
 
+    public PriceCategoryDaoImpl getPriceCategoryDaoImpl(){
+        return dbHelper.getPriceCategoryDaoImpl();
+    }
 }

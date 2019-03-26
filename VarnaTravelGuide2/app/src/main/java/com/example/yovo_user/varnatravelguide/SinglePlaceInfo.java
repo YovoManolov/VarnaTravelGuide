@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DBManager;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
@@ -14,8 +16,11 @@ import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
+import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategory;
+import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategoryDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
+import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
@@ -34,6 +39,9 @@ public class SinglePlaceInfo extends AppCompatActivity {
     private Place chosenPlace;
     private ObjectId placeId;
 
+    private TextView workHoursInfo;
+    private TextView contactsInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +52,20 @@ public class SinglePlaceInfo extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         this.placeId = new ObjectId( bundle.getByteArray("PLACE_ID"));
-
         chosenPlace = dbManager.getPlaceDaoImpl().getPlaceById(placeId);
+        initActivity(chosenPlace);
 
-        generateViewPager();
+        SinglePlaceInfo.setTitle(chosenPlace.getName());
+
         //to switch the pictures of specific place
 
-        /*
+
+        //setting the name of the activity = name of the place
+
+    }
+
+    private void initActivity(Place chosenPlace) {
+          /*
         typeOfPlace :
         1 - restaurants
         2 - hotel
@@ -77,9 +92,36 @@ public class SinglePlaceInfo extends AppCompatActivity {
                 break;
         }
 
-        //setting the name of the activity = name of the place
-        setTitle(chosenPlace.getName());
+        generateViewPager();
+        setWorkHoursInfo((TextView) findViewById(R.id.WorkHoursInfoId));
+        getWorkHoursInfo().setText(chosenPlace.getWorkHours().toString());
+
+        setContactsInfo((TextView) findViewById(R.id.ContactsInfoLayout));
+        getWorkHoursInfo().setText(chosenPlace.getContacts());
+
+        PriceCategoryDaoImpl priceCategoryDao = dbManager.getPriceCategoryDaoImpl();
+        PriceCategory priceCategory = priceCategoryDao.
+                getPriceCategoryById(chosenPlace.getPriceCategoryId());
+
+        setPriceCategory(priceCategory);
+
     }
+
+    private void setPriceCategory(PriceCategory priceCategory) {
+        switch (priceCategory.getDescr()){
+            case "BUDGET":
+                ImageView firstCoin = (ImageView) findViewById(R.id.)
+                break;
+            case "MID_RANGE":
+                break;
+            case "PREMIUM":
+                break;
+            case "COMBINED":
+                break;
+        }
+
+    }
+
 
     private void generateViewPager(){
         ArrayList<Image> images = new ArrayList<Image>();
@@ -124,6 +166,21 @@ public class SinglePlaceInfo extends AppCompatActivity {
     }
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
+    }
+    public TextView getWorkHoursInfo() {
+        return workHoursInfo;
+    }
+
+    public void setWorkHoursInfo(TextView workHoursInfo) {
+        this.workHoursInfo = workHoursInfo;
+    }
+
+    public TextView getContactsInfo() {
+        return contactsInfo;
+    }
+
+    public void setContactsInfo(TextView contactsInfo) {
+        this.contactsInfo = contactsInfo;
     }
 
 }

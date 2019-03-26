@@ -43,7 +43,7 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
 
 
     public PriceCategoryDaoImpl() {
-        this.mongoClient =DatabaseHelper.getMongoClient();
+        this.mongoClient = DatabaseHelper.getMongoClient();
     }
 
    /* @Override
@@ -93,33 +93,36 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
         return listOfHotelObjects;
     }
 */
+   private ArrayList<PriceCategory> convertDocsToPlaces(ArrayList<Document> documents) {
+       final ArrayList<PriceCategory> listOfPriceCategoryObjects = new ArrayList<>(documents.size());
+       for (final Document doc : documents) {
+           listOfPriceCategoryObjects.add(new PriceCategory(doc));
+       }
+       return listOfPriceCategoryObjects;
+   }
 
-    /*public PriceCategory getPriceCategoryById(int placeCategoryId){
+    public PriceCategory getPriceCategoryById(int priceCategoryId){
         PriceCategory priceCategory = null;
 
-        RemoteMongoCollection<Document> hotelsCollection =  mongoClient
+        RemoteMongoCollection<Document> priceCategoryCollection =  mongoClient
                 .getDatabase("VarnaTravelGuide")
-                .getCollection("places");
+                .getCollection("priceCategory");
 
-        Document filter = new Document("_id",place_id);
-        SyncFindIterable cursor = hotelsCollection.sync().find(filter);
-        final ArrayList<Document> foundDocuments = new ArrayList<>();
+        Document filter = new Document("priceCategory_id",priceCategoryId);
 
-        cursor.into(foundDocuments).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                _priceCategoryListAdapter.clear();
-                _priceCategoryListAdapter.addAll(convertDocsToPlaces(foundDocuments));
-                _priceCategoryListAdapter.notifyDataSetChanged();
+        RemoteFindIterable cursor = priceCategoryCollection.find(filter);
+        Task <ArrayList<Document>> foundDocuments =
+                cursor.into(new ArrayList<Document>());
+
+        while(foundDocuments.isComplete() == false) {
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+        }
+        ArrayList<Place> priceCategoryList = convertDocsToPlaces(foundDocuments.getResult());
 
-        ArrayList<Place> resultList = (ArrayList<Place>)convertDocsToPlaces(foundDocuments);
-        return  resultList.get(0);
-
-
-
-
-        return priceCategory;
-    }*/
+        return priceCategoryList.get(0);
+    }
 }
