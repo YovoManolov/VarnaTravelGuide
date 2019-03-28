@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
@@ -105,7 +106,7 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
         PriceCategory priceCategory = null;
 
         RemoteMongoCollection<Document> priceCategoryCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
+                .getDatabase("varnaTravelGuideDB")
                 .getCollection("priceCategory");
 
         Document filter = new Document("priceCategory_id",priceCategoryId);
@@ -121,7 +122,7 @@ public class PriceCategoryDaoImpl implements PriceCategoryDao {
                 e.printStackTrace();
             }
         }
-        ArrayList<Place> priceCategoryList = convertDocsToPlaces(foundDocuments.getResult());
+        ArrayList<PriceCategory> priceCategoryList = convertDocsToPlaces(foundDocuments.getResult());
 
         return priceCategoryList.get(0);
     }

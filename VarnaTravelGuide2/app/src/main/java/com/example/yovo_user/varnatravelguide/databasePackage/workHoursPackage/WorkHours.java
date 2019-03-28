@@ -6,15 +6,15 @@ import org.bson.types.ObjectId;
 public class WorkHours {
     private ObjectId _id;
    // private Object placeId;
-    private int is24h;
+    private boolean is24h;
     private String monFri;
     private String sat;
     private String sun;
 
-    public WorkHours(int placeId,
-                     int is24h, String monFri,
+    public WorkHours(ObjectId _id,
+                     boolean is24h, String monFri,
                      String sat, String sun) {
-        this.placeId = placeId;
+        this._id = _id;
         this.is24h = is24h;
         this.monFri = monFri;
         this.sat = sat;
@@ -23,7 +23,7 @@ public class WorkHours {
 
     public WorkHours(final Document document) {
         _id = document.getObjectId("_id");
-        is24h = document.getInteger("is_24H");
+        is24h = document.getBoolean("is_24H");
         monFri = document.getString("mond_fird");
         sat = document.getString("sat");
         sun = document.getString("sun");
@@ -53,13 +53,17 @@ public class WorkHours {
         this.sun = sun;
     }
 
-    public int getIs24h() {  return is24h; }
+    public boolean isIs24h() {
+        return is24h;
+    }
 
-    public void setIs24h(int is24h) { this.is24h = is24h;  }
+    public void setIs24h(boolean is24h) {
+        this.is24h = is24h;
+    }
 
     @Override
     public String toString() {
-        if(is24h == 1){
+        if(is24h == true){
             return " 24 hours open";
         }else{
             return " Monday- Friday: " + monFri

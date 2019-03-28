@@ -42,11 +42,6 @@ public class PlaceDaoImpl implements PlaceDao {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
 
-
-    public PlaceDaoImpl(SQLiteDatabase dbWritableConnection) {
-        this.dbWritableConnection = dbWritableConnection;
-    }
-
     private ArrayList<Place> convertDocsToPlaces(ArrayList<Document> documents) {
         final ArrayList<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {

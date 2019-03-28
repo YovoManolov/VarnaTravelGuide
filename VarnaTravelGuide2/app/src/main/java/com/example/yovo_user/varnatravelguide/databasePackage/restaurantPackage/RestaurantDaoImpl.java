@@ -73,7 +73,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public Restaurant getRestaurantByPlaceId(ObjectId place_id){
 
         RemoteMongoCollection<Document> restaurantCollection =  mongoClient
-                .getDatabase("VarnaTravelGuide")
+                .getDatabase("varnaTravelGuideDB")
                 .getCollection("restaurants");
 
         Document filter = new Document("place_id",place_id);

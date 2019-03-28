@@ -78,7 +78,7 @@
                     tools:layout_editor_absoluteY="350dp" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/coint1"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
@@ -87,7 +87,7 @@
                     tools:layout_editor_absoluteY="350dp" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/coint2"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
@@ -96,7 +96,7 @@
                     tools:layout_editor_absoluteY="350dp" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/coint3"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,7 +56,7 @@ public class SinglePlaceInfo extends AppCompatActivity {
         chosenPlace = dbManager.getPlaceDaoImpl().getPlaceById(placeId);
         initActivity(chosenPlace);
 
-        SinglePlaceInfo.setTitle(chosenPlace.getName());
+        setTitle(chosenPlace.getName());
 
         //to switch the pictures of specific place
 
@@ -96,7 +97,7 @@ public class SinglePlaceInfo extends AppCompatActivity {
         setWorkHoursInfo((TextView) findViewById(R.id.WorkHoursInfoId));
         getWorkHoursInfo().setText(chosenPlace.getWorkHours().toString());
 
-        setContactsInfo((TextView) findViewById(R.id.ContactsInfoLayout));
+        setContactsInfo((TextView) findViewById(R.id.ContactsInfoId));
         getWorkHoursInfo().setText(chosenPlace.getContacts());
 
         PriceCategoryDaoImpl priceCategoryDao = dbManager.getPriceCategoryDaoImpl();
@@ -108,15 +109,24 @@ public class SinglePlaceInfo extends AppCompatActivity {
     }
 
     private void setPriceCategory(PriceCategory priceCategory) {
-        switch (priceCategory.getDescr()){
+        ImageView firstCoin = (ImageView) findViewById(R.id.coint1);
+        ImageView secondCoin = (ImageView) findViewById(R.id.coint2);
+        ImageView thirdCoin = (ImageView) findViewById(R.id.coint3);
+
+        switch (priceCategory.getDescription()){
             case "BUDGET":
-                ImageView firstCoin = (ImageView) findViewById(R.id.)
+                firstCoin.setVisibility(View.INVISIBLE);
+                secondCoin.setVisibility(View.INVISIBLE);
                 break;
             case "MID_RANGE":
+                firstCoin.setVisibility(View.INVISIBLE);
                 break;
             case "PREMIUM":
                 break;
             case "COMBINED":
+                firstCoin.setVisibility(View.INVISIBLE);
+                secondCoin.setVisibility(View.INVISIBLE);
+                thirdCoin.setVisibility(View.INVISIBLE);
                 break;
         }
 

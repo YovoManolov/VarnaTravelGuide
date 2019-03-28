@@ -9,17 +9,17 @@ import java.lang.annotation.Documented;
 public class PriceCategory {
     private ObjectId _id;
     private Integer priceCategory_id ;
-    private String descr;
+    private String description;
 
     public PriceCategory(){}
-    public PriceCategory(String descr) {
-        this.descr = descr;
+    public PriceCategory(String description) {
+        this.description = description;
     }
 
     public PriceCategory(Document document) {
         _id = document.getObjectId("_id");
         priceCategory_id = document.getInteger("priceCategory_id");
-        descr = document.getString("descr");
+        description = document.getString("description");
     }
 
     public ObjectId get_id() {
@@ -38,12 +38,12 @@ public class PriceCategory {
         this.priceCategory_id = priceCategory_id;
     }
 
-    public String getDescr() {
-        return descr;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public static PriceCategory[] populatePriceCategories() {

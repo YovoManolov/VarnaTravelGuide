@@ -46,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-      /*  Stitch.initializeDefaultAppClient(
-                getResources().getString( R.string.my_app_id )
+        /*
+            Stitch.initializeDefaultAppClient(
+            getResources().getString( R.string.my_app_id )
         );*/
         setContentView(R.layout.activity_main);
 
@@ -211,8 +212,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
-
-
 
     public ViewPager getViewPager() {
         return viewPager;

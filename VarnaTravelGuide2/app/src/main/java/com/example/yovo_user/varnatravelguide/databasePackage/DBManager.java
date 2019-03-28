@@ -34,7 +34,7 @@ public class DBManager {
         this.context = c;
     }*/
 
-    public DBManager open() throws SQLException {
+    public DBManager open(){
         if(dbHelper == null){
             dbHelper = new DatabaseHelper();
         }
