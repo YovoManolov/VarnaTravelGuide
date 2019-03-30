@@ -98,7 +98,7 @@ public class SinglePlaceInfo extends AppCompatActivity {
         getWorkHoursInfo().setText(chosenPlace.getWorkHours().toString());
 
         setContactsInfo((TextView) findViewById(R.id.ContactsInfoId));
-        getWorkHoursInfo().setText(chosenPlace.getContacts());
+        getContactsInfo().setText(chosenPlace.getContacts());
 
         PriceCategoryDaoImpl priceCategoryDao = dbManager.getPriceCategoryDaoImpl();
         PriceCategory priceCategory = priceCategoryDao.
@@ -180,15 +180,12 @@ public class SinglePlaceInfo extends AppCompatActivity {
     public TextView getWorkHoursInfo() {
         return workHoursInfo;
     }
-
     public void setWorkHoursInfo(TextView workHoursInfo) {
         this.workHoursInfo = workHoursInfo;
     }
-
     public TextView getContactsInfo() {
         return contactsInfo;
     }
-
     public void setContactsInfo(TextView contactsInfo) {
         this.contactsInfo = contactsInfo;
     }

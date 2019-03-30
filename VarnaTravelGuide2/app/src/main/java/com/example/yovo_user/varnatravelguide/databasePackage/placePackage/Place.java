@@ -133,12 +133,12 @@ public class Place {
         this.workHours = workHours;
     }
 
-    public Integer getPriceCategoryId() {
-        return priceCategoryId;
-    }
-
     public void setPriceCategoryId(Integer priceCategoryId) {
         this.priceCategoryId = priceCategoryId;
+    }
+
+    public Integer getPriceCategoryId() {
+        return priceCategoryId;
     }
 
 }

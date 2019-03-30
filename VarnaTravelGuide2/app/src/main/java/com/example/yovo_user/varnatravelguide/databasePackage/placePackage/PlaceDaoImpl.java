@@ -26,13 +26,11 @@ import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceDaoImpl implements PlaceDao {
 
-    //private SQLiteDatabase dbWritableConnection;
     private RemoteMongoClient mongoClient;
     private StitchAppClient stitchAppClient;
     private PlaceListAdapter _placeListAdapter;

@@ -2,6 +2,7 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -25,8 +26,9 @@ public class ViewPagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private boolean areImagesFromResourceFolder;
     private DBManager dbManager;
-
+    private boolean isViewPagerSinglePlaceInitialized;
     static {  AppCompatDelegate.setCompatVectorFromResourcesEnabled(true); }
+    private int arrayListPictureIterator = 1;
 
     private Integer[] images;
     private ArrayList<Image> imagesArrayList;
@@ -41,6 +43,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         this.context = context;
         this.imagesArrayList = imagesArrayList;
         setAreImagesFromResourceFolder(false);
+        isViewPagerSinglePlaceInitialized = false;
     }
 
     @Override
@@ -56,6 +59,12 @@ public class ViewPagerAdapter extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
+    private String getStringResourceByName(String aString) {
+        String packageName = context.getPackageName();
+        Resources res = context.getResources();
+        int resId = context.getResources().getIdentifier(aString, "string", packageName);
+        return res.getString(resId);
+    }
 
     @Override
     public Object instantiateItem(ViewGroup containter , int position){
@@ -64,22 +73,33 @@ public class ViewPagerAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.imageView);
         TextView textView = view.findViewById(R.id.imageCurrPosition);
         dbManager = new DBManager();
-        boolean isInitialized = false;
 
 
         if(getAreImagesFromResourceFolder()){
             imageView.setImageResource(images[position]);
             textView.setText(position +"/"+images.length);
         }else{
-            ImageView helperView = null;
-            if(!isInitialized){
+            /*if(!isViewPagerSinglePlaceInitialized){
                 for(int i = 0 ;i < imagesArrayList.size(); i++){
                     Picasso picasso = Picasso.get();
-                    picasso.load(imagesArrayList.get(i).getImageURL()).into(imageView);
+                    picasso.load(
+                            (getStringResourceByName("URL_prefix")+ imagesArrayList.get(i).getImageURL())
+                    ).into(imageView);
+
                     textView.setText(position +"/"+i);
                 }
-            }
-            isInitialized = true;
+                isViewPagerSinglePlaceInitialized = true;
+            }*/
+
+            if(arrayListPictureIterator<=imagesArrayList.size()) arrayListPictureIterator+=1;
+            Picasso picasso = Picasso.get();
+            picasso.load(
+                    (
+                            getStringResourceByName("URL_prefix")
+                            + imagesArrayList.get(position).getImageURL()
+                    )).into(imageView);
+            textView.setText(position +"/"+imagesArrayList.size());
+
         }
 
         ViewPager vp = (ViewPager) containter;

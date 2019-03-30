@@ -116,8 +116,9 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
 
                 ArrayList<Place> restaurantPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < restaurantPlaces.size() ; i++){
-                    restaurantPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allRestaurants.get(i).getPlace_id())
+                    restaurantPlaces.add(
+                            dbManager.getPlaceDaoImpl().getPlaceById(
+                                    allRestaurants.get(i).getPlace_id())
                     );
                 }
 
@@ -168,7 +169,8 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
 
             Image mainImage = dbManager.getPlaceDaoImpl().getMainImageForPlace(place.getImages());
 
-            String imageUrl = "https://drive.google.com/uc?id=" + mainImage.getImageURL();
+            String imageUrl = getResources().getString(R.string.URL_prefix)
+                                                + mainImage.getImageURL();
             //Drawable mainImageDrowable = getDrawableFromURL("https://drive.google.com/uc?id=" + mainImage.getImageURL());
 
             listItems.add(new ListLinksItem(
