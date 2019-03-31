@@ -48,15 +48,15 @@ public class RestaurantDaoImpl implements RestaurantDao {
         Task <ArrayList<Document>> restaurantDocumentsList =
                                 cursor.into(new ArrayList<Document>());
 
-        List<Restaurant>  allRestaurants = null;
-        try {
-            restaurantDocumentsList.wait(600);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while(restaurantDocumentsList.isComplete() == false) {
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        if(restaurantDocumentsList.isComplete()){
-            allRestaurants = convertDocsToResaturants(restaurantDocumentsList.getResult());
-        }
+        List<Restaurant> allRestaurants =
+                convertDocsToResaturants(restaurantDocumentsList.getResult());
 
         return allRestaurants;
     }

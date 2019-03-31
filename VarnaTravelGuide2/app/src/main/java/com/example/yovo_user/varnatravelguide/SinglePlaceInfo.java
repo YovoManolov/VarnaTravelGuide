@@ -43,6 +43,8 @@ public class SinglePlaceInfo extends AppCompatActivity {
     private TextView workHoursInfo;
     private TextView contactsInfo;
 
+    private TextView descriptionInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,21 +59,15 @@ public class SinglePlaceInfo extends AppCompatActivity {
         initActivity(chosenPlace);
 
         setTitle(chosenPlace.getName());
-
-        //to switch the pictures of specific place
-
-
-        //setting the name of the activity = name of the place
-
     }
 
     private void initActivity(Place chosenPlace) {
-          /*
-        typeOfPlace :
-        1 - restaurants
-        2 - hotel
-        3 - shopping places
-        4 - landmarks
+        /*
+            typeOfPlace :
+            1 - restaurants
+            2 - hotel
+            3 - shopping places
+            4 - landmarks
         */
         switch(chosenPlace.getTypeOfPlace()){
 
@@ -94,17 +90,20 @@ public class SinglePlaceInfo extends AppCompatActivity {
         }
 
         generateViewPager();
+
+        PriceCategoryDaoImpl priceCategoryDao = dbManager.getPriceCategoryDaoImpl();
+        PriceCategory priceCategory = priceCategoryDao.
+                getPriceCategoryById(chosenPlace.getPriceCategoryId());
+        setPriceCategory(priceCategory);
+
         setWorkHoursInfo((TextView) findViewById(R.id.WorkHoursInfoId));
         getWorkHoursInfo().setText(chosenPlace.getWorkHours().toString());
 
         setContactsInfo((TextView) findViewById(R.id.ContactsInfoId));
         getContactsInfo().setText(chosenPlace.getContacts());
 
-        PriceCategoryDaoImpl priceCategoryDao = dbManager.getPriceCategoryDaoImpl();
-        PriceCategory priceCategory = priceCategoryDao.
-                getPriceCategoryById(chosenPlace.getPriceCategoryId());
-
-        setPriceCategory(priceCategory);
+        setDescriptionInfo((TextView) findViewById(R.id.descriptionInfoId));
+        getDescriptionInfo().setText(chosenPlace.getDescription());
 
     }
 
@@ -189,5 +188,12 @@ public class SinglePlaceInfo extends AppCompatActivity {
     public void setContactsInfo(TextView contactsInfo) {
         this.contactsInfo = contactsInfo;
     }
+    public TextView getDescriptionInfo() {
+        return descriptionInfo;
+    }
+    public void setDescriptionInfo(TextView descriptionInfo) {
+        this.descriptionInfo = descriptionInfo;
+    }
+
 
 }

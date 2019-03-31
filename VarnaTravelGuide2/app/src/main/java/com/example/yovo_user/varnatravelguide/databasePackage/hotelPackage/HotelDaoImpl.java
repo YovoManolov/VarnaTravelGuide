@@ -44,7 +44,8 @@ public class HotelDaoImpl implements HotelDao{
 
         RemoteFindIterable cursor = hotelsCollection.find();
 
-        Task <ArrayList<Document>> hotelDocuments = cursor.into(new ArrayList<Document>());
+        Task <ArrayList<Document>> hotelDocuments =
+                cursor.into(new ArrayList<Document>());
 
         while(hotelDocuments.isComplete() == false) {
             try {

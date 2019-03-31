@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private boolean areImagesFromResourceFolder;
     private DBManager dbManager;
-    private boolean isViewPagerSinglePlaceInitialized;
     static {  AppCompatDelegate.setCompatVectorFromResourcesEnabled(true); }
     private int arrayListPictureIterator = 1;
 
@@ -43,7 +43,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         this.context = context;
         this.imagesArrayList = imagesArrayList;
         setAreImagesFromResourceFolder(false);
-        isViewPagerSinglePlaceInitialized = false;
     }
 
     @Override
@@ -72,6 +71,8 @@ public class ViewPagerAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.image_slider,null);
         ImageView imageView = view.findViewById(R.id.imageView);
         TextView textView = view.findViewById(R.id.imageCurrPosition);
+        textView.setMovementMethod(new ScrollingMovementMethod());
+
         dbManager = new DBManager();
 
 
@@ -79,19 +80,6 @@ public class ViewPagerAdapter extends PagerAdapter {
             imageView.setImageResource(images[position]);
             textView.setText(position +"/"+images.length);
         }else{
-            /*if(!isViewPagerSinglePlaceInitialized){
-                for(int i = 0 ;i < imagesArrayList.size(); i++){
-                    Picasso picasso = Picasso.get();
-                    picasso.load(
-                            (getStringResourceByName("URL_prefix")+ imagesArrayList.get(i).getImageURL())
-                    ).into(imageView);
-
-                    textView.setText(position +"/"+i);
-                }
-                isViewPagerSinglePlaceInitialized = true;
-            }*/
-
-            if(arrayListPictureIterator<=imagesArrayList.size()) arrayListPictureIterator+=1;
             Picasso picasso = Picasso.get();
             picasso.load(
                     (
@@ -99,7 +87,6 @@ public class ViewPagerAdapter extends PagerAdapter {
                             + imagesArrayList.get(position).getImageURL()
                     )).into(imageView);
             textView.setText(position +"/"+imagesArrayList.size());
-
         }
 
         ViewPager vp = (ViewPager) containter;

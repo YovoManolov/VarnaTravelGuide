@@ -115,7 +115,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                                 .getAllResaturants();
 
                 ArrayList<Place> restaurantPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < restaurantPlaces.size() ; i++){
+                for(int i = 0 ;i < allRestaurants.size() ; i++){
                     restaurantPlaces.add(
                             dbManager.getPlaceDaoImpl().getPlaceById(
                                     allRestaurants.get(i).getPlace_id())
@@ -136,7 +136,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                                 .getAllLandmarks();
 
                 ArrayList<Place> landmarkPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < landmarkPlaces.size() ; i++){
+                for(int i = 0 ;i < allLandmarks.size() ; i++){
                     landmarkPlaces.add(dbManager.getPlaceDaoImpl()
                             .getPlaceById(allLandmarks.get(i).getPlace_id()   )
                     );

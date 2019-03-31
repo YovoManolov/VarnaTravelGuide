@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.PlaceListAdapter;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +34,6 @@ import java.util.List;
 public class LandmarkDaoImpl implements LandmarkDao {
 
     private RemoteMongoClient mongoClient;
-
     public LandmarkDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
@@ -50,15 +50,14 @@ public class LandmarkDaoImpl implements LandmarkDao {
         Task <ArrayList<Document>> landmarkDocumentsList
                 = cursor.into(new ArrayList<Document>());
 
-        List<Landmark> allLandmarks = null;
-        try {
-            landmarkDocumentsList.wait(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while(landmarkDocumentsList.isComplete() == false) {
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        if(landmarkDocumentsList.isComplete()){
-            allLandmarks = convertDocsToLandmarks(landmarkDocumentsList.getResult());
-        }
+        List<Landmark> allLandmarks  = convertDocsToLandmarks(landmarkDocumentsList.getResult());
 
         return allLandmarks;
     }
