@@ -33,8 +33,11 @@ import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.pedromassango.doubleclick.DoubleClick;
 import com.pedromassango.doubleclick.DoubleClickListener;
 import com.squareup.picasso.Picasso;
@@ -54,14 +57,13 @@ import java.util.List;
 
 public class ListingPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap gmap;
     private MapView mapView;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     private String typeOfPlacesToLoad;
     private List<ListLinksItem> listItems = new ArrayList<>();
     private DBManager dbManager;
-
+    List<Place> placeListToLoad ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +77,10 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
         }
 
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(mapViewBundle);
-        mapView.getMapAsync(this);
+        MapFragment mapFragment = (MapFragment)
+                getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
         dbManager = new DBManager();
         dbManager.open();
@@ -164,8 +167,9 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     private void generateListOfPlaces(List<Place> placeListToLoad){
 
         ListView listLinksItemsFromView = (ListView) findViewById(R.id.listOfPlaces);
+        this.placeListToLoad = placeListToLoad;
 
-        for(Place place : placeListToLoad ) {
+        for(Place place : this.placeListToLoad ) {
 
             Image mainImage = dbManager.getPlaceDaoImpl().getMainImageForPlace(place.getImages());
 
@@ -235,7 +239,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-        listOfPlaces.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+       /* listOfPlaces.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
 
             @Override
             public boolean onItemLongClick(AdapterView<?> adapter, View v, int position,
@@ -249,58 +253,20 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
                 return false;
             }
-        });
+        });*/
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
-        if (mapViewBundle == null) {
-            mapViewBundle = new Bundle();
-            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
-        }
-
-        mapView.onSaveInstanceState(mapViewBundle);
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mapView.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mapView.onStop();
-    }
-    @Override
-    protected void onPause() {
-        mapView.onPause();
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        mapView.onDestroy();
-        super.onDestroy();
-    }
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        gmap = googleMap;
-        LatLng ny = new LatLng(43.204666,27.910543);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+
+        for(Place p : this.placeListToLoad){
+            LatLng location = new LatLng(p.getLatitude(), p.getLongitude());
+            CameraPosition target = CameraPosition.builder().target(location).zoom(10).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
+            googleMap.addMarker(new MarkerOptions().position(location).title(p.getName()));
+        }
+
     }
+
 }

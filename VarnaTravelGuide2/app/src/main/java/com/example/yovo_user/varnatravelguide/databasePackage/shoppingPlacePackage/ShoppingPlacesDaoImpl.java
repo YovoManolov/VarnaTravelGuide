@@ -31,7 +31,6 @@ import java.util.List;
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
 
     private RemoteMongoClient mongoClient;
-
     public ShoppingPlacesDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }

@@ -47,14 +47,13 @@
                 android:orientation="horizontal"
                 android:paddingTop="0dp">
 
-                <com.google.android.gms.maps.MapView
-                    android:id="@+id/mapView"
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:id="@+id/map"
                     android:layout_width="match_parent"
                     android:layout_height="250dp" />
-
-
             </LinearLayout>
-
+            <!--google maps-->
             <LinearLayout
                 android:id="@+id/priceCategoryLayout"
                 android:layout_width="match_parent"

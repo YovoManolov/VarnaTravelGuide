@@ -22,6 +22,14 @@ import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPacka
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
@@ -33,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SinglePlaceInfo extends AppCompatActivity {
+public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCallback {
 
     private ViewPager viewPager;
     private DBManager dbManager;
@@ -91,6 +99,10 @@ public class SinglePlaceInfo extends AppCompatActivity {
 
         generateViewPager();
 
+        MapFragment mapFragment = (MapFragment)
+                getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         PriceCategoryDaoImpl priceCategoryDao = dbManager.getPriceCategoryDaoImpl();
         PriceCategory priceCategory = priceCategoryDao.
                 getPriceCategoryById(chosenPlace.getPriceCategoryId());
@@ -105,6 +117,14 @@ public class SinglePlaceInfo extends AppCompatActivity {
         setDescriptionInfo((TextView) findViewById(R.id.descriptionInfoId));
         getDescriptionInfo().setText(chosenPlace.getDescription());
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        LatLng location = new LatLng(chosenPlace.getLatitude(), chosenPlace.getLongitude());
+        CameraPosition target = CameraPosition.builder().target(location).zoom(15).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
+        map.addMarker(new MarkerOptions().position(location).title(chosenPlace.getName()));
     }
 
     private void setPriceCategory(PriceCategory priceCategory) {

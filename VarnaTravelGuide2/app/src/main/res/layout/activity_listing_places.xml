@@ -83,7 +83,7 @@
 
             </RelativeLayout>
         </ScrollView>
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/GoogleMapsLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -97,7 +97,23 @@
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"
                 android:layout_height="263dp" />
-        </LinearLayout>
+        </LinearLayout>-->
+        <!--google maps-->
+        <LinearLayout
+            android:id="@+id/GoogleMapsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="487dp"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
 
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="263dp" />
+        </LinearLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
