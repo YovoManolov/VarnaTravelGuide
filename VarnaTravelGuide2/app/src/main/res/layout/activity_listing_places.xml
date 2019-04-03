@@ -39,7 +39,7 @@
             android:weightSum="4">
 
             <Button
-                android:id="@+id/searchButton"
+                android:id="@+id/searchButtonId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
@@ -51,13 +51,12 @@
                 android:text="@string/search_label" />
 
             <EditText
-                android:id="@+id/textToSearch"
+                android:id="@+id/textToSearchId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="  name of place"
-                android:inputType="textPersonName"
+                android:hint=" name of place"
                 android:paddingEnd="10dp"
                 android:paddingStart="0dp"
                 android:singleLine="false" />

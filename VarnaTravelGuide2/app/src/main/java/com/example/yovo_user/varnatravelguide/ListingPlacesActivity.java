@@ -1,5 +1,6 @@
 package com.example.yovo_user.varnatravelguide;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,11 +18,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +62,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListingPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -63,7 +75,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     private String typeOfPlacesToLoad;
     private List<ListLinksItem> listItems = new ArrayList<>();
     private DBManager dbManager;
-    List<Place> placeListToLoad ;
+    List<Place> placeListToLoad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,13 +93,77 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        EditText textToSearch = (EditText)findViewById(R.id.textToSearchId);
+        configSearchByName(textToSearch);
 
         dbManager = new DBManager();
         dbManager.open();
         initActivity(typeOfPlacesToLoad);
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
+
+
+    private void configSearchByName(EditText textToSearch){
+        textToSearch.addTextChangedListener(
+                new TextWatcher() {
+                    @Override public void onTextChanged(CharSequence s,
+                                                        int start, int before, int count) {}
+                    @Override public void beforeTextChanged(CharSequence s,
+                                                            int start, int count, int after) {}
+
+                    private Timer timer = new Timer();
+                    private final long DELAY = 500; // milliseconds
+
+                    @Override
+                    public void afterTextChanged(final Editable s) {
+                        timer.cancel();
+                        timer = new Timer();
+                        timer.schedule(
+                                new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                       String nameToSearchWith = textToSearch.getText().toString();
+                                        placeListToLoad = placeListToLoad.stream().filter(
+                                               place->place.getName().contains(nameToSearchWith)
+                                        ).collect(Collectors.toList());
+                                    }
+                                },
+                                DELAY
+                        );
+                    }
+                }
+        );
+        textToSearch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int inputType = textToSearch.getInputType();
+                textToSearch.setInputType(InputType.TYPE_NULL);
+                textToSearch.setInputType(inputType);
+                return false;
+            }
+        });
+
+    }
+
+
     private void initActivity(String typeOfPlacesToLoad){
+
         ImageView imageViewPlacesHeaderId;
         switch(typeOfPlacesToLoad){
             case "hotels":
@@ -256,6 +332,8 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         });*/
 
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
