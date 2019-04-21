@@ -1,5 +1,7 @@
 package com.example.yovo_user.varnatravelguide;
 
+import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -24,6 +26,7 @@ import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,6 +35,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DBManager;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
@@ -60,12 +64,13 @@ import java.lang.annotation.Target;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class ListingPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -78,6 +83,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     List<Place> placeListToLoad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
 
@@ -93,74 +99,66 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        EditText textToSearch = (EditText)findViewById(R.id.textToSearchId);
-        configSearchByName(textToSearch);
+        showInputMethod();
 
         dbManager = new DBManager();
         dbManager.open();
         initActivity(typeOfPlacesToLoad);
     }
 
-    @Override
+    public void buttonClick(View view){
+        switch (view.getId()) {
+            case R.id.searchButtonId:
+
+                Intent intent = this.getIntent();
+                Bundle bundle = new Bundle();
+
+                EditText textToSearch = (EditText)findViewById(R.id.textToSearchId);
+                String nameToSearchWith = textToSearch.getText().toString();
+
+                bundle.putString("TYPE_OF_PLACES",typeOfPlacesToLoad);
+                bundle.putString("nameToSearchWith",nameToSearchWith.isEmpty() ? "": nameToSearchWith);
+                intent.putExtras(bundle);
+
+                this.startActivity(intent);
+            break;
+        }
+
+    }
+
+   /* @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (v instanceof EditText) {
-                Rect outRect = new Rect();
-                v.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                    v.clearFocus();
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
+        View v = this.getCurrentFocus();
+        boolean ret = super.dispatchTouchEvent(event);
+        if (this instanceof ListingPlacesActivity) {
+            return false;
+        }
+        if (v instanceof EditText) {
+            View w = this.getCurrentFocus();
+            int scrCoords[] = new int[2];
+            w.getLocationOnScreen(scrCoords);
+            float x = event.getRawX() + w.getLeft() - scrCoords[0];
+            float y = event.getRawY() + w.getTop() - scrCoords[1];
+            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom())) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
             }
         }
-        return super.dispatchTouchEvent( event );
+        return ret;
+    }*/
+
+   public void showInputMethod() {
+       InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+       imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+   }
+
+    public void hideKeyboard(View view){
+       /* EditText textToSearchId= (EditText) findViewById(R.id.textToSearchId);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(textToSearchId.getWindowToken(), 0);*/
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
-
-    private void configSearchByName(EditText textToSearch){
-        textToSearch.addTextChangedListener(
-                new TextWatcher() {
-                    @Override public void onTextChanged(CharSequence s,
-                                                        int start, int before, int count) {}
-                    @Override public void beforeTextChanged(CharSequence s,
-                                                            int start, int count, int after) {}
-
-                    private Timer timer = new Timer();
-                    private final long DELAY = 500; // milliseconds
-
-                    @Override
-                    public void afterTextChanged(final Editable s) {
-                        timer.cancel();
-                        timer = new Timer();
-                        timer.schedule(
-                                new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                       String nameToSearchWith = textToSearch.getText().toString();
-                                        placeListToLoad = placeListToLoad.stream().filter(
-                                               place->place.getName().contains(nameToSearchWith)
-                                        ).collect(Collectors.toList());
-                                    }
-                                },
-                                DELAY
-                        );
-                    }
-                }
-        );
-        textToSearch.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int inputType = textToSearch.getInputType();
-                textToSearch.setInputType(InputType.TYPE_NULL);
-                textToSearch.setInputType(inputType);
-                return false;
-            }
-        });
-
-    }
-
 
     private void initActivity(String typeOfPlacesToLoad){
 
@@ -239,11 +237,25 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
+    private List<Place> filterPlacesByString(List<Place> placeListToLoad){
+
+        Bundle bundle = getIntent().getExtras();
+        String nameToSearchWith = bundle.getString("nameToSearchWith");
+
+        if(nameToSearchWith == null || nameToSearchWith.isEmpty()){
+            return placeListToLoad;
+        }else{
+            return placeListToLoad.stream().filter(
+                    place->place.getName().contains(nameToSearchWith)
+            ).collect(Collectors.toList());
+        }
+    }
 
     private void generateListOfPlaces(List<Place> placeListToLoad){
 
         ListView listLinksItemsFromView = (ListView) findViewById(R.id.listOfPlaces);
-        this.placeListToLoad = placeListToLoad;
+
+        this.placeListToLoad = filterPlacesByString(placeListToLoad);
 
         for(Place place : this.placeListToLoad ) {
 
@@ -251,7 +263,6 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
 
             String imageUrl = getResources().getString(R.string.URL_prefix)
                                                 + mainImage.getImageURL();
-            //Drawable mainImageDrowable = getDrawableFromURL("https://drive.google.com/uc?id=" + mainImage.getImageURL());
 
             listItems.add(new ListLinksItem(
                             place.get_id(),

@@ -11,6 +11,8 @@
         android:id="@+id/relativeLayout"
         android:layout_width="411dp"
         android:layout_height="750dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -45,9 +47,9 @@
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
                 android:ems="20"
+                android:onClick="buttonClick"
                 android:paddingEnd="0dp"
                 android:paddingStart="15dp"
-                android:singleLine="false"
                 android:text="@string/search_label" />
 
             <EditText
@@ -57,11 +59,21 @@
                 android:layout_weight="3"
                 android:ems="10"
                 android:hint=" name of place"
+                android:clickable="true"
                 android:paddingEnd="10dp"
                 android:paddingStart="0dp"
-                android:singleLine="false" />
+                android:singleLine="false" >
+                <requestFocus/>
+            </EditText>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/listScrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="130dp">
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,8 +82,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="130dp">
+                android:layout_height="match_parent">
 
                 <ListView
                     android:id="@+id/listOfPlaces"
@@ -82,21 +93,7 @@
 
             </RelativeLayout>
         </ScrollView>
-        <!--<LinearLayout
-            android:id="@+id/GoogleMapsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="487dp"
-            android:orientation="horizontal"
-            android:paddingTop="0dp">
-
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="263dp" />
-        </LinearLayout>-->
+        </LinearLayout>
         <!--google maps-->
         <LinearLayout
             android:id="@+id/GoogleMapsLayout"
