@@ -51,7 +51,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
 
     private TextView workHoursInfo;
     private TextView contactsInfo;
-
     private TextView descriptionInfo;
 
     @Override
@@ -69,7 +68,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
 
         setTitle(chosenPlace.getName());
     }
-
     private void initActivity(Place chosenPlace) {
         /*
             typeOfPlace :
@@ -121,7 +119,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
 
 
     }
-
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng location = new LatLng(chosenPlace.getLatitude(), chosenPlace.getLongitude());
@@ -129,7 +126,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
         map.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
         map.addMarker(new MarkerOptions().position(location).title(chosenPlace.getName()));
     }
-
     private void setPriceCategory(PriceCategory priceCategory) {
         ImageView firstCoin = (ImageView) findViewById(R.id.coint1);
         ImageView secondCoin = (ImageView) findViewById(R.id.coint2);
@@ -153,7 +149,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
         }
 
     }
-
 
     private void generateViewPager(){
         ArrayList<Image> images = new ArrayList<Image>();
@@ -192,7 +187,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
             });
         }
     }
-
     public ViewPager getViewPager() {
         return viewPager;
     }
@@ -217,6 +211,5 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
     public void setDescriptionInfo(TextView descriptionInfo) {
         this.descriptionInfo = descriptionInfo;
     }
-
 
 }

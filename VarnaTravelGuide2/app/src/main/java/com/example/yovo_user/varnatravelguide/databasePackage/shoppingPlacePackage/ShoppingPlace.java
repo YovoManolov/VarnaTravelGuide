@@ -22,14 +22,4 @@ public class ShoppingPlace {
         place_id = document.getObjectId("place_id");
         this.priceCategoryId = priceCategoryId;
     }
-   /*
-    public static ShoppingPlace[] populateShoppingPlaces() {
-        return new ShoppingPlace[]{
-                new ShoppingPlace(6,4 ),
-                new ShoppingPlace(7,2 ),
-                new ShoppingPlace(8,4 ),
-                new ShoppingPlace(9,4 ),
-                new ShoppingPlace(10,4)
-        };
-    }*/
 }

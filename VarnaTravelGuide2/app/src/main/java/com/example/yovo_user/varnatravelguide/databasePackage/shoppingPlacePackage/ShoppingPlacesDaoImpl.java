@@ -9,9 +9,7 @@ import android.util.Log;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
 import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.PlaceListAdapter;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,9 +28,9 @@ import java.util.List;
 
 public class ShoppingPlacesDaoImpl implements ShoppingPlaceDao {
 
-    private RemoteMongoClient mongoClient;
+  /*  private RemoteMongoClient mongoClient;
     public ShoppingPlacesDaoImpl() {
         this.mongoClient = DatabaseHelper.getMongoClient();
     }
-
+*/
 }

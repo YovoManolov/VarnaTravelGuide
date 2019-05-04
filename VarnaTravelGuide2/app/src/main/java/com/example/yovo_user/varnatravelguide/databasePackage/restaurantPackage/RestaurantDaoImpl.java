@@ -31,12 +31,6 @@ import java.util.List;
 
 public class RestaurantDaoImpl implements RestaurantDao {
 
-    private RemoteMongoClient mongoClient;
-
-    public RestaurantDaoImpl() {
-        this.mongoClient = DatabaseHelper.getMongoClient();
-    }
-
     @Override
     public List<Restaurant> getAllResaturants(){
 
@@ -72,8 +66,8 @@ public class RestaurantDaoImpl implements RestaurantDao {
     @Override
     public Restaurant getRestaurantByPlaceId(ObjectId place_id){
 
-        RemoteMongoCollection<Document> restaurantCollection =  mongoClient
-                .getDatabase("varnaTravelGuideDB")
+        RemoteMongoCollection<Document> restaurantCollection =
+                DatabaseHelper.getVarnaTravelGuideDB()
                 .getCollection("restaurants");
 
         Document filter = new Document("place_id",place_id);

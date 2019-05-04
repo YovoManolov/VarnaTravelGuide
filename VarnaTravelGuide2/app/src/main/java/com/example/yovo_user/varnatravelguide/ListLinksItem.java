@@ -21,13 +21,6 @@ public class ListLinksItem {
 
     public ListLinksItem(){}
 
-    public ListLinksItem(String heading, String desc, String imageUrl, int image) {
-        this.heading = heading;
-        this.desc = desc;
-        this.imageUrl = imageUrl;
-        this.image = image;
-    }
-
     public ListLinksItem(ObjectId placeId, String heading, String desc , String imageUrl) {
         this.placeId = placeId;
         this.heading = heading;
@@ -35,12 +28,6 @@ public class ListLinksItem {
         this.imageUrl = imageUrl;
     }
 
-    public ListLinksItem(ObjectId placeId, String heading, String desc , Drawable imageDrawable) {
-        this.placeId = placeId;
-        this.heading = heading;
-        this.desc = desc;
-        this.imageDrawable = imageDrawable;
-    }
 
     public ObjectId getPlaceId() {
         return placeId;

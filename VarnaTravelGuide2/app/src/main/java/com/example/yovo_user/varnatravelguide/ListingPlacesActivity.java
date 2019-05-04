@@ -81,6 +81,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     private List<ListLinksItem> listItems = new ArrayList<>();
     private DBManager dbManager;
     List<Place> placeListToLoad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -121,7 +122,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 intent.putExtras(bundle);
 
                 this.startActivity(intent);
-            break;
+                break;
         }
 
     }
@@ -147,7 +148,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         return ret;
     }*/
 
-   public void showInputMethod() {
+    public void showInputMethod() {
        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
    }
@@ -343,8 +344,6 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         });*/
 
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

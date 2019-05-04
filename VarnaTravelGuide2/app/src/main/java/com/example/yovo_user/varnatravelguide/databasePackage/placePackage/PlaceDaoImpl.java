@@ -31,15 +31,6 @@ import java.util.List;
 
 public class PlaceDaoImpl implements PlaceDao {
 
-    private RemoteMongoClient mongoClient;
-    private StitchAppClient stitchAppClient;
-    private PlaceListAdapter _placeListAdapter;
-
-
-    public PlaceDaoImpl() {
-        this.mongoClient = DatabaseHelper.getMongoClient();
-    }
-
     private ArrayList<Place> convertDocsToPlaces(ArrayList<Document> documents) {
         final ArrayList<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {

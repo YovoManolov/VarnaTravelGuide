@@ -21,12 +21,6 @@ import java.util.List;
 
 public class HotelDaoImpl implements HotelDao{
 
-    private RemoteMongoClient mongoClient;
-
-    public HotelDaoImpl() {
-        this.mongoClient = DatabaseHelper.getMongoClient();
-    }
-
     private final List<Hotel> convertDocsToHotels(List<Document> documents) {
         List<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {

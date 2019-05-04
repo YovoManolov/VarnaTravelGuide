@@ -26,18 +26,6 @@ public class Place {
     private ArrayList<Image> images;
     private WorkHours workHours;
 
-   /* public Place(){};
-    public Place(String name, String address,
-                      double latitude, double longitude, String contacts,
-                      String description) {
-        this.name = name;
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.contacts = contacts;
-        this.description = description;
-    }*/
-
     public Place(final Document document) {
 
         _id = document.getObjectId("_id");

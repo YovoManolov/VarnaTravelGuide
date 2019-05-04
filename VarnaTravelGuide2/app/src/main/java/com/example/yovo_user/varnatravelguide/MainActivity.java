@@ -8,11 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +29,6 @@ import com.mongodb.stitch.android.core.auth.StitchAuth;
 import com.mongodb.stitch.android.core.auth.StitchAuthListener;
 import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private android.support.v7.widget.GridLayout  mainLinksGridL;
     private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
-    private StitchAppClient stitchClient = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setClickEvents(android.support.v7.widget.GridLayout mainLinksGridL){
+    private void setClickEvents(GridLayout mainLinksGridL){
         CardView hotelsCV = (CardView)findViewById(R.id.hotelsCV_id);
         hotelsCV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,12 +221,11 @@ public class MainActivity extends AppCompatActivity {
         this.viewPager = viewPager;
     }
 
-
-    public android.support.v7.widget.GridLayout  getMainLinksGridL() {
+    public GridLayout getMainLinksGridL() {
         return mainLinksGridL;
     }
 
-    public void setMainLinksGridL(android.support.v7.widget.GridLayout  mainLinksGridL) {
+    public void setMainLinksGridL(GridLayout  mainLinksGridL) {
         this.mainLinksGridL = mainLinksGridL;
     }
 }

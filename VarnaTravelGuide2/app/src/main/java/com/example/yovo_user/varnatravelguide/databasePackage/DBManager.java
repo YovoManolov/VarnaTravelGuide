@@ -8,7 +8,6 @@ import android.util.Log;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.HotelDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.ImageDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.LandmarkDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
