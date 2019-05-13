@@ -21,13 +21,19 @@ public class ListLinksItem {
 
     public ListLinksItem(){}
 
+    public ListLinksItem(String heading, String desc , String imageUrl,int imageDrawable) {
+        this.heading = heading;
+        this.desc = desc;
+        this.imageUrl = imageUrl;
+        this.image = imageDrawable;
+    }
+
     public ListLinksItem(ObjectId placeId, String heading, String desc , String imageUrl) {
         this.placeId = placeId;
         this.heading = heading;
         this.desc = desc;
         this.imageUrl = imageUrl;
     }
-
 
     public ObjectId getPlaceId() {
         return placeId;

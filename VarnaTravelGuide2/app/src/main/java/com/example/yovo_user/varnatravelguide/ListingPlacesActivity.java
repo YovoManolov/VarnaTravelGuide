@@ -88,6 +88,9 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
 
+        dbManager = new DBManager();
+        dbManager.open();
+
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
 
@@ -102,8 +105,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
 
         showInputMethod();
 
-        dbManager = new DBManager();
-        dbManager.open();
+
         initActivity(typeOfPlacesToLoad);
     }
 
@@ -127,36 +129,12 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
 
     }
 
-   /* @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        View v = this.getCurrentFocus();
-        boolean ret = super.dispatchTouchEvent(event);
-        if (this instanceof ListingPlacesActivity) {
-            return false;
-        }
-        if (v instanceof EditText) {
-            View w = this.getCurrentFocus();
-            int scrCoords[] = new int[2];
-            w.getLocationOnScreen(scrCoords);
-            float x = event.getRawX() + w.getLeft() - scrCoords[0];
-            float y = event.getRawY() + w.getTop() - scrCoords[1];
-            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom())) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
-            }
-        }
-        return ret;
-    }*/
-
     public void showInputMethod() {
        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
    }
 
     public void hideKeyboard(View view){
-       /* EditText textToSearchId= (EditText) findViewById(R.id.textToSearchId);
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(textToSearchId.getWindowToken(), 0);*/
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
@@ -169,8 +147,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
 
-                List<Hotel> allHotels =
-                        dbManager.getHotelDaoImpl().getAllHotels();
+                List<Hotel> allHotels = dbManager.getHotelDaoImpl().getAllHotels();
 
                 List<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size() ; i++){
@@ -247,7 +224,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
             return placeListToLoad;
         }else{
             return placeListToLoad.stream().filter(
-                    place->place.getName().contains(nameToSearchWith)
+                    place->place.getName().toLowerCase().contains(nameToSearchWith.toLowerCase())
             ).collect(Collectors.toList());
         }
     }

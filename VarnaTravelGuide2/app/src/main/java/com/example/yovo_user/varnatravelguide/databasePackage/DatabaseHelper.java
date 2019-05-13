@@ -1,43 +1,19 @@
 package com.example.yovo_user.varnatravelguide.databasePackage;
 
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.HotelDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.ImageDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.LandmarkDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
 import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.PlaceDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategory;
 import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategoryDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.RestaurantDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
 import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlacesDaoImpl;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
-import com.google.android.gms.tasks.Task;
-import com.mongodb.client.MongoClient;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.auth.StitchAuth;
-import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoDatabase;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper {
 
@@ -59,11 +35,7 @@ public class DatabaseHelper {
         stitchAppClient = Stitch.getDefaultAppClient();
         this.stitchAppClient.getAuth().loginWithCredential(new AnonymousCredential());
 
-        mongoClient = this.stitchAppClient.getServiceClient(RemoteMongoClient.factory,
-                "mongodb-atlas");
-        //stitchAppClient.getServiceClienst(
-        //RemoteMongoClient.factory, "mongodb-atlas");
-
+        mongoClient = stitchAppClient.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
         varnaTravelGuideDB = mongoClient.getDatabase("varnaTravelGuideDB");
 
         placeDaoImpl = new PlaceDaoImpl();
@@ -73,7 +45,6 @@ public class DatabaseHelper {
         priceCategoryDaoImpl = new PriceCategoryDaoImpl();
         shoppingPlacesDaoImpl = new ShoppingPlacesDaoImpl();
         hotelDaoImpl = new HotelDaoImpl();
-
     }
 
     public static RemoteMongoDatabase getVarnaTravelGuideDB() {

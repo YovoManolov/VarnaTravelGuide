@@ -32,11 +32,16 @@ import java.util.List;
 
 public class LandmarkDaoImpl implements LandmarkDao {
 
+    private RemoteMongoClient mongoClient;
+    public LandmarkDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
     @Override
     public List<Landmark> getAllLandmarks() {
 
         RemoteMongoCollection<Document> landmarksCollection =
-                DatabaseHelper.getVarnaTravelGuideDB()
+                mongoClient.getDatabase("varnaTravelGuideDB")
                 .getCollection("landmarks");
 
         RemoteFindIterable cursor = landmarksCollection.find();
@@ -69,7 +74,7 @@ public class LandmarkDaoImpl implements LandmarkDao {
     public Landmark getLandmarkByPlaceId(ObjectId place_id) {
 
         RemoteMongoCollection<Document> landmarkCollection =
-                DatabaseHelper.getVarnaTravelGuideDB()
+                mongoClient.getDatabase("varnaTravelGuideDB")
                 .getCollection("landmarks");
 
         Document filter = new Document("place_id", place_id);

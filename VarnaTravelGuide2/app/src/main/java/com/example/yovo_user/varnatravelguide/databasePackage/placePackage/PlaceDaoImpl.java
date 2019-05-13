@@ -31,6 +31,16 @@ import java.util.List;
 
 public class PlaceDaoImpl implements PlaceDao {
 
+    private RemoteMongoClient mongoClient;
+    private StitchAppClient stitchAppClient;
+    private PlaceListAdapter _placeListAdapter;
+
+
+    public PlaceDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
+
     private ArrayList<Place> convertDocsToPlaces(ArrayList<Document> documents) {
         final ArrayList<Place> listOfPlaceObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
@@ -42,8 +52,8 @@ public class PlaceDaoImpl implements PlaceDao {
     @Override
     public Place getPlaceById(ObjectId place_id) {
 
-        RemoteMongoCollection<Document> placesCollection =  DatabaseHelper.getVarnaTravelGuideDB()
-                .getCollection("places");
+        RemoteMongoCollection<Document> placesCollection =  mongoClient
+                .getDatabase("varnaTravelGuideDB").getCollection("places");
 
         Document filter = new Document("_id", place_id);
         RemoteFindIterable cursor = placesCollection.find(filter);
@@ -69,7 +79,8 @@ public class PlaceDaoImpl implements PlaceDao {
 
         final ArrayList<Document> shoppingPlacesList = new ArrayList<>();
 
-        RemoteMongoCollection placesCollection =  DatabaseHelper.getVarnaTravelGuideDB()
+        RemoteMongoCollection placesCollection =  mongoClient
+                .getDatabase("varnaTravelGuideDB")
                 .getCollection("places");
 
         Document filter = new Document();

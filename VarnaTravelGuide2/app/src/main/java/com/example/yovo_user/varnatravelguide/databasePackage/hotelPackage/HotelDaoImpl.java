@@ -21,6 +21,12 @@ import java.util.List;
 
 public class HotelDaoImpl implements HotelDao{
 
+    public static RemoteMongoClient mongoClient;
+
+    public HotelDaoImpl() {
+        this.mongoClient = DatabaseHelper.getMongoClient();
+    }
+
     private final List<Hotel> convertDocsToHotels(List<Document> documents) {
         List<Hotel> listOfHotelObjects = new ArrayList<>(documents.size());
         for (final Document doc : documents) {
@@ -33,7 +39,7 @@ public class HotelDaoImpl implements HotelDao{
     public final List<Hotel> getAllHotels() {
 
         RemoteMongoCollection<Document> hotelsCollection =
-                DatabaseHelper.getVarnaTravelGuideDB()
+                mongoClient.getDatabase("varnaTravelGuideDB")
                         .getCollection("hotels");
 
         RemoteFindIterable cursor = hotelsCollection.find();
@@ -57,7 +63,7 @@ public class HotelDaoImpl implements HotelDao{
     public Hotel getHotelByPlaceId(Object placeId) {
 
         RemoteMongoCollection<Document> hotelsCollection =
-                DatabaseHelper.getVarnaTravelGuideDB()
+                mongoClient.getDatabase("varnaTravelGuideDB")
                 .getCollection("hotels");
 
         Document filter = new Document("place_id",placeId);

@@ -24,13 +24,11 @@ import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.W
 public class DBManager {
 
     private DatabaseHelper dbHelper;
-    /*
-        private Context context;
-        private SQLiteDatabase dbWritableConnection;
-    */
+    private Context context;
 
-    /* public DBManager(Context c) {
-        this.context = c;
+    //private SQLiteDatabase dbWritableConnection;
+      /*  public DBManager(Context c) {
+            this.context = c;
     }*/
 
     public DBManager open(){
