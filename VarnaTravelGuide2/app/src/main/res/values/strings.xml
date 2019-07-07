@@ -4,7 +4,7 @@
     <string name="URL_prefix">https://drive.google.com/uc?id=</string>
     <string name="title_activity_public_transport">PublicTransportActivity</string>
     <string name="stitch_client_app_id">varnatravelguide-gizfd</string>
-    <string name="google_android_map_api_key">AIzaSyBgKZ6IJilv8yHfUtcoQ92iiTbC2ERbt98</string>
+    <string name="google_android_map_api_key"></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
