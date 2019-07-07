@@ -4,8 +4,6 @@ package com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPack
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.lang.annotation.Documented;
-
 public class PriceCategory {
     private ObjectId _id;
     private Integer priceCategory_id ;

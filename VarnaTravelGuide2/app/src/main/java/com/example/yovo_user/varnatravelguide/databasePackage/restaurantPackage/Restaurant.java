@@ -1,7 +1,5 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-
 import org.bson.Document;
 import org.bson.types.ObjectId;
 

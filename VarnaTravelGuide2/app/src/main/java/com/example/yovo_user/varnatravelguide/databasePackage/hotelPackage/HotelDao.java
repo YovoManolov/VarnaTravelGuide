@@ -1,6 +1,5 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
 
-import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 
 public interface HotelDao {

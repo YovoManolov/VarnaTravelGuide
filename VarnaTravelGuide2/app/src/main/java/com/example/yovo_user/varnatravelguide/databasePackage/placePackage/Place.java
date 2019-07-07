@@ -1,16 +1,13 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
 
 
-
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDao;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Place {
 

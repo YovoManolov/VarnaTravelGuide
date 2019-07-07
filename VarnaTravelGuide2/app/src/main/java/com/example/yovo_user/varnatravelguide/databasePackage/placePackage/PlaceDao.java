@@ -1,7 +1,5 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import org.bson.types.ObjectId;
 
 import java.util.List;

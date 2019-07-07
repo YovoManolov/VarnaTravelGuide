@@ -1,11 +1,12 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
 
 
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.BsonValue;
-import android.content.Context;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

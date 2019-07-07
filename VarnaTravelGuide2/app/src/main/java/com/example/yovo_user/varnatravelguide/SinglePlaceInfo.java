@@ -1,19 +1,13 @@
 package com.example.yovo_user.varnatravelguide;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yovo_user.varnatravelguide.databasePackage.DBManager;
-import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
-import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
-import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
@@ -21,22 +15,15 @@ import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place
 import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategory;
 import com.example.yovo_user.varnatravelguide.databasePackage.priceCategoryPackage.PriceCategoryDaoImpl;
 import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
-import com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage.ShoppingPlace;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHoursDaoImpl;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 
 import org.bson.types.ObjectId;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Timer;

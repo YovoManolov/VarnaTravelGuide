@@ -1,21 +1,6 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.imagePackage;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
-import com.example.yovo_user.varnatravelguide.databasePackage.DbStringConstants;
-import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
-
-import org.bson.types.ObjectId;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImageDaoImpl implements ImageDao {
 

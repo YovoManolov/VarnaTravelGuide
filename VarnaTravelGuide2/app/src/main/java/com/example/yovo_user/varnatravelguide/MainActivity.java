@@ -1,43 +1,36 @@
 package com.example.yovo_user.varnatravelguide;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayout;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-//import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.example.yovo_user.varnatravelguide.databasePackage.DbBaseOperations;
-import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.mongodb.stitch.android.core.auth.StitchAuth;
-import com.mongodb.stitch.android.core.auth.StitchAuthListener;
-import com.mongodb.stitch.android.core.auth.StitchUser;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+
+//import android.widget.GridLayout;
+
 public class MainActivity extends AppCompatActivity {
 
+    private DrawerLayout drawer;
     private ViewPager viewPager;
     private android.support.v7.widget.GridLayout  mainLinksGridL;
     private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
@@ -46,11 +39,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        /*
-            Stitch.initializeDefaultAppClient(
-            getResources().getString( R.string.my_app_id )
-        );*/
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle  toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         generateViewPager();
 
@@ -61,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
         generateLinks();
         addLinksClickListener();
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(drawer.isDrawerOpen(Gravity.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPresed();
+        }
     }
 
     private void generateViewPager(){

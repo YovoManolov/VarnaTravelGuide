@@ -3,12 +3,7 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.graphics.drawable.Drawable;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-
 import org.bson.types.ObjectId;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class ListLinksItem {
 

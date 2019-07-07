@@ -1,9 +1,7 @@
 package com.example.yovo_user.varnatravelguide;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;

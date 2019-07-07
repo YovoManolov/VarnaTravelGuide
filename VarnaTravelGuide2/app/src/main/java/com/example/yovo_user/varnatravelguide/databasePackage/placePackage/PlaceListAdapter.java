@@ -3,7 +3,6 @@ package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.BsonValue;
