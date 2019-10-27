@@ -3,6 +3,8 @@ package com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+//NOT USED AT THE MOMENT IN THE PROJECT: 30.07.19
+
 public class WorkHours {
     private ObjectId _id;
    // private Object placeId;

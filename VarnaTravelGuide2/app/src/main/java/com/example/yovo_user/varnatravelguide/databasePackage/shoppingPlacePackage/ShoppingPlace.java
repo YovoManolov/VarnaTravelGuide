@@ -3,23 +3,13 @@ package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-public class Restaurant {
-    private ObjectId _id ;
+public class ShoppingPlace {
     private ObjectId place_id;
-    private String cuisine;
+    private int priceCategoryId;
 
-    public Restaurant(ObjectId place_id, String cousine) {
+    public ShoppingPlace(ObjectId place_id, int priceCategoryId) {
         this.place_id = place_id;
-        this.cuisine = cousine;
-    }
-
-    public Restaurant(int placeId, String cousine) {
-        this.cuisine = cousine;
-    }
-
-    public Restaurant(final Document document) {
-        place_id = document.getObjectId("place_id");
-        cuisine = document.getString("cuisine");
+        this.priceCategoryId = priceCategoryId;
     }
 
     public ObjectId getPlace_id() {
@@ -30,25 +20,22 @@ public class Restaurant {
         this.place_id = place_id;
     }
 
-    public String getCuisine() {
-        return cuisine;
+    public int getPriceCategoryId() {
+        return priceCategoryId;
     }
 
-    public void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
+    public void setPriceCategoryId(int priceCategoryId) {
+        this.priceCategoryId = priceCategoryId;
     }
 
-    /* public static Restaurant[] populateRestaurants() {
-        return new Restaurant[]{
-                new Restaurant(1, 2, "Bulgarian, European and Mediterranean cuisine."),
-                new Restaurant(2, 1, "PIZZA, PASTA & WINE "),
-                new Restaurant(3, 3, "\n" + "The dishes are a combination of modern cuisine" +
-                                " with elements of the highest French cuisine and traditional" +
-                                "Bulgarian dishes."),
-                new Restaurant(4, 3, "European cuisine."),
-                new Restaurant(5, 1, "\n European, american cuisine, sandwiches, cold, pancakes,"
-                                + " cocktails, alcohol and beverages, draft beer," +
-                                "fast food, desserts, burgers.")
-        };
+     /*
+    public static ShoppingPlace[] populateShoppingPlaces() {
+                return new ShoppingPlace[]{
+                        new ShoppingPlace(6,4 ),
+        @@ -51,5 +31,5 @@ public void setPriceCategoryId(int priceCategoryId) {
+                        new ShoppingPlace(9,4 ),
+                        new ShoppingPlace(10,4)
+                };
+            }
     }*/
 }
