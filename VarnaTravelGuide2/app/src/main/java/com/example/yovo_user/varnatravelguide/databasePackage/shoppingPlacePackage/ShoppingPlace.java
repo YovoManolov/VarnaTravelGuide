@@ -4,6 +4,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class ShoppingPlace {
+
     private ObjectId place_id;
     private int priceCategoryId;
 
@@ -28,14 +29,4 @@ public class ShoppingPlace {
         this.priceCategoryId = priceCategoryId;
     }
 
-     /*
-    public static ShoppingPlace[] populateShoppingPlaces() {
-                return new ShoppingPlace[]{
-                        new ShoppingPlace(6,4 ),
-        @@ -51,5 +31,5 @@ public void setPriceCategoryId(int priceCategoryId) {
-                        new ShoppingPlace(9,4 ),
-                        new ShoppingPlace(10,4)
-                };
-            }
-    }*/
 }

@@ -26,8 +26,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 
-//import android.widget.GridLayout;
-
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;

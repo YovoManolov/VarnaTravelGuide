@@ -65,6 +65,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup containter , int position){
+
         layoutInflater  = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.image_slider,null);
         ImageView imageView = view.findViewById(R.id.imageView);

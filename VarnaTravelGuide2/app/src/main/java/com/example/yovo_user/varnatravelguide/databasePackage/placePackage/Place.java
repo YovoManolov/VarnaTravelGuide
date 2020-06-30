@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Place {
 
     private ObjectId _id;
+    //@SerializedName("name")
     private String name;
     private String address;
     private Double latitude;
