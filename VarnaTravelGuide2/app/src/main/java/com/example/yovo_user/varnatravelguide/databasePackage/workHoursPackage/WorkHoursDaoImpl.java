@@ -1,6 +1,5 @@
 package com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.DatabaseHelper;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 

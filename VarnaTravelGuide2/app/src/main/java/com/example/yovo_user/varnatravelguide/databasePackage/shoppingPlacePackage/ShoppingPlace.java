@@ -1,4 +1,4 @@
-package com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage;
+package com.example.yovo_user.varnatravelguide.databasePackage.shoppingPlacePackage;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;

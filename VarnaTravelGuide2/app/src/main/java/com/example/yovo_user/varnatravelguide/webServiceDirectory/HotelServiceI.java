@@ -1,20 +1,31 @@
+package com.example.yovo_user.varnatravelguide.webServiceDirectory;
+import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
+
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+
 public interface HotelServiceI {
 
-    private final String hotelPref="/hotels"
+    String hotelPref = "/hotels";
 
-    @GET(hotelPref+"/getAll")
-    public  Call<List<Hotel>> getAllHotels();
+    @GET(hotelPref + "/getAll")
+    Call<List<Hotel>> getAllHotels();
 
-    @GET(hotelPref+"/getOneById/{id}")
-    public  Call<Hotel> getHotelById(@Path("id") String hotelId) throws RecordNotFoundException;
+    @GET(hotelPref + "/getOneById/{id}")
+    Call<Hotel> getHotelById(@Path("id") String hotelId);
 
-    @PutMapping(hotelPref+"/update/{id}")
-    public Call<Hotel> updateHotel(Hotel newHotel, @Path("id") String hotelId) throws RecordNotFoundException;
+    @PUT(hotelPref + "/update/{id}")
+    Call<Hotel> updateHotel(Hotel newHotel, @Path("id") String hotelId);
 
-    @PostMapping(hotelPref+"/create")
-    public Call<Hotel> createHotel(Hotel newHotel);
+    @POST(hotelPref + "/create")
+    Call<Hotel> createHotel(Hotel newHotel);
 
-    @DeleteMapping(hotelPref+"deleteById/{id}")
-    public Call<Object> deleteHotel(@Path("id")String hotelId) throws RecordNotFoundException;
+    @DELETE(hotelPref + "/deleteById/{id}")
+    Call<Object> deleteHotel(@Path("id") String hotelId);
 
 }

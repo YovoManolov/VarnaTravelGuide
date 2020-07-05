@@ -10,8 +10,6 @@ import com.mongodb.stitch.android.core.auth.StitchUser;
 
 import java.lang.ref.WeakReference;
 
-import static android.support.constraint.Constraints.TAG;
-
 public class MyAuthListener implements StitchAuthListener {
 
     private WeakReference<ListingPlacesActivity> listingPlacesActivityWR;
@@ -29,7 +27,7 @@ public class MyAuthListener implements StitchAuthListener {
     @Override
     public void onAuthEvent(final StitchAuth auth) {
         if (auth.isLoggedIn() && _user == null) {
-            Log.d(TAG, "Logged into Stitch");
+            Log.d("DEBUG", "Logged into Stitch");
             _user = auth.getUser();
             return;
         }

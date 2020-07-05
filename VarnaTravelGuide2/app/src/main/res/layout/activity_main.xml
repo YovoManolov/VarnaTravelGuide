@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -61,7 +61,7 @@
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
 
-                <android.support.v4.view.ViewPager
+                <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPagerId"
                     android:layout_width="wrap_content"
                     android:layout_height="230dp"
@@ -78,7 +78,7 @@
                 android:orientation="vertical">
 
 
-                <android.support.v7.widget.GridLayout
+                <androidx.gridlayout.widget.GridLayout
                     android:id="@+id/mainLinksGridL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     <!-- Row 1 -->
                     <!-- Column 1 -->
                     <!--hotels-->
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/hotelsCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -118,12 +118,12 @@
                                 android:layout_gravity="center_horizontal"
                                 android:src="@drawable/icons8_bed_48"></ImageView>
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                     <!-- Row 1 -->
                     <!-- Column 2 -->
                     <!--restaurants-->
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/restaurantsCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -145,13 +145,13 @@
                                 android:layout_gravity="center_horizontal"
                                 android:src="@drawable/icons8_meal_64"></ImageView>
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                     <!-- Row 2 -->
                     <!-- Column 1 -->
                     <!--landmarks-->
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/landmarksCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -174,13 +174,13 @@
                                 android:layout_gravity="center_horizontal"
                                 android:src="@drawable/icons8_palace_48"></ImageView>
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
                     <!-- Row 2 -->
                     <!-- Column 2 -->
                     <!--shopping places-->
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/shopping_placesCV_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -202,9 +202,9 @@
                                 android:layout_gravity="center_horizontal"
                                 android:src="@drawable/icons8_shopping_cart_64"></ImageView>
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                </android.support.v7.widget.GridLayout>
+                </androidx.gridlayout.widget.GridLayout>
 
             </LinearLayout>
 
@@ -227,4 +227,4 @@
         </RelativeLayout>
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.example.yovo_user.varnatravelguide;
 
-
 import android.graphics.drawable.Drawable;
 
 import org.bson.types.ObjectId;

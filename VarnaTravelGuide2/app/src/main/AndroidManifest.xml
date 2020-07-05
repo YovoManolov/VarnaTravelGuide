@@ -28,20 +28,23 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/google_android_map_api_key" />
+            android:value="@string/google_android_map_api_key"/>
 
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme">
-
-        </activity>
-        <activity android:name=".ListingPlacesActivity" />
-        <activity android:name=".SinglePlaceInfo" />
-        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ListingPlacesActivity" />
+        <activity android:name=".SinglePlaceInfo" />
+<!--        &lt;!&ndash;<activity android:name=".LoginActivity">&ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>

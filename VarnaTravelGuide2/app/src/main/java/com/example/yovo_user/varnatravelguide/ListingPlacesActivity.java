@@ -2,8 +2,11 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -14,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.DBManager;
 import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
 import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
 import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
@@ -33,8 +35,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class ListingPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -116,9 +116,9 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 List<Place> hotelPlaces = new ArrayList<> ();
                 for(int i = 0 ;i < allHotels.size() ; i++){
                     hotelPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allHotels.get(i).getplace_id())
+                            .getPlaceById(allHotels.get(i).getPlace_id())
                     );
-                };
+                }
 
                 generateListOfPlaces(hotelPlaces);
             break;
@@ -179,6 +179,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Place> filterPlacesByString(List<Place> placeListToLoad){
 
         Bundle bundle = getIntent().getExtras();
@@ -193,6 +194,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void generateListOfPlaces(List<Place> placeListToLoad){
 
         ListView listLinksItemsFromView = (ListView) findViewById(R.id.listOfPlaces);

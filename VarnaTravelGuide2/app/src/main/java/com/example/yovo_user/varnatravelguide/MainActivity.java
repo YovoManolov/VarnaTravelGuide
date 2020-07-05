@@ -3,10 +3,10 @@ package com.example.yovo_user.varnatravelguide;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.gridlayout.widget.GridLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +23,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+//import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DrawerLayout drawer;
+   // private DrawerLayout drawer;
     private ViewPager viewPager;
-    private android.support.v7.widget.GridLayout  mainLinksGridL;
+    private GridLayout mainLinksGridL;
     private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
 
     @Override
@@ -39,18 +39,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
-        drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle  toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+        /*drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle  toggle = new ActionBarDrawerToggle(this,drawer,//toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+*/
         generateViewPager();
 
-        mainLinksGridL = (android.support.v7.widget.GridLayout)
+        mainLinksGridL = (GridLayout)
                 findViewById(R.id.mainLinksGridL);
 
         setClickEvents(mainLinksGridL);
@@ -59,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+ /*   @Override
     public void onBackPressed(){
         if(drawer.isDrawerOpen(Gravity.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPresed();
         }
-    }
+    }*/
 
     private void generateViewPager(){
 
