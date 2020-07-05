@@ -1,117 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidGradleBuildConfiguration">
+    <option name="SYNC_PROJECT_BEFORE_BUILD" value="true" />
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutomaticModuleUnloader">
+    <loaded-modules>
+      <module name="VarnaTravelGuide2" />
+    </loaded-modules>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="16d9e50e-cba3-4212-a271-c372b5d6529c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/HotelServiceI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/RestaurantServiceI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShoppingServiceI.java" afterDir="false" />
+    <list default="true" id="16d9e50e-cba3-4212-a271-c372b5d6529c" name="Default" comment="commiting changes 01.07.2020">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/lombok.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/VarnaTravelGuide.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/VarnaTravelGuide.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListLinksItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListLinksItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListingPlacesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListingPlacesActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ViewPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DbBaseOperations.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DbStringConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/Hotel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/Place.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/Place.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/landmarkPackage/LandmarkDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/landmarkPackage/LandmarkDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/PlaceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/PlaceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/priceCategoryPackage/PriceCategoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/priceCategoryPackage/PriceCategoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/restaurantPackage/RestaurantDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/restaurantPackage/RestaurantDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/HotelServiceI.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/HotelServiceI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/RestaurantServiceI.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/RestaurantServiceI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShoppingServiceI.java" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShoppingServiceI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="isMigrated" value="true" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/VarnaTravelGuide2">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/VarnaTravelGuide2/app">
+      <ProjectState />
+    </projectState>
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/SinglePlaceInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="39" column="34" lean-forward="true" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DBManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DatabaseHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="81" column="19" lean-forward="true" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/HotelServiceI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="94" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="17" selection-end-column="94" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/RestaurantServiceI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShoppingServiceI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="62" lean-forward="true" selection-start-line="2" selection-start-column="62" selection-end-line="2" selection-end-column="62" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/LandMarkServiceI.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ViewPagerAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="60" column="40" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListLinksItem.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListingPlacesActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1579">
-              <caret line="203" column="39" selection-start-line="203" selection-start-column="30" selection-end-line="203" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/VarnaTravelGuide2">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -124,7 +80,21 @@
       <find>DbBaseOperations</find>
       <find>MyAuthListener</find>
       <find>getHotelByPlaceId</find>
+      <find>landmarkPref</find>
+      <find>hotelPref</find>
+      <find>Hotel</find>
+      <find>hotel</find>
+      <find>@PathVariable(value = &quot;id&quot;)</find>
+      <find>&quot;deleteById/{id}&quot;</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>landmarkPref</replace>
+      <replace>Landmark</replace>
+      <replace>landmark</replace>
+      <replace>@Path(&quot;id&quot;)</replace>
+      <replace>&quot;/deleteById/{id}&quot;</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>D:\GitHub\VarnaTravelGuide\VarnaTravelGuide2\app\src\main\java\com\example\yovo_user\varnatravelguide</dir>
       <dir>D:\GitHub\VarnaTravelGuide\VarnaTravelGuide2\app</dir>
@@ -136,182 +106,46 @@
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlaceDao.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/workHoursPackage/WorkHours.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/imagePackage/Image.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/priceCategoryPackage/PriceCategoryDao.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/restaurantPackage/RestaurantDao.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DatabaseHelper.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlace.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDao.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ViewPagerAdapter.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/build.gradle" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/PlaceDao.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/Place.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DbStringConstants.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/MainActivity.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/VtgwDataServiceI.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/HotelServiceI.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/RestaurantServiceI.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShopingServiceI.java" />
-        <option value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShoppingServiceI.java" />
-      </list>
-    </option>
+  <component name="ProjectId" id="1e6YXo925j9sUqd6TJN9YbAbALG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1048" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages ProjectPane="true" />
-      <abbreviatePackageNames ProjectPane="false" />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="yovo_user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="yovo_user" type="462c0819:PsiDirectoryNode" />
-              <item name="varnatravelguide" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VarnaTravelGuide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VarnaTravelGuide" type="462c0819:PsiDirectoryNode" />
-              <item name="VarnaTravelGuide2" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="yovo_user" type="462c0819:PsiDirectoryNode" />
-              <item name="varnatravelguide" type="462c0819:PsiDirectoryNode" />
-              <item name="webServiceDirectory" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="flattenPackages" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$/VarnaTravelGuide2" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Variables" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\VarnaTravelGuide\VarnaTravelGuide2\gradle" />
+      <recent name="D:\GitHub\VarnaTravelGuide\VarnaTravelGuide2\app" />
+      <recent name="D:\GitHub\VarnaTravelGuide\VarnaTravelGuide2\gradle\wrapper" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\VarnaTravelGuide\VarnaTravelGuide2\app\src\main\java\com\example\yovo_user\varnatravelguide\webServiceDirectory" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -336,10 +170,105 @@
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
-    <configuration default="true" type="Applet">
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="VarnaTravelGuide" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method v="2">
-        <option name="Make" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="vtgw" type="AndroidRunConfigurationType" factoryName="Android App">
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -369,291 +298,117 @@
       <option name="presentableId" value="Default" />
       <updated>1551735459549</updated>
     </task>
+    <task id="LOCAL-00001" summary="commiting changes 01.07.2020">
+      <created>1593559752182</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593559752182</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="846" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.10957004" />
-      <window_info id="Structure" order="1" weight="0.24917382" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Captures" order="3" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info id="Resources Explorer" order="7" />
-      <window_info id="Build Variants" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49798658" weight="0.24509804" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50201344" side_tool="true" weight="0.24509804" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49966952" weight="0.32633054" />
-      <window_info anchor="bottom" id="Logcat" order="10" />
-      <window_info anchor="bottom" id="Android Profiler" order="11" show_stripe_button="false" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.39805827" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Palette&#9;" order="5" />
-      <window_info anchor="right" id="Assistant" order="6" weight="0.3395973" />
-      <window_info anchor="right" id="Device File Explorer" order="7" side_tool="true" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27046978" />
-      <window_info id="Structure" order="1" weight="0.24917382" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Captures" order="3" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info id="Resources Explorer" order="7" />
-      <window_info id="Build Variants" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49798658" visible="true" weight="0.24509804" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50201344" side_tool="true" visible="true" weight="0.24509804" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49966952" weight="0.32633054" />
-      <window_info anchor="bottom" id="Logcat" order="10" />
-      <window_info anchor="bottom" id="Android Profiler" order="11" show_stripe_button="false" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.19261745" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Palette&#9;" order="5" />
-      <window_info anchor="right" id="Assistant" order="6" weight="0.3395973" />
-      <window_info anchor="right" id="Device File Explorer" order="7" side_tool="true" />
-    </layout-to-restore>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="commiting changes 01.07.2020" />
+    <option name="LAST_COMMIT_MESSAGE" value="commiting changes 01.07.2020" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/restaurantPackage/Restaurant.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/landmarkPackage/Landmark.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/priceCategoryPackage/PriceCategory.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/imagePackage/Image.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlacesListAdapter.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/imagePackage/ImageDao.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/priceCategoryPackage/PriceCategoryDao.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/restaurantPackage/RestaurantDao.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlaceDao.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/imagePackage/ImageDaoImpl.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlacesDaoImpl.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/workHoursPackage/WorkHoursDao.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/landmarkPackage/LandmarkDao.java" />
-    <entry file="file://$PROJECT_DIR$/spring-petclinic/.project" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/.idea/gradle.xml" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/settings.gradle" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/gradlew.bat" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/gradle/wrapper/gradle-wrapper.properties" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/workHoursPackage/WorkHours.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/shoppingPlacePackage/ShoppingPlace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DbBaseOperations.java" />
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="15" column="46" lean-forward="true" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/PlaceDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="91" lean-forward="true" selection-start-line="10" selection-start-column="91" selection-end-line="10" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/PlaceDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="42" column="59" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/placePackage/Place.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DbStringConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/MyAuthListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/Hotel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/hotelPackage/HotelDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-600">
-          <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3269#3270#0" expanded="true" />
-            <element signature="e#3351#3352#0" expanded="true" />
-            <element signature="e#7767#7768#0" expanded="true" />
-            <element signature="e#7799#7800#0" expanded="true" />
-            <element signature="e#7852#7853#0" expanded="true" />
-            <element signature="e#7894#7895#0" expanded="true" />
-            <element signature="e#7939#7940#0" expanded="true" />
-            <element signature="e#7976#7977#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-680">
-          <caret line="22" column="15" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/SinglePlaceInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="39" column="34" lean-forward="true" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListLinksItem.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ListingPlacesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1579">
-          <caret line="203" column="39" selection-start-line="203" selection-start-column="30" selection-end-line="203" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/ViewPagerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="60" column="40" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/LandMarkServiceI.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DatabaseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="81" column="19" lean-forward="true" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/databasePackage/DBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/HotelServiceI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="94" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="17" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/RestaurantServiceI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VarnaTravelGuide2/app/src/main/java/com/example/yovo_user/varnatravelguide/webServiceDirectory/ShoppingServiceI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="62" lean-forward="true" selection-start-line="2" selection-start-column="62" selection-end-line="2" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
+  <component name="WindowStateProjectService">
+    <state x="361" y="74" key="#Inspections" timestamp="1593892394024">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="361" y="74" key="#Inspections/0.0.1536.832@0.0.1536.832" timestamp="1593892394024" />
+    <state x="361" y="74" key="#Intentions" timestamp="1593889393036">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="361" y="74" key="#Intentions/0.0.1536.832@0.0.1536.832" timestamp="1593889393036" />
+    <state x="361" y="74" key="#Notifications" timestamp="1593897196755">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="361" y="74" key="#Notifications/0.0.1536.832@0.0.1536.832" timestamp="1593897196755" />
+    <state x="286" y="155" key="#PSD" timestamp="1593948131426">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="286" y="155" key="#PSD/0.0.1536.832@0.0.1536.832" timestamp="1593948131426" />
+    <state x="361" y="74" key="#Project_Structure" timestamp="1593897423537">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="361" y="74" key="#Project_Structure/0.0.1536.832@0.0.1536.832" timestamp="1593897423537" />
+    <state x="361" y="74" key="#Scopes" timestamp="1593768713596">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="361" y="74" key="#Scopes/0.0.1536.832@0.0.1536.832" timestamp="1593768713596" />
+    <state x="496" y="61" key="#Unnamed" timestamp="1593767397399">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="496" y="61" key="#Unnamed/0.0.1536.832@0.0.1536.832" timestamp="1593767397399" />
+    <state x="223" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593948250712">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="223" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.832@0.0.1536.832" timestamp="1593948250712" />
+    <state x="449" y="144" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1593891923867">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="449" y="144" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.832@0.0.1536.832" timestamp="1593891923867" />
+    <state x="496" y="51" key="#varnaTravelGuide" timestamp="1593897086455">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="496" y="51" key="#varnaTravelGuide/0.0.1536.832@0.0.1536.832" timestamp="1593897086455" />
+    <state x="496" y="61" key="#vtgAndroid" timestamp="1593895726415">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="496" y="61" key="#vtgAndroid/0.0.1536.832@0.0.1536.832" timestamp="1593895726415" />
+    <state x="496" y="61" key="#vtgw" timestamp="1593948288610">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="496" y="61" key="#vtgw/0.0.1536.832@0.0.1536.832" timestamp="1593948288610" />
+    <state x="516" y="272" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1593948371134">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="516" y="272" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.832@0.0.1536.832" timestamp="1593948371134" />
+    <state x="624" y="181" key="AndroidProcessChooserDialog" timestamp="1593768581600">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="624" y="181" key="AndroidProcessChooserDialog/0.0.1536.832@0.0.1536.832" timestamp="1593768581600" />
+    <state x="549" y="171" key="FileChooserDialogImpl" timestamp="1593897555732">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="549" y="171" key="FileChooserDialogImpl/0.0.1536.832@0.0.1536.832" timestamp="1593897555732" />
+    <state width="874" height="218" key="GridCell.Tab.0.bottom" timestamp="1593948603674">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="874" height="218" key="GridCell.Tab.0.bottom/0.0.1536.832@0.0.1536.832" timestamp="1593948603674" />
+    <state width="874" height="218" key="GridCell.Tab.0.center" timestamp="1593948603674">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="874" height="218" key="GridCell.Tab.0.center/0.0.1536.832@0.0.1536.832" timestamp="1593948603674" />
+    <state width="874" height="218" key="GridCell.Tab.0.left" timestamp="1593948603673">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="874" height="218" key="GridCell.Tab.0.left/0.0.1536.832@0.0.1536.832" timestamp="1593948603673" />
+    <state width="874" height="218" key="GridCell.Tab.0.right" timestamp="1593948603674">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="874" height="218" key="GridCell.Tab.0.right/0.0.1536.832@0.0.1536.832" timestamp="1593948603674" />
+    <state x="277" y="58" key="SettingsEditor" timestamp="1593947773938">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="277" y="58" key="SettingsEditor/0.0.1536.832@0.0.1536.832" timestamp="1593947773938" />
+    <state x="93" y="93" width="1350" height="646" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1593947749060">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="93" y="93" width="1350" height="646" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1536.832@0.0.1536.832" timestamp="1593947749060" />
+    <state x="465" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1593894987949">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="465" y="240" key="com.intellij.ide.util.TipDialog/0.0.1536.832@0.0.1536.832" timestamp="1593894987948" />
+    <state x="426" y="191" width="672" height="677" key="run.anything.popup" timestamp="1593947994079">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="426" y="191" width="672" height="677" key="run.anything.popup/0.0.1536.832@0.0.1536.832" timestamp="1593947994079" />
+    <state x="431" y="153" width="672" height="678" key="search.everywhere.popup" timestamp="1593897015330">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="431" y="153" width="672" height="678" key="search.everywhere.popup/0.0.1536.832@0.0.1536.832" timestamp="1593897015330" />
   </component>
 </project>
