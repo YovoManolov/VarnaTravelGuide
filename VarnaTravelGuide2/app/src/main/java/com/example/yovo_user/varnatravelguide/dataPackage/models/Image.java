@@ -1,4 +1,4 @@
-package com.example.yovo_user.varnatravelguide.databasePackage.imagePackage;
+package com.example.yovo_user.varnatravelguide.dataPackage.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,5 +10,5 @@ import lombok.Setter;
 public class Image {
 
     private String imageURL;
-    private int isMainImage;
+    private Integer mainImage;
 }

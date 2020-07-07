@@ -3,11 +3,6 @@ package com.example.yovo_user.varnatravelguide;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.gridlayout.widget.GridLayout;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,16 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.gridlayout.widget.GridLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.core.view.GravityCompat;
 //import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,15 +36,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
-        /*drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle  toggle = new ActionBarDrawerToggle(this,drawer,//toolbar,
-                R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-*/
         generateViewPager();
 
         mainLinksGridL = (GridLayout)
@@ -59,17 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
- /*   @Override
-    public void onBackPressed(){
-        if(drawer.isDrawerOpen(Gravity.START)){
-            drawer.closeDrawer(GravityCompat.START);
-        }else{
-            super.onBackPresed();
-        }
-    }*/
-
     private void generateViewPager(){
-
 
        Integer[] images = {
                 R.drawable.varna_tour_logo,

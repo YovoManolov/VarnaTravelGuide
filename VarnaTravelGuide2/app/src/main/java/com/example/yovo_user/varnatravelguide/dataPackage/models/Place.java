@@ -1,9 +1,7 @@
-package com.example.yovo_user.varnatravelguide.databasePackage.placePackage;
+package com.example.yovo_user.varnatravelguide.dataPackage.models;
 
 
 import com.cocoahero.android.geojson.Point;
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
-import com.example.yovo_user.varnatravelguide.databasePackage.workHoursPackage.WorkHours;
 
 import java.util.ArrayList;
 
@@ -23,5 +21,6 @@ public class Place {
     private int typeOfPlace;
     private ArrayList<Image> images;
     private WorkHours workHours;
+    private String priceCategoryDescription;
 
 }

@@ -2,11 +2,9 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.graphics.drawable.Drawable;
 
-import org.bson.types.ObjectId;
-
 public class ListLinksItem {
 
-    private ObjectId placeId;
+    private String placeId;
     private String heading;
     private String desc;
     private String imageUrl;
@@ -22,18 +20,18 @@ public class ListLinksItem {
         this.image = imageDrawable;
     }
 
-    public ListLinksItem(ObjectId placeId, String heading, String desc , String imageUrl) {
+    public ListLinksItem(String placeId, String heading, String desc , String imageUrl) {
         this.placeId = placeId;
         this.heading = heading;
         this.desc = desc;
         this.imageUrl = imageUrl;
     }
 
-    public ObjectId getPlaceId() {
+    public String getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(ObjectId placeId) {
+    public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
 

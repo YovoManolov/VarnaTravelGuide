@@ -2,9 +2,6 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.yovo_user.varnatravelguide.dataPackage.models.Image;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private boolean areImagesFromResourceFolder;
-    private DBManager dbManager;
     static {  AppCompatDelegate.setCompatVectorFromResourcesEnabled(true); }
     private int arrayListPictureIterator = 1;
 
@@ -71,8 +71,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.imageView);
         TextView textView = view.findViewById(R.id.imageCurrPosition);
         textView.setMovementMethod(new ScrollingMovementMethod());
-
-        dbManager = new DBManager();
 
         if(getAreImagesFromResourceFolder()){
             imageView.setImageResource(images[position]);

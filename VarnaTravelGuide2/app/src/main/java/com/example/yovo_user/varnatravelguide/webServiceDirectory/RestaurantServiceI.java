@@ -1,6 +1,6 @@
 package com.example.yovo_user.varnatravelguide.webServiceDirectory;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
+import com.example.yovo_user.varnatravelguide.dataPackage.models.Restaurant;
 
 import java.util.List;
 import retrofit2.Call;
@@ -12,7 +12,7 @@ import retrofit2.http.Path;
 
 public interface RestaurantServiceI {
 
-    String restaurantsPref = "/restaurants";
+    String restaurantsPref = "restaurants";
 
     @GET(restaurantsPref + "/getAll")
     Call<List<Restaurant>> getAllRestaurants();

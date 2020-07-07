@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
-import com.example.yovo_user.varnatravelguide.databasePackage.imagePackage.Image;
-import com.example.yovo_user.varnatravelguide.databasePackage.landmarkPackage.Landmark;
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-import com.example.yovo_user.varnatravelguide.databasePackage.restaurantPackage.Restaurant;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.cocoahero.android.geojson.Position;
+import com.example.yovo_user.varnatravelguide.dataPackage.models.Image;
+import com.example.yovo_user.varnatravelguide.dataPackage.models.Place;
+import com.example.yovo_user.varnatravelguide.webServiceDirectory.PlaceServiceI;
+import com.example.yovo_user.varnatravelguide.webServiceDirectory.VTGWebServClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -36,14 +36,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class ListingPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private MapView mapView;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
+    private Retrofit retrofit;
+    private PlaceServiceI placeService;
+    private Call<List<Place>> listOfPlacesCall;
+
     private String typeOfPlacesToLoad;
     private List<ListLinksItem> listItems = new ArrayList<>();
-    private DBManager dbManager;
     List<Place> placeListToLoad;
 
     @Override
@@ -52,8 +60,9 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
 
-        dbManager = new DBManager();
-        dbManager.open();
+        retrofit = VTGWebServClient.getApiClient();
+        placeService = retrofit.create(PlaceServiceI.class);
+        listOfPlacesCall = placeService.getAllPlaces();
 
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
@@ -68,7 +77,6 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         mapFragment.getMapAsync(this);
 
         showInputMethod();
-
 
         initActivity(typeOfPlacesToLoad);
     }
@@ -108,19 +116,25 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         ImageView imageViewPlacesHeaderId;
         switch(typeOfPlacesToLoad){
             case "hotels":
+
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.hotelslabel);
 
-                List<Hotel> allHotels = dbManager.getHotelDaoImpl().getAllHotels();
+                listOfPlacesCall.enqueue(new Callback<List<Place>>() {
+                    @Override
+                    public void onResponse(Call<List<Place>> call,
+                                           Response<List<Place>> response) {
+                        generateListOfPlaces(
+                                response.body().stream()
+                                        .filter(place -> place.getTypeOfPlace() == 2 ).collect(Collectors.toList())
+                        );
+                    }
 
-                List<Place> hotelPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < allHotels.size() ; i++){
-                    hotelPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allHotels.get(i).getPlace_id())
-                    );
-                }
-
-                generateListOfPlaces(hotelPlaces);
+                    @Override
+                    public void onFailure(Call<List<Place>> call,Throwable t) {
+                        t.getCause();
+                    }
+                });
             break;
 
             case "restaurants":
@@ -129,20 +143,21 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 imageViewPlacesHeaderId.setImageResource(R.drawable.restaurantslabel);
 
 
-                ArrayList<Restaurant> allRestaurants =
-                        (ArrayList<Restaurant>)dbManager.getRestaurantDaoImpl()
-                                .getAllResaturants();
+                listOfPlacesCall.enqueue(new Callback<List<Place>>() {
+                    @Override
+                    public void onResponse(Call<List<Place>> call,
+                                           Response<List<Place>> response) {
+                        generateListOfPlaces(
+                                response.body().stream()
+                                        .filter(place -> place.getTypeOfPlace() == 1 ).collect(Collectors.toList())
+                        );
+                    }
 
-                ArrayList<Place> restaurantPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < allRestaurants.size() ; i++){
-                    restaurantPlaces.add(
-                            dbManager.getPlaceDaoImpl().getPlaceById(
-                                    allRestaurants.get(i).getPlace_id())
-                    );
-                }
-
-                generateListOfPlaces(restaurantPlaces);
-
+                    @Override
+                    public void onFailure(Call<List<Place>> call,Throwable t) {
+                        t.getCause();
+                    }
+                });
             break;
 
             case "landmarks":
@@ -150,30 +165,42 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.landmarkslabel);
 
-                ArrayList<Landmark> allLandmarks =
-                        (ArrayList<Landmark>)dbManager.getLandmarkDaoImpl()
-                                .getAllLandmarks();
+                listOfPlacesCall.enqueue(new Callback<List<Place>>() {
+                   @Override
+                    public void onResponse(Call<List<Place>> call,
+                                           Response<List<Place>> response) {
+                        generateListOfPlaces(
+                                response.body().stream()
+                                        .filter(place -> place.getTypeOfPlace() == 4 ).collect(Collectors.toList())
+                        );
+                    }
 
-                ArrayList<Place> landmarkPlaces = new ArrayList<> ();
-                for(int i = 0 ;i < allLandmarks.size() ; i++){
-                    landmarkPlaces.add(dbManager.getPlaceDaoImpl()
-                            .getPlaceById(allLandmarks.get(i).getPlace_id()   )
-                    );
-                }
-
-                generateListOfPlaces(landmarkPlaces);
+                    @Override
+                    public void onFailure(Call<List<Place>> call,Throwable t) {
+                        t.getCause();
+                    }
+                });
 
             break;
             case "shoppingPlaces":
                 imageViewPlacesHeaderId = (ImageView)findViewById(R.id.imageViewPlacesHeaderId);
                 imageViewPlacesHeaderId.setImageResource(R.drawable.shoppinglabel);
 
-                // typeOfPlace= 3 stands for shoppingPlaces
-                ArrayList<Place> allShoppingPlaces =
-                        (ArrayList<Place>)dbManager.getPlaceDaoImpl()
-                                .getPlacesByTypeOfPlace(3);
+                listOfPlacesCall.enqueue(new Callback<List<Place>>() {
+                    @Override
+                    public void onResponse(Call<List<Place>> call,
+                                            Response<List<Place>> response) {
+                        generateListOfPlaces(
+                                response.body().stream()
+                                        .filter(place -> place.getTypeOfPlace() == 3 ).collect(Collectors.toList())
+                        );
+                    }
 
-                generateListOfPlaces(allShoppingPlaces);
+                    @Override
+                    public void onFailure(Call<List<Place>> call,Throwable t) {
+                        t.getCause();
+                    }
+                });
 
             break;
         }
@@ -188,8 +215,9 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         if(nameToSearchWith == null || nameToSearchWith.isEmpty()){
             return placeListToLoad;
         }else{
-            return placeListToLoad.stream().filter(
-                    place->place.getName().toLowerCase().contains(nameToSearchWith.toLowerCase())
+
+            return placeListToLoad.stream()
+                    .filter(place->place.getName().toLowerCase().contains(nameToSearchWith.toLowerCase())
             ).collect(Collectors.toList());
         }
     }
@@ -198,12 +226,12 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     private void generateListOfPlaces(List<Place> placeListToLoad){
 
         ListView listLinksItemsFromView = (ListView) findViewById(R.id.listOfPlaces);
-
         this.placeListToLoad = filterPlacesByString(placeListToLoad);
 
         for(Place place : this.placeListToLoad ) {
 
-            Image mainImage = dbManager.getPlaceDaoImpl().getMainImageForPlace(place.getImages());
+            Image mainImage = place.getImages().stream()
+                    .filter(image -> image.getMainImage() == 1).findFirst().get();
 
             String imageUrl = getResources().getString(R.string.URL_prefix)
                                                 + mainImage.getImageURL();
@@ -263,28 +291,13 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
                 Bundle bundle = new Bundle();
 
                 ListLinksItem listLinksItem = (ListLinksItem) adapter.getItemAtPosition(position);
-                bundle.putByteArray("PLACE_ID",listLinksItem.getPlaceId().toByteArray());
+                bundle.putString("PLACE_ID",listLinksItem.getPlaceId());
 
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
-       /* listOfPlaces.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapter, View v, int position,
-                                   long arg3)
-            {
-                ListLinksItem listLinksItem = (ListLinksItem) adapter.getItemAtPosition(position);
-                Place selectedPlace = dbManager.getPlaceDaoImpl()
-                        .getPlaceById(listLinksItem.getPlaceId());
-
-                LatLng ny = new LatLng(selectedPlace.getLatitude(),selectedPlace.getLongitude());
-                gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
-                return false;
-            }
-        });*/
 
     }
 
@@ -292,7 +305,8 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     public void onMapReady(GoogleMap googleMap) {
 
         for(Place p : this.placeListToLoad){
-            LatLng location = new LatLng(p.getLatitude(), p.getLongitude());
+            Position position = p.getLocation().getPosition();
+            LatLng location = new LatLng(position.getLatitude(), position.getLongitude());
             CameraPosition target = CameraPosition.builder().target(location).zoom(10).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
             googleMap.addMarker(new MarkerOptions().position(location).title(p.getName()));

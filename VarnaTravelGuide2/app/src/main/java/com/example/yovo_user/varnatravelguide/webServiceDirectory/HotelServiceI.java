@@ -1,5 +1,5 @@
 package com.example.yovo_user.varnatravelguide.webServiceDirectory;
-import com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage.Hotel;
+import com.example.yovo_user.varnatravelguide.dataPackage.models.Hotel;
 
 import java.util.List;
 import retrofit2.Call;
@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 
 public interface HotelServiceI {
 
-    String hotelPref = "/hotels";
+    String hotelPref = "hotels";
 
     @GET(hotelPref + "/getAll")
     Call<List<Hotel>> getAllHotels();

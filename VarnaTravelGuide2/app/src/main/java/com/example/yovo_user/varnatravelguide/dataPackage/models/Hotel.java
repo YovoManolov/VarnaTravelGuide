@@ -1,9 +1,4 @@
-package com.example.yovo_user.varnatravelguide.databasePackage.hotelPackage;
-
-import com.example.yovo_user.varnatravelguide.databasePackage.placePackage.Place;
-
-import org.bson.Document;
-import org.bson.types.ObjectId;
+package com.example.yovo_user.varnatravelguide.dataPackage.models;
 
 import lombok.Getter;
 import lombok.Setter;
