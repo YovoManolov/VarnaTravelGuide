@@ -60,25 +60,16 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_places);
 
-        retrofit = VTGWebServClient.getApiClient();
+        retrofit = VTGWebServClient.getApiClient(this.getApplicationContext());
         placeService = retrofit.create(PlaceServiceI.class);
         listOfPlacesCall = placeService.getAllPlaces();
 
         Bundle bundle = getIntent().getExtras();
         typeOfPlacesToLoad = bundle.getString("TYPE_OF_PLACES");
 
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
-        }
-
-        MapFragment mapFragment = (MapFragment)
-                getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
         showInputMethod();
 
-        initActivity(typeOfPlacesToLoad);
+        initActivity(typeOfPlacesToLoad, savedInstanceState);
     }
 
     public void buttonClick(View view){
@@ -111,7 +102,7 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private void initActivity(String typeOfPlacesToLoad){
+    private void initActivity(String typeOfPlacesToLoad,Bundle savedInstanceState){
 
         ImageView imageViewPlacesHeaderId;
         switch(typeOfPlacesToLoad){
@@ -204,6 +195,15 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
 
             break;
         }
+
+        Bundle mapViewBundle = null;
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        }
+
+        MapFragment mapFragment = (MapFragment)
+                getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -304,13 +304,22 @@ public class ListingPlacesActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        do{
+            try {
+                wait(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }while(placeListToLoad != null);
+
         for(Place p : this.placeListToLoad){
-            Position position = p.getLocation().getPosition();
-            LatLng location = new LatLng(position.getLatitude(), position.getLongitude());
-            CameraPosition target = CameraPosition.builder().target(location).zoom(10).build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
-            googleMap.addMarker(new MarkerOptions().position(location).title(p.getName()));
+                Position position = p.getLocation().getPosition();
+                LatLng location = new LatLng(position.getLatitude(), position.getLongitude());
+                CameraPosition target = CameraPosition.builder().target(location).zoom(10).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
+                googleMap.addMarker(new MarkerOptions().position(location).title(p.getName()));
         }
+
 
     }
 

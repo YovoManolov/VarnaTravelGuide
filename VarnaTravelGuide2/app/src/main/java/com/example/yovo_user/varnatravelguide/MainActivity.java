@@ -25,7 +25,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-   // private DrawerLayout drawer;
     private ViewPager viewPager;
     private GridLayout mainLinksGridL;
     private List<ListLinksItem> listUrlLinks  = new ArrayList<>();
@@ -162,9 +161,11 @@ public class MainActivity extends AppCompatActivity {
 
         CardView shoppingPlacesCV = (CardView)findViewById(R.id.shopping_placesCV_id);
         shoppingPlacesCV.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ListingPlacesActivity.class);
+                Intent intent = new Intent(MainActivity.this,
+                        ListingPlacesActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("TYPE_OF_PLACES","shoppingPlaces");
                 intent.putExtras(bundle);
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class MyTimerTask extends TimerTask {
+
         private ViewPagerAdapter viewPagerAdapter;
         public MyTimerTask(ViewPagerAdapter viewPagerAdapter) {
             this.viewPagerAdapter = viewPagerAdapter;
