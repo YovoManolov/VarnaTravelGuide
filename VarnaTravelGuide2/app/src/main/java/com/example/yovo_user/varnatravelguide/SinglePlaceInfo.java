@@ -52,8 +52,7 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_place_info);
 
-        retrofit = VTGWebServClient.getApiClient();
-
+        retrofit = VTGWebServClient.getApiClient(getApplicationContext());
         placeService = retrofit.create(PlaceServiceI.class);
 
         Bundle bundle = getIntent().getExtras();
@@ -63,8 +62,7 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
 
         placeCall.enqueue(new Callback<Place>()  {
             @Override
-            public void onResponse(Call<Place> call,
-                                   Response<Place> response) {
+            public void onResponse(Call<Place> call, Response<Place> response) {
                 chosenPlace =  response.body();
             }
 
@@ -75,7 +73,6 @@ public class SinglePlaceInfo extends AppCompatActivity implements OnMapReadyCall
         });
 
         initActivity(chosenPlace);
-
         setTitle(chosenPlace.getName());
     }
     private void initActivity(Place chosenPlace) {

@@ -2,6 +2,14 @@ package com.example.yovo_user.varnatravelguide;
 
 import android.graphics.drawable.Drawable;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class ListLinksItem {
 
     private String placeId;
@@ -10,8 +18,6 @@ public class ListLinksItem {
     private String imageUrl;
     private int image;
     private Drawable imageDrawable;
-
-    public ListLinksItem(){}
 
     public ListLinksItem(String heading, String desc , String imageUrl,int imageDrawable) {
         this.heading = heading;
@@ -25,54 +31,6 @@ public class ListLinksItem {
         this.heading = heading;
         this.desc = desc;
         this.imageUrl = imageUrl;
-    }
-
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
-    }
-
-    public String getHeading() {
-        return heading;
-    }
-
-    public void setHeading(String heading) {
-        this.heading = heading;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Drawable getImageDrawable() {
-        return imageDrawable;
-    }
-
-    public void setImageDrawable(Drawable imageDrawable) {
-        this.imageDrawable = imageDrawable;
     }
 
     public static ListLinksItem[] populatelistUrlLinksITems() {

@@ -29,6 +29,7 @@ public class RxOkta {
      * The RX web authentication client builder.
      */
     public static class WebAuthBuilder extends OktaBuilder<RxWebAuthClient, WebAuthBuilder> {
+
         private int mCustomTabColor;
         private String[] mSupportedBrowsers;
 
@@ -52,9 +53,17 @@ public class RxOkta {
          *
          * @return the authenticate client {@link RxWebAuthClient}
          */
+
         @Override
         public RxWebAuthClient create() {
-            super.withAuthenticationClientFactory((oidcConfig, context, oktaStorage, encryptionManager, connectionFactory, requireHardwareBackedKeyStore, cacheMode) -> new RxWebAuthClientImpl(oidcConfig, context, oktaStorage, encryptionManager, connectionFactory, requireHardwareBackedKeyStore, cacheMode, mCustomTabColor, mSupportedBrowsers));
+            super.withAuthenticationClientFactory(
+                    (
+                     oidcConfig, context, oktaStorage, encryptionManager,
+                     connectionFactory, requireHardwareBackedKeyStore, cacheMode
+                    ) -> new RxWebAuthClientImpl(oidcConfig, context, oktaStorage,
+                            encryptionManager, connectionFactory, requireHardwareBackedKeyStore,
+                            cacheMode, mCustomTabColor, mSupportedBrowsers
+                    ));
             return createAuthClient();
         }
     }
